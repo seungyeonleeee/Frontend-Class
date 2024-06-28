@@ -1,0 +1,112 @@
+/* reset css */
+@import url("./reset.css");
+
+/* header */
+header {
+  width: var(--main-width);
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#logo img {
+  width: 70px;
+}
+.gnb {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+.gnb a {
+  font-weight: 500;
+}
+
+/* main */
+#main {
+  width: var(--main-width);
+  height: 650px;
+  background: rgba(0, 255, 0, 0.1);
+  position: relative;
+}
+.main_text {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.main_ani {
+  position: relative;
+  width: 100%;
+  &::before {
+    content: "";
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background: var(--font-color);
+  }
+}
+.main_ani_year span {
+  position: absolute;
+  font-size: 3rem;
+  &:first-child {
+    top: 50%;
+    left: 0;
+  }
+  &:last-child {
+    top: 50%;
+    right: 0;
+  }
+}
+.main_ani_img img {
+  position: absolute;
+  height: 200px;
+  &:first-child {
+    bottom: 10%;
+    left: 15%;
+  }
+  &:nth-child(2) {
+    top: 5%;
+    right: 30%;
+  }
+  &:last-child {
+    bottom: 10%;
+    right: 10%;
+  }
+  &::before {
+    content: "";
+    width: 100%;
+    height: 21px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--font-color);
+  }
+}
+
+/* slide */
+#slide {
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
+#slide .swiper {
+  width: 580px;
+  height: 323px;
+}
+
+/* project */
+#project {
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+/* future */
+#future {
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
