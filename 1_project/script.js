@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //header
 window.addEventListener("scroll", () => {
   const headerBg = document.querySelector("header");
@@ -18,10 +19,20 @@ $(document).ready(function () {
     },
     pagination: {
       el: "#slide .swiper-pagination",
+=======
+$(document).ready(function () {
+  const swiper1 = new Swiper("#slide .swiper", {
+    direction: "horizontal",
+    loop: true,
+
+    pagination: {
+      el: ".swiper-pagination",
+>>>>>>> fbf9c11a572bccd9c3f16957404e57a3313489ba
       clickable: "true",
     },
 
     navigation: {
+<<<<<<< HEAD
       nextEl: "#slide .swiper-button-next",
       prevEl: "#slide .swiper-button-prev",
     },
@@ -57,4 +68,10 @@ $(document).ready(function () {
     //   },
     // },
   });
+=======
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+>>>>>>> fbf9c11a572bccd9c3f16957404e57a3313489ba
 });
