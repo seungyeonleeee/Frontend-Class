@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- google -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- swiper -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <!-- fontawesome -->
+    <script
+      src="https://kit.fontawesome.com/e6075b2cdc.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- custom css & js -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <script defer src="./script.js"></script>
+  </head>
+  <body>
+    <main id="wrapper">
+      <header>
+        <nav>
+          <span id="logo">
+            <a href="#">
+              <img src="./images/logo.png" alt="logo" />
+            </a>
+          </span>
+          <ul class="gnb">
+            <li>
+              <a href="#">Main</a>
+            </li>
+            <li>
+              <a href="#slide">Past</a>
+            </li>
+            <li>
+              <a href="#project">Present</a>
+            </li>
+            <li>
+              <a href="#future">Future</a>
+            </li>
+            <li>
+              <a href="#footer">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <section id="main">
+        <article class="main_text">
+          <h1 class="main_tit">
+            Lee<br />
+            Seung Yeon
+          </h1>
+          <p>Let me introduce my timeline</p>
+        </article>
+        <article class="main_ani">
+          <div class="main_ani_year">
+            <span>1998</span>
+            <span>2024</span>
+          </div>
+          <div class="main_ani_imgs">
+            <span>
+              <img src="./images/main-1.png" alt="my photo" />
+            </span>
+            <span>
+              <img src="./images/main-2.png" alt="my photo" />
+            </span>
+            <span>
+              <img src="./images/main-3.png" alt="my photo" />
+            </span>
+          </div>
+          <div class="main_ani_line">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </article>
+      </section>
+      <section id="slide">
+        <div class="slide_text">
+          <h3 class="sect_tit">About Me</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
+            harum animi a dolores reiciendis numquam ex eveniet voluptates,
+            voluptatibus libero, iure amet suscipit ab. Error, accusantium.
+            Consequatur in illo quasi.
+          </p>
+        </div>
+        <div class="swiper">
+          <ul class="swiper-wrapper">
+            <li class="swiper-slide">
+              <img src="./images/slide-1.png" alt="slide_photo" />
+            </li>
+            <li class="swiper-slide">
+              <img src="./images/slide-2.png" alt="slide_photo" />
+            </li>
+            <li class="swiper-slide">
+              <img src="./images/slide-3.png" alt="slide_photo" />
+            </li>
+            <li class="swiper-slide">
+              <img src="./images/slide-4.png" alt="slide_photo" />
+            </li>
+          </ul>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </section>
+      <section id="project">
+        <h3 class="sect_tit">Web Design Project</h3>
+        <div class="swiper">
+          <ul class="swiper-wrapper">
+            <li class="swiper-slide">
+              <a href="">
+                <img src="./images/project-1.png" alt="design_project" />
+                <div class="project_text">
+                  <div class="project_badge">
+                    <span>Responsive</span>
+                  </div>
+                  <h6>아디다스 가젤 소개 페이지</h6>
+                  <p>
+                    아디다스 오리지널 가젤을 소개하고 심플, 클래식한 감성으로
+                    디자인 하였습니다.
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li class="swiper-slide">
+              <a href="">
+                <img src="./images/project-2.png" alt="design_project" />
+                <div class="project_text">
+                  <div class="project_badge">
+                    <span>Responsive</span>
+                    <span>Renewal</span>
+                  </div>
+                  <h6>벤앤제리스 메인페이지</h6>
+                  <p>
+                    아이스크림의 특징인 부드러움을 강조하여 아기자기한 분위기를
+                    연출하였습니다.
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li class="swiper-slide">
+              <a href="">
+                <img src="./images/project-3.png" alt="design_project" />
+                <div class="project_text">
+                  <div class="project_badge">
+                    <span>Responsive</span>
+                    <span>Renewal</span>
+                  </div>
+                  <h6>서귀포유채꽃축제</h6>
+                  <p>
+                    봄의 정취를 만끽할 수 있는 서귀포 유채꽃 축제의 따뜻한
+                    분위기를 담아 제작하였습니다.
+                  </p>
+                </div>
+              </a>
+            </li>
+          </ul>
+          <div class="swiper-pagination"></div>
+        </div>
+        <span class="view_more"><a href="">자세히 보기</a></span>
+      </section>
+      <section id="future">
+        <div class="future_text">
+          <h3 class="sect_tit">Develop</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
+            harum animi a dolores reiciendis numquam ex eveniet voluptates,
+            voluptatibus libero, iure amet suscipit ab. Error, accusantium.
+            Consequatur in illo quasi.
+          </p>
+        </div>
+        <div class="future_img">
+          <img src="./images/future.png" alt="step up" />
+        </div>
+      </section>
+      <footer id="footer">
+        <h1 class="main_tit">Contact</h1>
+        <ul>
+          <li>
+            <a href="">
+              <i class="fa-solid fa-phone"></i>
+              <span>010.8030.0000</span>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <i class="fa-regular fa-envelope"></i>
+              <span>syyy0.02@gmail.com</span>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <i class="fa-brands fa-instagram"></i>
+              <span>Instagram_dltmddusss</span>
+            </a>
+          </li>
+        </ul>
+      </footer>
+    </main>
+  </body>
+</html>
