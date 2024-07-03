@@ -1,0 +1,226 @@
+/* reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--font-color);
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* variable */
+:root {
+  --main-width: 1098px;
+  --main-yellow: #fbd914;
+  --main-blue: #0058ab;
+  --font-color: #151515;
+  --gray-color: #8a8a8a;
+  font-size: 10px;
+}
+
+/* common */
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* navigation */
+#navigation {
+  width: var(--main-width);
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  .top_nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    .gnb {
+      display: flex;
+      align-items: center;
+      .gnb > li {
+        position: relative;
+        width: 100px;
+        height: 100%;
+        border: 1px solid #f00;
+      }
+    }
+  }
+  .icon_menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gray-color);
+    a {
+      display: flex;
+      align-items: center;
+      width: 60px;
+      height: 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      color: var(--gray-color);
+      i {
+        position: absolute;
+        width: 100%;
+        line-height: 30px;
+        top: 0;
+        left: 0;
+        font-size: 1.6rem;
+        color: var(--gray-color);
+        transition: all 0.3s;
+      }
+      &::after {
+        content: attr(data-link);
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        line-height: 30px;
+        font-size: 1.2rem;
+        transition: all 0.3s;
+      }
+      &:hover i {
+        top: -100%;
+      }
+      &:hover::after {
+        top: 0;
+      }
+    }
+  }
+}
+
+/* collection */
+#collection {
+  width: 100%;
+  .top_banner {
+    width: 100%;
+    height: 60px;
+    background: var(--main-blue);
+    position: relative;
+    /* overflow: hidden; */
+    z-index: 3;
+    & > a {
+      width: auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      /* position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2; */
+      i {
+        color: var(--main-yellow);
+      }
+      span {
+        color: #fff;
+      }
+    }
+  }
+  .contents {
+    width: 100%;
+    height: 774px;
+    display: flex;
+    position: relative;
+    .contents_nav {
+      position: absolute;
+      top: 5%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .contents_img {
+      width: 50%;
+      height: 100%;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .contents_text {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background: #ddd;
+      div {
+        width: 549px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 20px;
+        margin-top: -100px;
+        button {
+          font-size: 20px;
+          width: 250px;
+          padding: 15px 30px;
+          border-radius: 5px;
+          border: 1px solid var(--gray-color);
+          background: #fff;
+          cursor: pointer;
+          transition: all 0.3s;
+          &:hover {
+            border: 1px solid var(--gray-color);
+            background: var(--gray-color);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* card_items */
+#card_items {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--main-blue);
+  ul {
+    width: var(--main-width);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transform: translateY(-50%);
+    li {
+      position: relative;
+      width: 200px;
+      height: 285px;
+      border-radius: 5px;
+      overflow: hidden;
+      cursor: pointer;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.3s;
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        transition: all 0.3s;
+      }
+    }
+    li.active::before {
+      background: transparent;
+    }
+  }
+}
