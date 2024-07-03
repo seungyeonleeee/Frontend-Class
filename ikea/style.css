@@ -52,7 +52,10 @@ a {
         position: relative;
         width: 100px;
         height: 100%;
+<<<<<<< HEAD
         border: 1px solid #f00;
+=======
+>>>>>>> 8c38184cba5380ccd2170f068942f739ca3976d9
       }
     }
   }
