@@ -1,9 +1,35 @@
-//top_banner
-const topBannerBtn = document.querySelector(".top_banner > a");
-const topBannerContents = document.querySelector(".top_banner_contents");
-topBannerBtn.addEventListener("click", () => {
-  topBannerContents.classList.toggle("active");
+//gnb
+const gnbLi = document.querySelectorAll(".gnb > li");
+gnbLi.forEach((li) => {
+  li.addEventListener("mouseover", () => {
+    const lnb = li.querySelector(".lnb");
+    // console.log("mouseover ok");
+    const aTag = li.querySelector("a");
+    // 조건문
+    if (lnb) {
+      lnb.style.maxHeight = lnb.scrollHeight + "px";
+      lnb.style.opacity = "1";
+      aTag.classList.add("active");
+    }
+  });
+
+  li.addEventListener("mouseout", () => {
+    const lnb = li.querySelector(".lnb");
+    const aTag = li.querySelector("a");
+    if (lnb) {
+      lnb.style.maxHeight = "0";
+      lnb.style.opacity = "0";
+      aTag.classList.remove("active");
+    }
+  });
 });
+
+//top_banner
+// const topBannerBtn = document.querySelector(".top_banner > a");
+// topBannerBtn.addEventListener("click", () => {
+//   const topBannerContents = document.querySelector(".top_banner_contents");
+//   topBannerContents.classList.toggle("active");
+// });
 
 //card_items
 const items = document.querySelectorAll("#card_items li");
