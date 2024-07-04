@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //header
 window.addEventListener("scroll", () => {
   const headerBg = document.querySelector("header");
@@ -9,69 +8,33 @@ window.addEventListener("scroll", () => {
   }
 });
 
-$(document).ready(function () {
-  //slide swiper
-  const swiper1 = new Swiper("#slide .swiper", {
-    direction: "horizontal",
-    loop: true,
-    autoplay: {
-      delay: 3000,
-    },
-    pagination: {
-      el: "#slide .swiper-pagination",
-=======
-$(document).ready(function () {
-  const swiper1 = new Swiper("#slide .swiper", {
-    direction: "horizontal",
-    loop: true,
+//project_slide
+//button
+const slideBtns = document.querySelector(".project_controls");
+const prevBtn = slideBtns.querySelector(".prev");
+const nextBtn = slideBtns.querySelector(".next");
+//slide
+const slideWrapper = document.querySelector(".project_slide_wrapper");
+const slide = slideWrapper.querySelectorAll("li");
+//count
+const slideCount = slide.length;
+const slideWidth = 370;
+const slideMargin = 40;
+//index setting
+let currentIdx = 0;
 
-    pagination: {
-      el: ".swiper-pagination",
->>>>>>> fbf9c11a572bccd9c3f16957404e57a3313489ba
-      clickable: "true",
-    },
+const updateWidth = () => {};
 
-    navigation: {
-<<<<<<< HEAD
-      nextEl: "#slide .swiper-button-next",
-      prevEl: "#slide .swiper-button-prev",
-    },
-  });
-
-  //project swiper
-  const swiper2 = new Swiper("#project .swiper", {
-    direction: "horizontal",
-    loop: true,
-
-    pagination: {
-      el: "#project .swiper-pagination",
-      clickable: "true",
-    },
-
-    slidesPerView: 3,
-    spaceBetween: 40,
-    // breakpoints: {
-
-    //   320: {
-    //     slidesPerView: 2,
-    //     spaceBetween: 20,
-    //   },
-
-    //   480: {
-    //     slidesPerView: 3,
-    //     spaceBetween: 30,
-    //   },
-    //   // when window width is >= 640px
-    //   640: {
-    //     slidesPerView: 4,
-    //     spaceBetween: 40,
-    //   },
-    // },
-  });
-=======
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-  });
->>>>>>> fbf9c11a572bccd9c3f16957404e57a3313489ba
-});
+const makeClone = () => {
+  for (let i = 0; i < slideCount; i++) {
+    const cloneSlide = slide[i].cloneNode(true);
+    cloneSlide.classList.add("clone");
+    slideWrapper.appendChild(cloneSlide);
+  }
+  for (let i = slideCount - 1; i >= 0; i--) {
+    const cloneSlide = slide[i].cloneNode(true);
+    cloneSlide.classList.add("clone");
+    slideWrapper.prepend(cloneSlide);
+  }
+};
+makeClone();
