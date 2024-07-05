@@ -35,7 +35,11 @@ a {
 /* font-family: "Poppins", sans-serif; */
 
 /* component */
+/* body {
+  overflow-x: hidden;
+} */
 #wrapper {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,24 +58,4 @@ a {
 .sect_tit {
   font-size: 5rem;
   font-weight: 500;
-}
-.view_more {
-  position: relative;
-  width: 200px;
-  height: 60px;
-  border: 1px solid var(--font-color);
-  border-radius: 2px;
-  a {
-    font-family: "Noto Sans KR", sans-serif;
-    font-size: 2rem;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    line-height: 60px;
-    transition: all 0.3s;
-    &:hover {
-      color: #fff;
-      background-color: var(--font-color);
-    }
-  }
 }
