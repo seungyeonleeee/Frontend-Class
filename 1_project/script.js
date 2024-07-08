@@ -8,13 +8,105 @@ window.addEventListener("scroll", () => {
   }
 });
 
+// intro_slide
+const introSlide = document.querySelector(".intro_slide");
+const introSlideArrows = document.querySelectorAll(".intro_slide_arrow span");
+const introSlidePager = document.querySelector(".intro_slide_pager");
+const introSlidePagers = document.querySelectorAll(".intro_slide_pager span");
+const introSlideImgs = document.querySelector(".intro_slide .slide_img");
+const introPics = ["slide-1.png", "slide-2.png", "slide-3.png", "slide-4.png"];
+
+let i = 0;
+let slideInterval;
+let transitioning = false;
+
+introSlideImgs.style.backgroundImage = `url("./images/${introPics[i]}")`;
+introSlidePagers[0].classList.add("active");
+
+const updateSlide = (i) => {
+  introSlidePagers.forEach((item) => {
+    item.classList.remove("active");
+  });
+  introSlideImgs.style.backgroundImage = `url("./images/${introPics[i]}")`;
+  introSlidePagers[i].classList.add("active");
+};
+
+const startSlideShow = () => {
+  slideInterval = setInterval(() => {
+    i = (i + 1) % introPics.length;
+    updateSlide(i);
+  }, 4000);
+};
+
+const stopSlideShow = () => {
+  clearInterval(slideInterval);
+};
+
+const resetSlideShow = () => {
+  stopSlideShow();
+  transitioning = false;
+  startSlideShow();
+};
+
+introSlideArrows.forEach((arrow) => {
+  arrow.addEventListener("click", (e) => {
+    if (transitioning) return; //연타 하는 경우를 막는다
+    transitioning = true;
+
+    if (e.target.id === "prev") {
+      i = (i - 1 + introPics.length) % introPics.length;
+    } else if (e.target.id === "next") {
+      i = (i + 1) % introPics.length;
+    }
+
+    updateSlide(i);
+
+    setTimeout(() => {
+      transitioning = false;
+      startSlideShow();
+    }, 500);
+  });
+});
+
+introSlidePagers.forEach((pager, index) => {
+  pager.addEventListener("click", () => {
+    i = index;
+    updateSlide(i);
+  });
+});
+
+startSlideShow();
+
+introSlide.addEventListener("mouseover", () => {
+  stopSlideShow();
+});
+introSlide.addEventListener("mouseout", () => {
+  resetSlideShow();
+});
+introSlideArrows.forEach((arrow) => {
+  arrow.addEventListener("mouseover", () => {
+    stopSlideShow();
+  });
+});
+introSlideArrows.forEach((arrow) => {
+  arrow.addEventListener("mouseout", () => {
+    resetSlideShow();
+  });
+});
+introSlidePager.addEventListener("mouseover", () => {
+  stopSlideShow();
+});
+introSlidePager.addEventListener("mouseout", () => {
+  resetSlideShow();
+});
+
 //project_slide
 //button
 const projectSlideBtns = document.querySelector(".project_controls");
 const projectPrevBtn = projectSlideBtns.querySelector(".prev");
 const projectNextBtn = projectSlideBtns.querySelector(".next");
 //slide
-const projectSlideWrap = document.querySelector(".project_slide_wrap");
+const projectSlideWrap = document.querySelector(".project_slide");
 const projectSlide = projectSlideWrap.querySelectorAll("li");
 //count
 const projectSlideCount = projectSlide.length;
@@ -24,7 +116,7 @@ const projectSlideMargin = 40;
 let currentIdx = 0;
 
 const updateWidth = () => {
-  const currentSlides = document.querySelectorAll(".project_slide_wrap li ");
+  const currentSlides = document.querySelectorAll(".project_slide li ");
   const newSlideCount = currentSlides.length;
   const newWidth = `${
     (projectSlideWidth + projectSlideMargin) * newSlideCount -

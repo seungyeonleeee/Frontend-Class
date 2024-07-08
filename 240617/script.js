@@ -168,5 +168,5 @@ slidePagers.forEach((pager, index) => {
 
 startSlideShow();
 
-slideContainerArrow.addEventListener("mouseover", stopSlideShow);
-slideContainerArrow.addEventListener("mouseout", resetSlideShow);
+slideContainerArrow.addEventListener("mouseover", stopSlideShow());
+slideContainerArrow.addEventListener("mouseout", resetSlideShow());
