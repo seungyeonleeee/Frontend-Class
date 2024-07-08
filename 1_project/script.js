@@ -8,6 +8,24 @@ window.addEventListener("scroll", () => {
   }
 });
 
+// mb_gnb
+const menuOpenBtn = document.querySelector("#menu_open_btn");
+const menuCloseBtn = document.querySelector("#menu_close_btn");
+const mbGnb = document.querySelector(".mb_gnb");
+menuOpenBtn.addEventListener("click", () => {
+  mbGnb.classList.add("active");
+  menuCloseBtn.style.display = "block";
+  menuOpenBtn.style.display = "none";
+});
+menuCloseBtn.addEventListener("click", () => {
+  mbGnb.classList.remove("active");
+  menuOpenBtn.style.display = "block";
+  menuCloseBtn.style.display = "none";
+});
+mbGnb.addEventListener("click", () => {
+  mbGnb.classList.remove("active");
+});
+
 // intro_slide
 const introSlide = document.querySelector(".intro_slide");
 const introSlideArrows = document.querySelectorAll(".intro_slide_arrow span");
@@ -50,7 +68,7 @@ const resetSlideShow = () => {
 
 introSlideArrows.forEach((arrow) => {
   arrow.addEventListener("click", (e) => {
-    if (transitioning) return; //연타 하는 경우를 막는다
+    if (transitioning) return;
     transitioning = true;
 
     if (e.target.id === "prev") {
@@ -110,8 +128,8 @@ const projectSlideWrap = document.querySelector(".project_slide");
 const projectSlide = projectSlideWrap.querySelectorAll("li");
 //count
 const projectSlideCount = projectSlide.length;
-const projectSlideWidth = 370;
-const projectSlideMargin = 40;
+const projectSlideWidth = 360;
+const projectSlideMargin = 55;
 //index setting
 let currentIdx = 0;
 
@@ -200,4 +218,15 @@ projectSlideBtns.addEventListener("mouseenter", () => {
 });
 projectSlideBtns.addEventListener("mouseleave", () => {
   autoProjectSlide();
+});
+
+//scroll event
+window.addEventListener("scroll", () => {
+  const projectSlideWrapper = document.querySelector(".project_slide_wrap");
+  const futureText = document.querySelector(".future_text");
+  if (window.scrollY > projectSlideWrapper.offsetTop) {
+    futureText.classList.add("active");
+  } else {
+    futureText.classList.remove("active");
+  }
 });
