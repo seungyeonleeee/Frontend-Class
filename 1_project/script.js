@@ -11,29 +11,17 @@ window.addEventListener("scroll", () => {
 // mb_gnb
 const menuBtn = document.querySelector("#menu_btn");
 const mbGnb = document.querySelector(".mb_gnb");
-menuBtn.addEventListener("click", () => {
+menuBtn.addEventListener("click", function () {
+  if (this.classList.contains("open")) {
+    this.classList.remove("open");
+    this.classList.add("close");
+  } else if (this.classList.contains("close")) {
+    this.classList.remove("close");
+    this.classList.add("open");
+  } else {
+    this.classList.add("open");
+  }
   mbGnb.classList.toggle("active");
-  if (this.classList.contains("open")) {
-    this.classList.remove("open");
-    this.classList.add("close");
-  } else if (this.classList.contains("close")) {
-    this.classList.remove("close");
-    this.classList.add("open");
-  } else {
-    this.classList.add("open");
-  }
-});
-
-document.getElementById("arrow-icon").addEventListener("click", function () {
-  if (this.classList.contains("open")) {
-    this.classList.remove("open");
-    this.classList.add("close");
-  } else if (this.classList.contains("close")) {
-    this.classList.remove("close");
-    this.classList.add("open");
-  } else {
-    this.classList.add("open");
-  }
 });
 mbGnb.addEventListener("click", () => {
   mbGnb.classList.remove("active");
@@ -95,7 +83,7 @@ introSlideArrows.forEach((arrow) => {
 
     setTimeout(() => {
       transitioning = false;
-      startSlideShow();
+      // startSlideShow();
     }, 500);
   });
 });
@@ -232,15 +220,4 @@ projectSlideBtns.addEventListener("mouseenter", () => {
 });
 projectSlideBtns.addEventListener("mouseleave", () => {
   autoProjectSlide();
-});
-
-//scroll event
-window.addEventListener("scroll", () => {
-  const projectSlideWrapper = document.querySelector(".project_slide_wrap");
-  const futureText = document.querySelector(".future_text");
-  if (window.scrollY > projectSlideWrapper.offsetTop) {
-    futureText.classList.add("active");
-  } else {
-    futureText.classList.remove("active");
-  }
 });
