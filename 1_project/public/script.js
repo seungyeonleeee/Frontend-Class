@@ -39,15 +39,15 @@ const introPics = ["slide-1.png", "slide-2.png", "slide-3.png", "slide-4.png"];
 let i = 0;
 let slideInterval;
 let transitioning = false;
-
-introSlideImgs.style.backgroundImage = `url("./images/${introPics[i]}")`;
+// https://td449.cafe24.com/timeline/slide-1.png
+introSlideImgs.style.backgroundImage = `url(https://td449.cafe24.com/timeline/${introPics[i]})`;
 introSlidePagers[0].classList.add("active");
 
 const updateSlide = (i) => {
   introSlidePagers.forEach((item) => {
     item.classList.remove("active");
   });
-  introSlideImgs.style.backgroundImage = `url("./images/${introPics[i]}")`;
+  introSlideImgs.style.backgroundImage = `url(https://td449.cafe24.com/timeline/${introPics[i]})`;
   introSlidePagers[i].classList.add("active");
 };
 

@@ -224,10 +224,6 @@ header {
           animation: opacity 2s 3s linear both;
         }
         p {
-          &:first-child {
-            font-size: 1.4rem;
-            margin-top: 6px;
-          }
           &.year {
             color: var(--main-color);
             font-size: 2rem;
@@ -310,18 +306,15 @@ header {
 }
 
 /* intro */
-/* #wrapper > section#intro {
-  padding: 50px 0 100px 0;
-} */
 #intro {
   justify-content: space-between;
   align-items: center;
   gap: 40px;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
   .intro_text {
     width: 550px;
     p {
-      font: normal 1.6rem/1.5 "Noto Sans KR", sans-serif;
+      font: normal 1.8rem/1.5 "Noto Sans KR", sans-serif;
       margin-top: 20px;
     }
   }
@@ -593,9 +586,6 @@ header {
   }
 }
 /* future */
-/* #wrapper > section#future {
-  padding: 50px 0 100px 0;
-} */
 #future {
   justify-content: space-between;
   align-items: center;
@@ -606,7 +596,7 @@ header {
     width: 550px;
     transition: all 1s;
     p {
-      font: normal 1.6rem/1.5 "Noto Sans KR", sans-serif;
+      font: normal 1.8rem/1.5 "Noto Sans KR", sans-serif;
       margin-top: 20px;
     }
   }
@@ -624,7 +614,8 @@ header {
 #footer {
   width: 100%;
   height: 350px;
-  background: url("../images/footer-bg.png") center/cover fixed no-repeat;
+  background: url("https://td449.cafe24.com/timeline/footer-bg.png")
+    center/cover no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -697,6 +688,9 @@ header {
       left: 4%;
     }
   }
+  #project {
+    overflow: hidden;
+  }
   #future {
     .future_img {
       height: auto;
@@ -761,6 +755,7 @@ header {
     width: 0;
     height: 100vh;
     backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
     z-index: 2;
     transition: all 0.3s;
     cursor: pointer;
@@ -938,6 +933,7 @@ header {
   #intro {
     flex-direction: column;
     justify-content: center;
+    margin-bottom: 50px;
     .intro_text {
       width: 100%;
       text-align: center;
