@@ -221,3 +221,13 @@ projectSlideBtns.addEventListener("mouseenter", () => {
 projectSlideBtns.addEventListener("mouseleave", () => {
   autoProjectSlide();
 });
+
+//top_btn
+const topBtn = document.querySelector(".top_btn");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 600) {
+    topBtn.classList.add("active");
+  } else {
+    topBtn.classList.remove("active");
+  }
+});
