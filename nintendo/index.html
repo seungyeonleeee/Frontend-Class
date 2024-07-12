@@ -14,8 +14,21 @@
     <script defer src="./script.js"></script>
   </head>
   <body>
-    <main>
-      <section id="logon">
+    <header id="header">
+      <span id="logo">
+        <a href="#"><img src="./img/logo.svg" alt="logo" /></a>
+      </span>
+      <span class="login_btn">
+        <a href="#none">로그인</a>
+      </span>
+    </header>
+    <main id="logon">
+      <section>
+        <span class="game_logo">
+          <a href="#none">
+            <img src="./img/game_logo.png" alt="game_logo" />
+          </a>
+        </span>
         <form action="https://localhost:3000" method="get">
           <h1 class="form_title">가입하시고 즐겨보세요!</h1>
           <article class="inner_contents user_email">
@@ -49,6 +62,7 @@
               type="password"
               placeholder="비밀번호를 입력해주세요."
             />
+            <div id="error_password1" class="error"></div>
           </article>
           <article class="inner_contents user_password2">
             <label for="password2">비밀번호 확인</label>
@@ -59,29 +73,29 @@
               type="password"
               placeholder="비밀번호를 다시 입력해주세요."
             />
-            <div id="error_password" class="error"></div>
+            <div id="error_password2" class="error"></div>
           </article>
-          <article class="inner_contents user_phone">
-            <p>휴대전화</p>
-            <div class="phone_input">
-              <input id="phone1" class="phoneNum" name="firstNum" type="text" />
-              <input
-                id="phone2"
-                class="phoneNum"
-                name="secondNum"
-                type="text"
-              />
-              <input id="phone3" class="phoneNum" name="lastNum" type="text" />
-            </div>
-            <div class="phone_token">
-              <span id="token">000000</span>
-              <button id="token_button">인증번호 전송</button>
-            </div>
-            <div class="phone_token">
-              <span id="token_timer">3:00</span>
-              <button id="token_timer_confirmBtn">인증완료</button>
-            </div>
-          </article>
+          <!-- <article class="inner_contents user_phone">
+              <p>휴대전화</p>
+              <div class="phone_input">
+                <input id="phone1" class="phoneNum" name="firstNum" type="text" />
+                <input
+                  id="phone2"
+                  class="phoneNum"
+                  name="secondNum"
+                  type="text"
+                />
+                <input id="phone3" class="phoneNum" name="lastNum" type="text" />
+              </div>
+              <div class="phone_token">
+                <span id="token">000000</span>
+                <button id="token_button">인증번호 전송</button>
+              </div>
+              <div class="phone_token">
+                <span id="token_timer">3:00</span>
+                <button id="token_timer_confirmBtn">인증완료</button>
+              </div>
+            </article> -->
           <article class="inner_contents user_gender">
             <p>성별 (선택사항)</p>
             <div id="gender_btn">
@@ -93,16 +107,24 @@
               </button>
             </div>
           </article>
+          <article class="inner_contents check">
+            <div>
+              <input type="checkbox" name="auth" id="auth" />
+              <label for="auth">이용약관을 검토했으며 이에 동의합니다.</label>
+            </div>
+            <div>
+              <input type="checkbox" name="private" id="private" />
+              <label for="private">개인정보 처리방침에 동의합니다.</label>
+            </div>
+          </article>
+          <article class="signup_btn">
+            <button>가입하기</button>
+          </article>
         </form>
-      </section>
-      <!-- <section class="switch">
-        <div class="switch_ui">
-          <img src="./img/visual-ui.png" alt="ui01" />
-          <img src="./img/visual-ui.png" alt="ui02" />
-          <img src="./img/visual-ui.png" alt="ui03" />
-          <img src="./img/visual-ui.png" alt="ui04" />
+        <div class="ani_character">
+          <img src="./img/ani_character2.png" alt="ani_character" />
         </div>
-      </section> -->
+      </section>
     </main>
   </body>
 </html>

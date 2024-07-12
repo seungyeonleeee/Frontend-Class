@@ -27,15 +27,11 @@ button {
 /* variable */
 :root {
   font-size: 10px;
+  --header-bg-color: #e1e1c5;
+  --main-color: #ffeab4;
 }
 
 /* component */
 * {
-  font: normal 1.4rem/1.5 "airal";
-}
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  font: normal 1.4rem/1.5 "GmarketSansMedium";
 }
