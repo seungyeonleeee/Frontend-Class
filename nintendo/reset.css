@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+img {
+  width: 100%;
+  height: 100%;
+}
+input,
+button {
+  border: none;
+  padding: 10px;
+  &:focus {
+    outline: none;
+  }
+}
+
+/* variable */
+:root {
+  font-size: 10px;
+}
+
+/* component */
+* {
+  font: normal 1.4rem/1.5 "airal";
+}
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

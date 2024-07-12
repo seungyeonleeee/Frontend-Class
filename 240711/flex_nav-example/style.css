@@ -1,0 +1,51 @@
+@import url("./reset.css");
+
+header {
+  background: var(--main-bgColor);
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  nav {
+    width: 1280px;
+    display: flex;
+    justify-content: space-between;
+    .logo {
+      img {
+        filter: invert();
+      }
+    }
+    .gnb {
+      ul {
+        display: flex;
+        gap: 20px;
+        li {
+          a {
+            color: #fff;
+            transition: all 0.3s;
+            &:hover {
+              color: #000;
+            }
+          }
+        }
+      }
+    }
+    .sns {
+      display: flex;
+      gap: 20px;
+      i {
+        color: #fff;
+        transition: all 0.3s;
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+    .trigger {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 780px) {
+}

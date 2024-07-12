@@ -1,62 +1,56 @@
-/* reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-ul,
-li {
-  list-style: none;
-}
-a {
-  text-decoration: none;
-  color: inherit;
-}
-img {
-  width: 100%;
-  height: 100%;
-}
+@import url("./reset.css");
 
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  .switch {
-    position: relative;
-    width: 940px;
-    height: 400px;
-    background: url("./img/switch.svg") center/contain no-repeat;
-    /* transform: rotateX(45deg); */
-    transition: all 0.5s;
-    .switch_ui {
-      position: absolute;
-      top: 41%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 358px;
-      height: 190px;
-    }
-    img {
-      position: absolute;
-      transition: all 0.5s;
-      border-radius: 5px;
-    }
-    &:hover img:nth-child(1) {
-      transform: scale(1);
-      opacity: 0.4;
-    }
-    &:hover img:nth-child(2) {
-      transform: scale(1.2) translateY(10%);
-      opacity: 0.6;
-    }
-    &:hover img:nth-child(3) {
-      transform: scale(1.4) translateY(20%);
-      opacity: 0.8;
-    }
-    &:hover img:nth-child(4) {
-      transform: scale(1.6) translateY(30%);
-      opacity: 1;
-    }
+/* form */
+form {
+  background: #eee;
+  width: 480px;
+  padding: 10%;
+  border-radius: 50px;
+  .form_title {
+    font-size: 2rem;
+    text-align: center;
+  }
+  .inner_contents {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
   }
 }
+
+/* .switch {
+  position: relative;
+  width: 940px;
+  height: 400px;
+  background: url("./img/switch.svg") center/contain no-repeat;
+  transition: all 0.5s;
+  .switch_ui {
+    position: absolute;
+    top: 41%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 358px;
+    height: 190px;
+  }
+  img {
+    position: absolute;
+    transition: all 0.5s;
+    border-radius: 5px;
+  }
+  &:hover img:nth-child(1) {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  &:hover img:nth-child(2) {
+    transform: scale(1.2) translateY(10%);
+    opacity: 0.6;
+  }
+  &:hover img:nth-child(3) {
+    transform: scale(1.4) translateY(20%);
+    opacity: 0.8;
+  }
+  &:hover img:nth-child(4) {
+    transform: scale(1.6) translateY(30%);
+    opacity: 1;
+  }
+} */

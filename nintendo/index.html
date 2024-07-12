@@ -1,23 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <!-- fontawesome -->
+    <script
+      src="https://kit.fontawesome.com/e6075b2cdc.js"
+      crossorigin="anonymous"
+    ></script>
     <!-- custom css & js -->
     <link rel="stylesheet" href="/style.css" />
     <script defer src="./script.js"></script>
   </head>
   <body>
     <main>
-      <section class="switch">
+      <section id="logon">
+        <form action="https://localhost:3000" method="get">
+          <h1 class="form_title">가입하시고 즐겨보세요!</h1>
+          <article class="inner_contents user_email">
+            <label for="email">이메일</label>
+            <input
+              id="email"
+              class="inputbox"
+              name="email"
+              type="text"
+              placeholder="이메일을 입력해주세요."
+            />
+            <div id="error_email" class="error"></div>
+          </article>
+          <article class="inner_contents user_name">
+            <label for="name">이름</label>
+            <input
+              id="name"
+              class="inputbox"
+              name="name"
+              type="text"
+              placeholder="이름을 입력해주세요."
+            />
+            <div id="error_name" class="error"></div>
+          </article>
+          <article class="inner_contents user_password1">
+            <label for="password1">비밀번호</label>
+            <input
+              id="password1"
+              class="inputbox"
+              name="password1"
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+            />
+          </article>
+          <article class="inner_contents user_password2">
+            <label for="password2">비밀번호 확인</label>
+            <input
+              id="password2"
+              class="inputbox"
+              name="password2"
+              type="password"
+              placeholder="비밀번호를 다시 입력해주세요."
+            />
+            <div id="error_password" class="error"></div>
+          </article>
+          <article class="inner_contents user_phone">
+            <p>휴대전화</p>
+            <div class="phone_input">
+              <input id="phone1" class="phoneNum" name="firstNum" type="text" />
+              <input
+                id="phone2"
+                class="phoneNum"
+                name="secondNum"
+                type="text"
+              />
+              <input id="phone3" class="phoneNum" name="lastNum" type="text" />
+            </div>
+            <div class="phone_token">
+              <span id="token">000000</span>
+              <button id="token_button">인증번호 전송</button>
+            </div>
+            <div class="phone_token">
+              <span id="token_timer">3:00</span>
+              <button id="token_timer_confirmBtn">인증완료</button>
+            </div>
+          </article>
+          <article class="inner_contents user_gender">
+            <p>성별 (선택사항)</p>
+            <div id="gender_btn">
+              <button id="femalebtn">
+                <i class="fas fa-person-dress"></i>
+              </button>
+              <button id="malebtn">
+                <i class="fas fa-person"></i>
+              </button>
+            </div>
+          </article>
+        </form>
+      </section>
+      <!-- <section class="switch">
         <div class="switch_ui">
           <img src="./img/visual-ui.png" alt="ui01" />
           <img src="./img/visual-ui.png" alt="ui02" />
           <img src="./img/visual-ui.png" alt="ui03" />
           <img src="./img/visual-ui.png" alt="ui04" />
         </div>
-      </section>
+      </section> -->
     </main>
   </body>
 </html>

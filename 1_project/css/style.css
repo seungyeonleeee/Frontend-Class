@@ -694,7 +694,6 @@ header {
     align-items: center;
     justify-content: center;
     gap: 2px;
-    padding-top: 5px;
     border-radius: 2px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     background: var(--bg-color);
