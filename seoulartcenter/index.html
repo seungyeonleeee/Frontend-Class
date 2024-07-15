@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- custom css & js -->
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="./script.js"></script>
+  </head>
+  <body>
+    <main class="container">
+      <span class="logo">
+        <img src="./img/logo.svg" alt="logo" />
+      </span>
+      <section class="tab_btns">
+        <ul>
+          <li data-alt="tab1" class="tab_btn1">
+            <a href="#none">오페라하우스</a>
+          </li>
+          <li data-alt="tab2" class="tab_btn2 active">
+            <a href="#none">미술관·박물관</a>
+          </li>
+          <li data-alt="tab3" class="tab_btn3">
+            <a href="#none">방문·이용</a>
+          </li>
+        </ul>
+      </section>
+      <section class="tab_contents">
+        <div class="contents_wrap">
+          <article id="tab1" class="content">
+            <h1>오페라하우스</h1>
+          </article>
+          <article id="tab2" class="content"></article>
+          <article id="tab3" class="content"></article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

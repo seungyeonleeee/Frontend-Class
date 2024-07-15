@@ -1,0 +1,149 @@
+/* font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* reset */
+@import url("./reset.css");
+
+/* component */
+:root {
+  --main-width: 1300px;
+}
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  height: 2000px;
+  background: #ddd;
+}
+.inner {
+  width: var(--main-width);
+  margin: 0 auto;
+}
+
+/* header */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+  .banner {
+    width: 100%;
+    height: 40px;
+    background: #000;
+    transition: all 0.3s;
+    .lnb {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      height: 100%;
+      padding: 0 10px;
+      a {
+        color: #ddd;
+        text-transform: capitalize;
+        em {
+          color: #bbb;
+        }
+      }
+    }
+  }
+  nav {
+    width: var(--main-width);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    margin-top: 20px;
+    .gnb {
+      display: flex;
+      gap: 20px;
+      li {
+        a {
+          color: #fff;
+          text-transform: uppercase;
+          transition: all 0.3s;
+          &:hover {
+            color: crimson;
+          }
+        }
+      }
+    }
+  }
+  .trigger {
+    display: none;
+  }
+  &.active {
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    .gnb li a {
+      color: #000;
+    }
+    .banner {
+      height: 0;
+      overflow: hidden;
+    }
+    nav {
+      padding-bottom: 20px;
+    }
+  }
+}
+
+/* intro */
+.intro {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background: url("./images/intro.jpg") center/cover no-repeat;
+  .heading {
+    text-align: center;
+    color: #fff;
+    h1 {
+      text-transform: capitalize;
+      font-size: 70px;
+      margin-bottom: 40px;
+    }
+    p {
+      font-size: 22px;
+      line-height: 1.5rem;
+      padding: 0 150px;
+    }
+  }
+}
+
+/* about */
+.about {
+  .about_content {
+    display: flex;
+    align-items: center;
+    padding: 150px 0;
+    div {
+      padding: 30px;
+      &.desc {
+        text-align: center;
+        flex: 3;
+        h2 {
+          font-size: 30px;
+          margin-bottom: 30px;
+        }
+        p {
+          font-size: 16px;
+          line-height: 1.7rem;
+        }
+        a {
+          font-weight: bold;
+          color: crimson;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      &.photo {
+        flex: 2;
+        img {
+          width: 100%;
+          border-radius: 40% 60% 65% 35% / 40% 45% 55% 60%;
+        }
+      }
+    }
+  }
+}
