@@ -19,11 +19,8 @@ a {
 }
 
 .container {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
   .logo {
     position: absolute;
@@ -31,45 +28,61 @@ a {
     left: 5%;
     z-index: 1;
   }
-  .tab_btns {
+  .tab_menu {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 3% 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
     li {
+      a {
+        color: #fff;
+        transition: all 0.3s;
+      }
+      &.active {
+        a {
+          color: var(--main-color);
+        }
+      }
     }
   }
   .tab_contents {
     position: relative;
     width: 100vw;
     height: 100vh;
-    /* overflow: hidden; */
+    overflow: hidden;
     .contents_wrap {
       display: flex;
-      width: 300%;
+      width: 400%;
+      height: 100%;
       position: absolute;
       top: 0;
       left: 0;
       transition: all 0.5s;
       .content {
-        width: calc(100% / 3);
-        height: 100vh;
-        /* position: relative; */
-        &#tab1 {
-          background: #f00;
+        width: calc(100% / 4);
+        height: 100%;
+        position: relative;
+        .content_desc {
+          position: absolute;
+          top: -10%;
+          left: 10%;
+          transition: all 0.5s;
         }
-        &#tab2 {
-          background: #0f0;
-        }
-        &#tab3 {
-          background: #00f;
+        &.active {
+          .content_desc {
+            top: 20%;
+            transition-delay: 0.3s;
+          }
         }
       }
     }
   }
 }
-/* #tab1.active .contents_wrap {
-  left: 0;
-}
-#tab2.active .contents_wrap {
-  left: -100%;
-}
-#tab3.active .contents_wrap {
-  left: -200%;
-} */
