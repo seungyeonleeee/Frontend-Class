@@ -1,3 +1,18 @@
+@font-face {
+  font-family: "TheJamsil5Bold";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "LINESeedKR-Rg";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Rg.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* reset */
 * {
   margin: 0;
@@ -16,6 +31,7 @@ a {
 /* variable */
 :root {
   --main-color: #e6002d;
+  font-size: 10px;
 }
 
 .container {
@@ -24,7 +40,7 @@ a {
   position: relative;
   .logo {
     position: absolute;
-    top: 2%;
+    top: 3%;
     left: 5%;
     z-index: 1;
   }
@@ -34,17 +50,21 @@ a {
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    padding: 3% 0;
+    padding: 2% 0;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    background: rgba(0, 0, 0, 0.6);
+    background: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     z-index: 1;
     li {
       a {
-        color: #fff;
+        font: normal 1.4rem/1 "LINESeedKR-Rg";
         transition: all 0.3s;
+        &:hover {
+          color: var(--main-color);
+        }
       }
       &.active {
         a {
@@ -74,12 +94,147 @@ a {
           position: absolute;
           top: -10%;
           left: 10%;
+          z-index: 2;
           transition: all 0.5s;
+          h1 {
+            font: normal 3.5rem/1 "TheJamsil5Bold";
+            color: #fff;
+            text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            position: relative;
+            &::before {
+              content: "";
+              position: absolute;
+              width: 15px;
+              height: 15px;
+              left: 0;
+              top: 0;
+              transform: translate(-100%, -100%);
+              background: var(--main-color);
+            }
+          }
+          p {
+            font: normal 1.4rem/1.5 "LINESeedKR-Rg";
+            color: #fff;
+            text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+          }
         }
         &.active {
           .content_desc {
             top: 20%;
             transition-delay: 0.3s;
+          }
+        }
+        .gallery {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          li {
+            position: relative;
+            flex: 1;
+            height: 100%;
+            border-left: 3px solid var(--main-color);
+            border-right: 3px solid var(--main-color);
+            filter: grayscale(1);
+            cursor: pointer;
+            transition: all 0.5s;
+            &:nth-child(1) {
+              border-left: none;
+              background: url("./img/gallery1.jpg") center/cover no-repeat;
+            }
+            &:nth-child(2) {
+              background: url("./img/gallery2.jpg") center/cover no-repeat;
+            }
+            &:nth-child(3) {
+              background: url("./img/gallery3.jpg") center/cover no-repeat;
+            }
+            &:nth-child(4) {
+              background: url("./img/gallery4.jpg") center/cover no-repeat;
+            }
+            &:nth-child(5) {
+              border-right: none;
+              background: url("./img/gallery5.jpg") center/cover no-repeat;
+            }
+            &:hover {
+              flex: 3;
+              filter: grayscale(0);
+              .gallery_desc {
+                transform: translateY(0);
+              }
+            }
+            .gallery_desc {
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              transform: translateY(100%);
+              width: 100%;
+              height: 40%;
+              background: rgba(0, 0, 0, 0.6);
+              color: #fff;
+              padding: 10% 10% 0;
+              text-align: center;
+              transition: all 0.5s;
+              h4 {
+                font: normal 2rem/1 "TheJamsil5Bold";
+                font-weight: 400;
+                margin-bottom: 20px;
+              }
+              p {
+                font: normal 1.4rem/1.4 "LINESeedKR-Rg";
+              }
+            }
+          }
+        }
+        &:nth-child(2)::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #f3eed9, transparent);
+        }
+        &:nth-child(3)::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #798897, transparent);
+        }
+        &:nth-child(4)::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #e19991, transparent);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .container {
+    .tab_contents {
+      .contents_wrap {
+        .content {
+          padding: 0 5%;
+          .gallery {
+            flex-direction: column;
+            li {
+              .gallery_desc {
+                height: 100%;
+                padding: 20% 5% 0;
+                transition: all 0.3s;
+              }
+            }
           }
         }
       }
