@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+body .btns button {
+  width: 150px;
+  padding: 7px;
+  background: #fff;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+body .btns button.complete:hover {
+  background: royalblue;
+  color: #fff;
+  border: 3px solid transparent;
+}
+body .btns button.loading:hover {
+  background: green;
+  color: #fff;
+  border: 3px solid transparent;
+}
+body .btns button.error:hover {
+  background: crimson;
+  color: #fff;
+  border: 3px solid transparent;
+}
+body .btns button.complete {
+  color: royalblue;
+  border: 3px solid royalblue;
+}
+body .btns button.loading {
+  color: green;
+  border: 3px solid green;
+}
+body .btns button.error {
+  color: crimson;
+  border: 3px solid crimson;
+}

@@ -1,0 +1,64 @@
+// variables
+$complete-btn: royalblue;
+$loading-btn: green;
+$error-btn: crimson;
+$noice-btn-hover: #000;
+$notice-btn-fs: 18px;
+
+// reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// mix-in
+@mixin noice-button {
+  width: 150px;
+  padding: 7px;
+  background: #fff;
+  border-radius: 5px;
+  font-size: $notice-btn-fs;
+  cursor: pointer;
+  transition: all 0.3s;
+  &.complete:hover {
+    background: $complete-btn;
+    color: #fff;
+    border: 3px solid transparent;
+  }
+  &.loading:hover {
+    background: $loading-btn;
+    color: #fff;
+    border: 3px solid transparent;
+  }
+  &.error:hover {
+    background: $error-btn;
+    color: #fff;
+    border: 3px solid transparent;
+  }
+}
+
+// content
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  .btns {
+    button {
+      @include noice-button;
+      &.complete {
+        color: $complete-btn;
+        border: 3px solid $complete-btn;
+      }
+      &.loading {
+        color: $loading-btn;
+        border: 3px solid $loading-btn;
+      }
+      &.error {
+        color: $error-btn;
+        border: 3px solid $error-btn;
+      }
+    }
+  }
+}
