@@ -1,0 +1,153 @@
+// reset
+@import "./reset.scss";
+
+// common
+.background {
+  width: 100%;
+  height: 100vh;
+  background: url("./img/bg_2.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .outerbox {
+    width: 808px;
+    height: 544px;
+    background: url("./img/outerbox.png") center/cover no-repeat;
+    position: relative;
+    .wrapper {
+      display: flex;
+      gap: 10px;
+      padding: 36px;
+    }
+  }
+}
+
+// wrapper_left
+.wrapper_left {
+  width: 203px;
+  height: 472px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  .wrapper_left_header {
+    width: 100%;
+    height: 30px;
+    font-size: $size;
+    display: flex;
+    justify-content: center;
+    .zero {
+      color: map-get($color, accent-color);
+    }
+  }
+  .wrapper_left_body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid map-get($color, bg-gray-color);
+    border-radius: 25px;
+    padding: 18px;
+    .left_body_header {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .left_body_header_gray {
+        width: 148px;
+        height: 133px;
+        background: url("./img/iu.jpg") center/cover no-repeat;
+      }
+      .left_body_header_line {
+        border-top: 1px dotted map-get($color, bg-dark-color);
+        margin: 12px 0;
+        width: 90%;
+      }
+    }
+    .left_body_profile {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      .profile_detail {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+    }
+    .left_body_footer {
+      .wrapper_feel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        .feel_title {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+// wrpper_right
+.wrpper_right {
+  width: 524px;
+  height: 472px;
+  padding: 0 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  .wrpper_right_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: map-get($color, theme-color);
+    .right_header_title {
+      font-weight: bold;
+    }
+    .right_header {
+      font-size: $size;
+    }
+  }
+  .wrpper_right_body {
+    width: 100%;
+    height: 445px;
+    border: 1px solid map-get($color, bg-gray-color);
+    border-radius: $size / 1.5;
+    background: map-get($color, bg-light-color);
+    overflow: hidden;
+    iframe {
+      width: 100%;
+      height: 100%;
+      // border: none;
+    }
+  }
+}
+
+// navigation
+.navigation {
+  width: 70px;
+  height: 110px;
+  position: absolute;
+  top: 20%;
+  right: 0;
+  transform: translateX(100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .navigation_item {
+    width: 100%;
+    height: 33px;
+    background: map-get($color, theme-color);
+    color: map-get($color, bg-light-color);
+    text-align: center;
+    line-height: 33px;
+    border-radius: 0 10px 10px 0;
+    font-size: $size;
+    border: 1px solid map-get($color, bg-dark-color);
+    border-left: none;
+    cursor: pointer;
+  }
+}

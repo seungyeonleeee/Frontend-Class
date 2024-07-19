@@ -1,0 +1,23 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// built-in-function
+$color: (
+  bg-dark-color: #000,
+  bg-light-color: #fff,
+  bg-gray-color: #808080,
+  accent-color: #dc143c,
+  theme-color: #55b2e4,
+);
+$size: 14px;

@@ -1,0 +1,20 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  .buttons {
+    .order {
+      @extend .btn;
+      background: purple;
+    }
+  }
+}
+
+// 가상클래스 정의
+.btn {
+  width: 200px;
+  padding: 7px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
