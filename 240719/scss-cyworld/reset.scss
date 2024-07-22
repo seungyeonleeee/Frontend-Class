@@ -12,6 +12,7 @@ a {
   color: inherit;
 }
 
+// 커스텀할때 변수 폴더 따로 만들기
 // built-in-function
 $color: (
   bg-dark-color: #000,
@@ -19,5 +20,6 @@ $color: (
   bg-gray-color: #808080,
   accent-color: #dc143c,
   theme-color: #55b2e4,
+  sub-accent-color: #ffe400,
 );
 $size: 14px;
