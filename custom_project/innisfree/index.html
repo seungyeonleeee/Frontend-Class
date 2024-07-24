@@ -3,6 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- jQuery -->
+    <script
+      type="text/javascript"
+      src="//code.jquery.com/jquery-1.11.0.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="//code.jquery.com/jquery-migrate-1.2.1.min.js"
+    ></script>
+    <!-- slick slider-->
+    <link rel="stylesheet" href="./slick/slick.css" />
+    <link rel="stylesheet" href="./slick/slick-theme.css" />
+    <script src="./slick/slick.min.js"></script>
+    <!-- fontawesome -->
+    <script
+      src="https://kit.fontawesome.com/e6075b2cdc.js"
+      crossorigin="anonymous"
+    ></script>
     <!-- custom css & js -->
     <link rel="stylesheet" href="./style.css" />
     <script defer src="./script.js"></script>
@@ -14,13 +32,13 @@
         <div class="header_banner">
           <ul class="lnb">
             <li>
-              <a href="#none"><em>for</em> member</a>
+              <a href="#none">for member</a>
             </li>
             <li>
-              <a href="#none"><em>for</em> clients</a>
+              <a href="#none">for clients</a>
             </li>
             <li>
-              <a href="#none"><em>for</em> inquires</a>
+              <a href="#none">for inquires</a>
             </li>
           </ul>
         </div>
@@ -59,10 +77,63 @@
         </div>
       </header>
       <main>
-        <section id="main_slide">
-          <div class="inner"></div>
+        <section id="main_slide" class="main_slide">
+          <ul class="slide_wrap">
+            <li class="slide1">
+              <div class="inner">
+                <div class="slide_desc">
+                  <h1>데일리 딥 클렌징!<br />비자 트러블 폼 1+1</h1>
+                  <span class="btn_explore">
+                    <a href="#none"
+                      >VIEW MORE
+                      <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </li>
+            <li class="slide2">
+              <div class="inner">
+                <div class="slide_desc">
+                  <h1>레티놀 끝장 듀오<br />패키지로 더 큰 혜택!</h1>
+                  <span class="btn_explore">
+                    <a href="#none"
+                      >VIEW MORE
+                      <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </li>
+            <li class="slide3">
+              <div class="inner">
+                <div class="slide_desc">
+                  <h1>눈부신 피부를 위한<br />비타C세럼&패드 듀오</h1>
+                  <span class="btn_explore">
+                    <a href="#none"
+                      >VIEW MORE
+                      <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </li>
+            <li class="slide4">
+              <div class="inner">
+                <div class="slide_desc">
+                  <h1>함께쓰면 효과 UP!<br />블랙티 듀오 특가</h1>
+                  <span class="btn_explore">
+                    <a href="#none"
+                      >VIEW MORE
+                      <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </li>
+          </ul>
         </section>
-        <section id="about">
+        <section id="about" class="about">
           <div class="inner">
             <div class="about_content">
               <article class="desc">
@@ -75,11 +146,87 @@
                   생명력 가득한 토양을 품은 대지,<br />
                   그리고 미지의 에너지로 가득한 청록의 바다
                 </p>
-                <a href="#none">Enjoy being you,<br />Be free with INNISFREE</a>
+                <span class="btn_explore">
+                  <a href="#none"
+                    >Enjoy being you,<br />Be free with INNISFREE
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                  </a>
+                </span>
               </article>
               <article class="photo">
                 <img src="./img/about.png" alt="about" />
               </article>
+            </div>
+          </div>
+        </section>
+        <section id="ranking" class="ranking">
+          <div class="inner">
+            <div class="ranking_content">
+              <h2>‘Green Tea’ the Origin of <span>INNISFREE</span></h2>
+              <ul>
+                <li>
+                  <a href="#none">
+                    <div class="product_photo">
+                      <img src="./img/ranking1.jpg" alt="ranking01" />
+                    </div>
+                    <div class="product_desc">
+                      <span class="badge">속건조전용</span>
+                      <h3><em>그린티</em> 히알루론산 로션</h3>
+                      <p>
+                        그린티 성분과 히알루론산이 함유된 부드럽고 끈적임 없는
+                        텍스처가 빠르게 흡수되어 피부에 유수분 밸런스를 맞춰주는
+                        촉촉한 수분 로션
+                      </p>
+                      <div>
+                        <strong class="price">14,700</strong>
+                        <em class="sale">30%</em>
+                        <span class="cost">21,000</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#none">
+                    <div class="product_photo">
+                      <img src="./img/ranking2.jpg" alt="ranking02" />
+                    </div>
+                    <div class="product_desc">
+                      <span class="badge">저자극클렌징</span>
+                      <h3><em>그린티</em> 아미노 수분 폼 클렌징</h3>
+                      <p>
+                        뷰티그린티™의 생녹차수와 아미노산 콤플렉스*가 세안
+                        후에도 피부를 촉촉하게 케어해주는 클렌징 폼
+                      </p>
+                      <div>
+                        <strong class="price">9,100</strong>
+                        <em class="sale">30%</em>
+                        <span class="cost">13,000</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#none">
+                    <div class="product_photo">
+                      <img src="./img/ranking3.jpg" alt="ranking03" />
+                    </div>
+                    <div class="product_desc">
+                      <span class="badge">산뜻촉촉</span>
+                      <h3><em>그린티</em> 아미노 수분 클렌징 오일</h3>
+                      <p>
+                        뷰티그린티™의 녹차 성분과 아미노산을 함유한 포뮬라가
+                        메이크업과 모공 속 노폐물을 깔끔하고 부드럽게 녹여주며
+                        촉촉하게 피부를 케어하는 딥 클렌징 오일
+                      </p>
+                      <div>
+                        <strong class="price">16,800</strong>
+                        <em class="sale">30%</em>
+                        <span class="cost">24,000</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </section>
