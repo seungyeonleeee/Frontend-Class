@@ -2,7 +2,9 @@
 
 //console.log(products.data[0].img);
 
-const productInfo = "./products.json";
+// const productInfo = "./db.json";
+const productInfo =
+  "https://my-json-server.typicode.com/seungyeonleeee/Olive-Fake/db";
 fetch(productInfo)
   .then((response) =>
     //json을 객체로 변환
@@ -67,6 +69,15 @@ fetch(productInfo)
       div.append(h3, span);
       li.append(img, div);
       ul.appendChild(li);
+
+      //li 클릭 시 페이지 이동
+      li.addEventListener("click", () => {
+        //console.log("click");
+        const url = `product-detail.html?category=${
+          product.category
+        }&name=${encodeURIComponent(product.name)}`;
+        window.location.href = url;
+      });
     };
 
     //importing items
@@ -201,3 +212,43 @@ fetch(productInfo)
   .catch((error) => {
     console.log(error);
   });
+
+// Channel Talk
+(function () {
+  var w = window;
+  if (w.ChannelIO) {
+    return w.console.error("ChannelIO script included twice.");
+  }
+  var ch = function () {
+    ch.c(arguments);
+  };
+  ch.q = [];
+  ch.c = function (args) {
+    ch.q.push(args);
+  };
+  w.ChannelIO = ch;
+  function l() {
+    if (w.ChannelIOInitialized) {
+      return;
+    }
+    w.ChannelIOInitialized = true;
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = "https://cdn.channel.io/plugin/ch-plugin-web.js";
+    var x = document.getElementsByTagName("script")[0];
+    if (x.parentNode) {
+      x.parentNode.insertBefore(s, x);
+    }
+  }
+  if (document.readyState === "complete") {
+    l();
+  } else {
+    w.addEventListener("DOMContentLoaded", l);
+    w.addEventListener("load", l);
+  }
+})();
+
+ChannelIO("boot", {
+  pluginKey: "d7f7fbae-f872-4f07-876a-fa8f112d7a4c",
+});
