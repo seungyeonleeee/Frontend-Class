@@ -36,7 +36,7 @@ signupButton.addEventListener("click", (e) => {
       "이름을 정상적으로 입력해주세요.";
     isValid = false;
   } else {
-    document.querySelector("#error_writer").innerText = "";
+    document.querySelector("#error_name").innerText = "";
   }
   if (password2 === "") {
     document.querySelector("#error_password1").innerText =
