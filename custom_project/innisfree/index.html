@@ -12,6 +12,11 @@
       type="text/javascript"
       src="//code.jquery.com/jquery-migrate-1.2.1.min.js"
     ></script>
+    <!-- kakao map -->
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6b48acd97f8568c5955b98a42fcdd399"
+    ></script>
     <!-- slick slider-->
     <link rel="stylesheet" href="./slick/slick.css" />
     <link rel="stylesheet" href="./slick/slick-theme.css" />
@@ -38,7 +43,7 @@
               <a href="#none">회원가입</a>
             </li>
             <li>
-              <a href="#none">마이페이지</a>
+              <a href="#none">매장찾기</a>
             </li>
           </ul>
         </div>
@@ -471,8 +476,72 @@
         </div>
       </footer>
     </div>
+    <!-- top button -->
     <a class="gototop" href="#">
       <i class="fa-solid fa-chevron-up"></i>
     </a>
+    <!-- login form -->
+    <div class="login">
+      <form action="https://http://127.0.0.1:5500" method="get" name="login">
+        <h1>LOGIN</h1>
+        <div class="input_box">
+          <label for="user_id">아이디</label>
+          <input
+            type="text"
+            name="user_id"
+            id="user_id"
+            placeholder="아이디를 입력해주세요."
+          />
+        </div>
+        <div class="input_box">
+          <label for="user_pw">비밀번호</label>
+          <input
+            type="password"
+            name="user_pw"
+            id="user_pw"
+            placeholder="비밀번호를 입력해주세요."
+          />
+        </div>
+        <div class="input_box">
+          <div>
+            <input type="checkbox" id="user_id_save" />
+            <label for="user_id_save">아이디 저장</label>
+          </div>
+          <div>
+            <input type="checkbox" id="user_pw_save" />
+            <label for="user_pw_save">비밀번호 저장</label>
+          </div>
+        </div>
+        <input type="submit" value="로그인" />
+        <ul class="etc_login">
+          <li>
+            <a href="#none">
+              <img src="./img/btn_login_mobile.png" alt="login_mobile" />
+              휴대폰 로그인
+            </a>
+          </li>
+          <li>
+            <a href="#none">
+              <img src="./img/btn_login_ka.png" alt="login_kakao" />
+              카카오 로그인
+            </a>
+          </li>
+          <li>
+            <a href="#none">
+              <img src="./img/btn_login_na.png" alt="login_naver" />
+              네이버 로그인
+            </a>
+          </li>
+          <li>
+            <a href="#none">
+              <img src="./img/btn_login_ap.png" alt="login_apple" />
+              애플 로그인
+            </a>
+          </li>
+        </ul>
+      </form>
+    </div>
+    <!-- kakao map -->
+    <!-- <div id="map"></div> -->
   </body>
 </html>
