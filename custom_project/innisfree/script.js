@@ -27,6 +27,17 @@ gnbLinks.forEach((link) => {
   });
 });
 
+//login
+const openLogin = document.querySelector(".openLogin");
+openLogin.addEventListener("click", () => {
+  const loginArea = document.querySelector(".login_wrapper");
+  const closeLogin = document.querySelector(".closeLogin");
+  loginArea.classList.add("active");
+  closeLogin.addEventListener("click", () => {
+    loginArea.classList.remove("active");
+  });
+});
+
 //main_slide - slick slider
 $(".main_slide_wrap").slick({
   dots: true,
@@ -73,10 +84,38 @@ $(".showcase_slide_wrap").slick({
 });
 
 // kakao map
-// const container = document.getElementById("map");
-// const options = {
-//   center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-//   level: 3,
-// };
+const showPosition = (position) => {
+  const latitude = position.coords.latitude;
+  const longitude = position.coords.longitude;
 
-// const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+  const container = document.getElementById("map");
+  const options = {
+    center: new kakao.maps.LatLng(latitude, longitude),
+    level: 3,
+  };
+
+  const map = new kakao.maps.Map(container, options);
+
+  // my position marker
+  var markerPosition = new kakao.maps.LatLng(latitude, longitude);
+  var marker = new kakao.maps.Marker({
+    position: markerPosition,
+  });
+  marker.setMap(map);
+
+  var iwContent = '<div style="padding:5px;">현재 위치</div>',
+    iwPosition = new kakao.maps.LatLng(latitude, longitude),
+    iwRemoveable = false;
+
+  // 인포윈도우를 생성하고 지도에 표시합니다
+  var infowindow = new kakao.maps.InfoWindow({
+    map: map, // 인포윈도우가 표시될 지도
+    position: iwPosition,
+    content: iwContent,
+    removable: iwRemoveable,
+  });
+};
+const errorPosition = (err) => {
+  alert(err.message);
+};
+navigator.geolocation.getCurrentPosition(showPosition, errorPosition);

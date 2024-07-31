@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+body .container {
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+body .container .topMenu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+body .container .topMenu .saleImg {
+  height: 180px;
+}
+body .container .topMenu .saleImg img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body .container .topMenu .formArea {
+  height: 150px;
+}
+body .container .topMenu .formArea form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+body .container .topMenu .formArea form ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+body .container .topMenu .formArea form ul li label {
+  display: inline-block;
+  width: 70px;
+  font-size: 18px;
+}
+body .container .topMenu .formArea form ul li input[type=text] {
+  display: inline-block;
+  width: 140px;
+  padding: 4px;
+  padding-left: 6px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+}
+body .container .topMenu .formArea form ul li input[type=text]:focus {
+  outline: none;
+}
+body .container .topMenu .formArea form input[type=button] {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+body .container .topMenu .formArea form input[type=button]:hover {
+  color: #fff;
+  background: #e60000;
+  font-weight: bold;
+}
+body .container .bottomInfo {
+  width: 100%;
+  text-align: center;
+}
