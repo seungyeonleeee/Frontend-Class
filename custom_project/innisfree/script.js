@@ -96,24 +96,36 @@ const showPosition = (position) => {
 
   const map = new kakao.maps.Map(container, options);
 
+  // store info
+  const positions = [
+    {
+      title: "이니스프리 NC 강남점",
+      latlng: new kakao.maps.LatLng(37.5002382, 127.0260223),
+      address: "서울 서초구 잠원로 37-6 뉴코아아울렛 1관 1층",
+      info: "영업시간 : 오전 10:30 ~ 저녁 21:00",
+    },
+  ];
+
   // my position marker
-  var markerPosition = new kakao.maps.LatLng(latitude, longitude);
-  var marker = new kakao.maps.Marker({
+  const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+  const marker = new kakao.maps.Marker({
     position: markerPosition,
   });
   marker.setMap(map);
 
-  var iwContent = '<div style="padding:5px;">현재 위치</div>',
-    iwPosition = new kakao.maps.LatLng(latitude, longitude),
-    iwRemoveable = false;
+  // my position infowindow
+  const iwContent =
+      '<div class="myposition" style="padding:5px;">🎈 현재 내 위치</div>',
+    iwPosition = new kakao.maps.LatLng(latitude, longitude);
 
-  // 인포윈도우를 생성하고 지도에 표시합니다
-  var infowindow = new kakao.maps.InfoWindow({
-    map: map, // 인포윈도우가 표시될 지도
+  const infowindow = new kakao.maps.InfoWindow({
     position: iwPosition,
     content: iwContent,
-    removable: iwRemoveable,
   });
+
+  infowindow.open(map, marker);
+
+  infowindow.setMap(map);
 };
 const errorPosition = (err) => {
   alert(err.message);

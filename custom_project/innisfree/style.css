@@ -672,6 +672,17 @@ body {
 #map {
   width: 100%;
   height: 100vh;
+  div[style="position: absolute; left: 0px; top: 0px;"] {
+    width: 150px;
+    height: 50px;
+    .myposition {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      /* line-height: 40px; */
+      font: 400 2rem/40px "Pretendard-Regular";
+    }
+  }
 }
 
 /* login */
