@@ -84,11 +84,61 @@ $(".showcase_slide_wrap").slick({
 });
 
 // kakao map
+// const showPosition = (position) => {
+//   const latitude = position.coords.latitude;
+//   const longitude = position.coords.longitude;
+
+//   const container = document.getElementById("map");
+//   const options = {
+//     center: new kakao.maps.LatLng(latitude, longitude),
+//     level: 3,
+//   };
+
+//   const map = new kakao.maps.Map(container, options);
+
+//   // store info
+//   const positions = [
+//     {
+//       title: "이니스프리 NC 강남점",
+//       latlng: new kakao.maps.LatLng(37.5002382, 127.0260223),
+//       address: "서울 서초구 잠원로 37-6 뉴코아아울렛 1관 1층",
+//       info: "영업시간 : 오전 10:30 ~ 저녁 21:00",
+//     },
+//   ];
+
+//   // my position marker
+//   const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+//   const marker = new kakao.maps.Marker({
+//     position: markerPosition,
+//   });
+//   marker.setMap(map);
+
+//   // my position infowindow
+//   const iwContent =
+//       '<div class="myposition" style="padding:5px;">🎈 현재 내 위치</div>',
+//     iwPosition = new kakao.maps.LatLng(latitude, longitude);
+
+//   const infowindow = new kakao.maps.InfoWindow({
+//     position: iwPosition,
+//     content: iwContent,
+//   });
+
+//   infowindow.open(map, marker);
+
+//   infowindow.setMap(map);
+// };
+// const errorPosition = (err) => {
+//   alert(err.message);
+// };
+// navigator.geolocation.getCurrentPosition(showPosition, errorPosition);
+
+//kakao map
 const showPosition = (position) => {
   const latitude = position.coords.latitude;
   const longitude = position.coords.longitude;
 
-  const container = document.getElementById("map");
+  const container = document.querySelector("#map");
+
   const options = {
     center: new kakao.maps.LatLng(latitude, longitude),
     level: 3,
@@ -96,38 +146,100 @@ const showPosition = (position) => {
 
   const map = new kakao.maps.Map(container, options);
 
-  // store info
+  //store info
   const positions = [
     {
-      title: "이니스프리 NC 강남점",
-      latlng: new kakao.maps.LatLng(37.5002382, 127.0260223),
-      address: "서울 서초구 잠원로 37-6 뉴코아아울렛 1관 1층",
-      info: "영업시간 : 오전 10:30 ~ 저녁 21:00",
+      title: "이니스프리 강남역점",
+      latlng: new kakao.maps.LatLng(37.4979405, 127.0276216),
+      address: "서울특별시 강남구 강남대로 396",
+      info: "영업시간 : 오전 10시 ~ 저녁 9시",
+    },
+    {
+      title: "이니스프리 강남로데오점",
+      latlng: new kakao.maps.LatLng(37.490427, 127.027261),
+      address: "서울특별시 강남구 강남로 230",
+      info: "영업시간 : 오전 10시 ~ 저녁 9시",
+    },
+    {
+      title: "이니스프리 강남한옥마을점",
+      latlng: new kakao.maps.LatLng(37.493465, 127.031865),
+      address: "서울특별시 강남구 선릉로 552",
+      info: "영업시간 : 오전 10시 ~ 저녁 8시",
+    },
+    {
+      title: "이니스프리 강남역 스토어",
+      latlng: new kakao.maps.LatLng(37.498056, 127.027824),
+      address: "서울특별시 강남구 강남대로 408",
+      info: "영업시간 : 오전 10시 ~ 저녁 9시",
+    },
+    {
+      title: "이니스프리 강남 테헤란로점",
+      latlng: new kakao.maps.LatLng(37.49558, 127.027346),
+      address: "서울특별시 강남구 테헤란로 112",
+      info: "영업시간 : 오전 10시 ~ 저녁 8시",
     },
   ];
 
-  // my position marker
+  for (let i = 0; i < positions.length; i++) {
+    let marker = new kakao.maps.Marker({
+      map: map,
+      position: positions[i].latlng,
+    });
+
+    const content = `
+      <div class="wrap">
+        <div class="info">
+          <div class="title">${positions[i].title}</div>
+          <div class="body">
+            <div class="img">
+              <img src="./img/map-img.jpg" width="73" height="70">
+            </div>
+            <div class="desc">
+              <div class="ellipsis">${positions[i].address}</div>
+              <div class="jibun ellipsis">${positions[i].info}</div>
+              <div>
+                <a target="_blank" href="https://www.innisfree.com">쇼핑몰 바로가기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>;
+    `;
+
+    const overlay = new kakao.maps.CustomOverlay({
+      content: content,
+      map: map,
+      position: marker.getPosition(),
+    });
+  }
+
+  //marker
   const markerPosition = new kakao.maps.LatLng(latitude, longitude);
   const marker = new kakao.maps.Marker({
     position: markerPosition,
   });
   marker.setMap(map);
 
-  // my position infowindow
+  //marker infowindow
   const iwContent =
-      '<div class="myposition" style="padding:5px;">🎈 현재 내 위치</div>',
-    iwPosition = new kakao.maps.LatLng(latitude, longitude);
-
-  const infowindow = new kakao.maps.InfoWindow({
-    position: iwPosition,
+    '<div class ="label"><span class="left"></span><span class="center">🍀현재위치</span><span class="right"></span></div>';
+  const iwPosition = new kakao.maps.LatLng(latitude, longitude);
+  const infowindow = new kakao.maps.CustomOverlay({
     content: iwContent,
+    position: iwPosition,
   });
-
-  infowindow.open(map, marker);
 
   infowindow.setMap(map);
 };
 const errorPosition = (err) => {
   alert(err.message);
 };
+
 navigator.geolocation.getCurrentPosition(showPosition, errorPosition);
+
+const openMap = document.querySelector(".openMap");
+openMap.addEventListener("click", () => {
+  const map = document.querySelector("#map");
+  console.log(map);
+  map.classList.toggle("active");
+});
