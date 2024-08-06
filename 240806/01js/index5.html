@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="./script5.js"></script>
+    <title>Document</title>
+    <style>
+      ul,
+      li {
+        list-style: none;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-size: 22px;
+        #open {
+          display: block;
+          &.btnActive {
+            display: none;
+          }
+        }
+        #modal-box {
+          display: none;
+          &.active {
+            display: block;
+            #profile {
+              display: flex;
+              align-items: center;
+              border: 1px solid #ddd;
+              border-radius: 8px;
+              padding: 20px 40px;
+              position: relative;
+              button {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+              }
+              img {
+                width: 200px;
+              }
+              #desc ul {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+              }
+            }
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 모달창이 나오기 전 UI -->
+    <button id="open">프로필 보기</button>
+    <!-- 모달창이 나온 후 UI -->
+    <div id="modal-box">
+      <div id="profile">
+        <button>닫기</button>
+        <img
+          src="https://res.heraldm.com/content/image/2021/01/11/20210111000090_0.jpg"
+          alt="iu"
+        />
+        <div id="desc">
+          <ul>
+            <li><a href="#none">이름 : 아이유</a></li>
+            <li><a href="#none">직업 : 가수</a></li>
+            <li><a href="#none">취미 : 노래</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
