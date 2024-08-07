@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+html {
+  font-size: 16px;
+}
+
+#btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  border: none;
+  background: #639;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: transform 0.3s;
+}
+#btn.active {
+  transform: translateX(-115px);
+}
+
+#nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  padding: 2rem;
+  background: #639;
+  color: #fff;
+  transform: translateX(100%);
+  transition: transform 0.3s;
+}
+#nav li {
+  padding: 1rem 0;
+}
+#nav.active {
+  transform: translateX(0);
+}
