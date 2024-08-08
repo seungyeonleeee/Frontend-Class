@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style4.css" />
+    <script defer src="./script4.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <h1>😎 부트캠프 참가자 명단</h1>
+      <form action="http://127.0.0.1:5500" method="get">
+        <ul>
+          <li>
+            <label for="name">이름</label>
+            <input type="text" id="name" />
+          </li>
+          <li>
+            <label for="class">전공</label>
+            <input type="text" id="class" />
+          </li>
+        </ul>
+        <input type="submit" value="등록하기" />
+        <button>삭제하기</button>
+      </form>
+      <table>
+        <tr>
+          <th>이름</th>
+          <th>전공</th>
+        </tr>
+      </table>
+    </main>
+  </body>
+</html>

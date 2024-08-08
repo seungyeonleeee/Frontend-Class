@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+body main {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+body main form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+body main form li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body main form li:nth-child(1) {
+  margin-bottom: 10px;
+}
+body main form li label {
+  width: 30%;
+}
+body main form li input[type=text] {
+  width: 70%;
+  padding: 5px;
+}
+body main form input[type=submit] {
+  padding: 10px;
+}
+body main form button {
+  padding: 10px;
+}
+body main table {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+}
+body main table th {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+body main table th:nth-child(1) {
+  width: 40%;
+}
+body main table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
