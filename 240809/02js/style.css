@@ -1,0 +1,8 @@
+body .character {
+  width: 100px;
+  height: 100px;
+  background: url("./img/character.png") center/contain no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
