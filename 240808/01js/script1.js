@@ -26,13 +26,32 @@
 // 1시간 = 60분 = (60*60*1000) = 3,600,000밀리초
 // 1일 = 24시간 = (24*60*60*1000) = 80,640,000초
 
+// const today = new Date();
+
+// const year = today.getFullYear();
+
+// const lastDate = new Date(year, 11, 31);
+// const diffDate = lastDate - today;
+
+// const result = Math.round(diffDate / (24 * 60 * 60 * 1000));
+
+// alert(`올 연말 마지막 날까지 ${result}일 남았습니다.`);
+
+// const today = new Date();
+// const month = today.getMonth() + 1;
+// const date = today.getDate();
+// const day = today.getDay();
+// console.log(day);
+
 const today = new Date();
 
 const year = today.getFullYear();
+// console.log(year);
 
 const lastDate = new Date(year, 11, 31);
+
 const diffDate = lastDate - today;
+console.log(diffDate);
 
 const result = Math.round(diffDate / (24 * 60 * 60 * 1000));
-
-alert(`올 연말 마지막 날까지 ${result}일 남았습니다.`);
+console.log(result);

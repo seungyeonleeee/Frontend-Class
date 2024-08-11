@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- fontawesome -->
+    <script
+      src="https://kit.fontawesome.com/e6075b2cdc.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- custom css & js -->
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="./script.js"></script>
+    <title>Cyworld</title>
+  </head>
+  <body>
+    <div class="background">
+      <div class="outerbox">
+        <main>
+          <section class="homepage_profile">
+            <div class="visitors">
+              <span>TODAY</span>
+              <span class="accent">14</span>
+              <span>| TOTAL</span>
+              <span>1234</span>
+            </div>
+            <article>
+              <div class="profile_img">
+                <img src="./img/profile_img01.png" alt="profile_img01" />
+              </div>
+              <div class="profile_feeling">
+                <em>Today is...</em>
+                <span class="feeling">기쁨 😊</span>
+              </div>
+              <ul class="profile_info">
+                <li>
+                  <i class="fa-regular fa-user"></i>
+                  <span>이승연 ⋆◡̎⋆</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-mobile-screen-button"></i>
+                  <span>010.0000.0000</span>
+                </li>
+                <li>
+                  <i class="fa-regular fa-envelope"></i>
+                  <span>syyy0.02@gmail.com</span>
+                </li>
+                <li>
+                  <i class="fa-brands fa-instagram"></i>
+                  <span>dltmddusss</span>
+                </li>
+              </ul>
+              <div class="profile_feel">
+                <h4>오늘의 기분</h4>
+                <form
+                  name="emotionForm"
+                  action="http://127.0.0.1:5501"
+                  method="post"
+                >
+                  <select name="emotion" id="emotion">
+                    <option value="joy">기쁨 😊</option>
+                    <option value="happy">행복 😍</option>
+                    <option value="sad">슬픔 😢</option>
+                    <option value="angry">화남 😠</option>
+                  </select>
+                </form>
+              </div>
+            </article>
+          </section>
+          <section class="homepage_content">
+            <div class="content_header">
+              <b>이승연님의 미니홈피˛ε♡з¸</b>
+              <span>http://www.cyworld.com</span>
+            </div>
+            <div class="content_body">
+              <!-- <iframe id="contentFrame" src="./pages/home.html"></iframe> -->
+              <!-- <iframe id="contentFrame" src="./pages/game.html"></iframe> -->
+              <iframe id="contentFrame" src="./pages/jukebox.html"></iframe>
+            </div>
+          </section>
+          <section class="navigation">
+            <ul>
+              <li id="menuHome" class="navigation_item active">홈</li>
+              <li id="menuGame" class="navigation_item">게임</li>
+              <li id="menuJukebox" class="navigation_item">쥬크박스</li>
+            </ul>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

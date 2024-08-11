@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/home.css" />
+    <script defer src="../scripts/home.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="wrapper_header">
+        <div class="content_title">
+          <span class="title">Miniroom</span>
+        </div>
+        <div class="content">
+          <div class="character">
+            <img src="../img/miniroom_character.png" alt="character" />
+          </div>
+          <div class="text_box">
+            <span class="text"></span>
+            <span class="blick">|</span>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper_body">
+        <div class="content_title">
+          <span class="title">Guest book</span>
+          <span class="sub_title">일촌평을 남겨보세요!</span>
+        </div>
+        <div class="content">
+          <form action="http://127.0.0.1:5501" method="get">
+            <input type="text" name="guestbook" id="guestbook" />
+            <input type="submit" value="등록" />
+          </form>
+          <ul class="guestbook_area"></ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

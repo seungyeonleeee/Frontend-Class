@@ -7,6 +7,7 @@ imgs.forEach((img) => {
     //console.log("click");
     imgs.forEach((sibling) => {
       if (sibling !== img) {
+        // console.log(sibling);
         sibling.classList.remove("active");
       }
     });
@@ -17,6 +18,7 @@ imgs.forEach((img) => {
     //console.log(desc, contents);
 
     contents.forEach((content) => {
+      // console.log(content);
       content.classList.remove("active");
     });
 

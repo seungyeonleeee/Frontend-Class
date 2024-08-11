@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- fontawesome -->
+    <script
+      src="https://kit.fontawesome.com/e6075b2cdc.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- custom css & js -->
+    <link rel="stylesheet" href="../styles/jukebox.css" />
+    <script defer src="../scripts/jukebox.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="wrapper_header">
+        <div class="content_title">
+          <span class="title">Hot Artist</span>
+          <span class="sub_title">New Jeans의 최신곡 모음</span>
+        </div>
+        <div class="content">
+          <ul class="album_wrapper">
+            <li>
+              <div class="album_img">
+                <div class="album_play">
+                  <i class="fa-solid fa-play active"></i>
+                  <i class="fa-solid fa-pause"></i>
+                  <audio src="../img/album_play01.mp4"></audio>
+                </div>
+              </div>
+              <p class="album_title">How Sweet</p>
+              <p class="album_date">2024.05.24</p>
+            </li>
+            <li>
+              <div class="album_img">
+                <div class="album_play">
+                  <i class="fa-solid fa-play active"></i>
+                  <i class="fa-solid fa-pause"></i>
+                  <audio src="../img/album_play02.mp4"></audio>
+                </div>
+              </div>
+              <div class="album_desc">
+                <p class="album_title">Supernatural</p>
+                <p class="album_date">2024.06.21</p>
+              </div>
+            </li>
+            <li>
+              <div class="album_img">
+                <div class="album_play">
+                  <i class="fa-solid fa-play active"></i>
+                  <i class="fa-solid fa-pause"></i>
+                  <audio src="../img/album_play03.mp4"></audio>
+                </div>
+              </div>
+              <div class="album_desc">
+                <p class="album_title">Right Now</p>
+                <p class="album_date">2024.06.21</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="wrapper_body">
+        <div class="content_title">
+          <span class="title">My Playlist</span>
+          <span class="sub_title">저의 추천곡 같이 들어요!</span>
+        </div>
+        <div class="content">
+          <table class="album_table">
+            <thead>
+              <tr>
+                <th class="album_table_checkbox">
+                  <input type="checkbox" name="total" id="total" />
+                </th>
+                <th class="album_table_number">번호</th>
+                <th>곡명</th>
+                <th class="album_table_artist">아티스트</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="album_table_checkbox">
+                  <input
+                    type="checkbox"
+                    name="check01"
+                    id="check01"
+                    class="checkbox"
+                  />
+                </td>
+                <td class="album_table_number">01</td>
+                <td class="album_table_song">
+                  <i class="fa-solid fa-play"></i>
+                  <i class="fa-solid fa-pause"></i>
+                  <span>I adore you (Feat. Crush)</span>
+                  <audio src="../img/album_table_song01.mp4"></audio>
+                </td>
+                <td class="album_table_artist">Chan(찬)</td>
+              </tr>
+              <tr>
+                <td class="album_table_checkbox">
+                  <input
+                    type="checkbox"
+                    name="check02"
+                    id="check02"
+                    class="checkbox"
+                  />
+                </td>
+                <td class="album_table_number">02</td>
+                <td class="album_table_song">
+                  <i class="fa-solid fa-play"></i>
+                  <i class="fa-solid fa-pause"></i>
+                  <span>Best Day Ever</span>
+                  <audio src="../img/album_table_song02.mp4"></audio>
+                </td>
+                <td class="album_table_artist">Johnny Stimson</td>
+              </tr>
+              <tr>
+                <td class="album_table_checkbox">
+                  <input
+                    type="checkbox"
+                    name="check03"
+                    id="check03"
+                    class="checkbox"
+                  />
+                </td>
+                <td class="album_table_number">03</td>
+                <td class="album_table_song">
+                  <i class="fa-solid fa-play"></i>
+                  <i class="fa-solid fa-pause"></i>
+                  <span>노력</span>
+                  <audio src="../img/album_table_song03.mp4"></audio>
+                </td>
+                <td class="album_table_artist">최유리</td>
+              </tr>
+              <tr>
+                <td class="album_table_checkbox">
+                  <input
+                    type="checkbox"
+                    name="check04"
+                    id="check04"
+                    class="checkbox"
+                  />
+                </td>
+                <td class="album_table_number">04</td>
+                <td class="album_table_song">
+                  <i class="fa-solid fa-play"></i>
+                  <i class="fa-solid fa-pause"></i>
+                  <span>내 신발 좀 봐! (Look at My Shoes)</span>
+                  <audio src="../img/album_table_song04.mp4"></audio>
+                </td>
+                <td class="album_table_artist">Chan, SHIRT</td>
+              </tr>
+              <tr>
+                <td class="album_table_checkbox">
+                  <input
+                    type="checkbox"
+                    name="check05"
+                    id="check05"
+                    class="checkbox"
+                  />
+                </td>
+                <td class="album_table_number">05</td>
+                <td class="album_table_song">
+                  <i class="fa-solid fa-play"></i>
+                  <i class="fa-solid fa-pause"></i>
+                  <span>Pink!</span>
+                  <audio src="../img/album_table_song05.mp4"></audio>
+                </td>
+                <td class="album_table_artist">권진아</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="album_table_btns">
+            <div class="album_table_listen">
+              <button>듣기</button>
+            </div>
+            <div class="album_table_pager">| <span>1</span> |</div>
+            <div class="album_table_move">
+              <button>이동</button>
+              <button>배경음악 등록</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

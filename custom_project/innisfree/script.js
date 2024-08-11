@@ -84,54 +84,6 @@ $(".showcase_slide_wrap").slick({
 });
 
 // kakao map
-// const showPosition = (position) => {
-//   const latitude = position.coords.latitude;
-//   const longitude = position.coords.longitude;
-
-//   const container = document.getElementById("map");
-//   const options = {
-//     center: new kakao.maps.LatLng(latitude, longitude),
-//     level: 3,
-//   };
-
-//   const map = new kakao.maps.Map(container, options);
-
-//   // store info
-//   const positions = [
-//     {
-//       title: "이니스프리 NC 강남점",
-//       latlng: new kakao.maps.LatLng(37.5002382, 127.0260223),
-//       address: "서울 서초구 잠원로 37-6 뉴코아아울렛 1관 1층",
-//       info: "영업시간 : 오전 10:30 ~ 저녁 21:00",
-//     },
-//   ];
-
-//   // my position marker
-//   const markerPosition = new kakao.maps.LatLng(latitude, longitude);
-//   const marker = new kakao.maps.Marker({
-//     position: markerPosition,
-//   });
-//   marker.setMap(map);
-
-//   // my position infowindow
-//   const iwContent =
-//       '<div class="myposition" style="padding:5px;">🎈 현재 내 위치</div>',
-//     iwPosition = new kakao.maps.LatLng(latitude, longitude);
-
-//   const infowindow = new kakao.maps.InfoWindow({
-//     position: iwPosition,
-//     content: iwContent,
-//   });
-
-//   infowindow.open(map, marker);
-
-//   infowindow.setMap(map);
-// };
-// const errorPosition = (err) => {
-//   alert(err.message);
-// };
-// navigator.geolocation.getCurrentPosition(showPosition, errorPosition);
-
 //kakao map
 const showPosition = (position) => {
   const latitude = position.coords.latitude;
@@ -240,6 +192,6 @@ navigator.geolocation.getCurrentPosition(showPosition, errorPosition);
 const openMap = document.querySelector(".openMap");
 openMap.addEventListener("click", () => {
   const map = document.querySelector("#map");
-  console.log(map);
   map.classList.toggle("active");
+  map.relayout();
 });

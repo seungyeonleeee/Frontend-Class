@@ -1,0 +1,134 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+input {
+  border: none;
+}
+input:focus {
+  outline: none;
+}
+
+html {
+  font-size: 10px;
+}
+
+@font-face {
+  font-family: "NeoDunggeunmo";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.3/NeoDunggeunmo.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+body {
+  color: #222;
+  font: 400 1.4rem/1 "Pretendard-Regular";
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.wrapper .content_title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #adadad;
+  font-family: "NeoDunggeunmo";
+}
+.wrapper .content_title .title {
+  color: #55b2d4;
+}
+.wrapper .contnet {
+  width: 100%;
+  height: 100%;
+}
+.wrapper .contnet h3 {
+  font: 400 2rem/1 "NeoDunggeunmo";
+  text-align: center;
+  margin: 15px 0;
+}
+.wrapper .contnet h3 b {
+  color: #dc143c;
+}
+.wrapper .contnet .game {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px dashed #adadad;
+  border-radius: 10px;
+}
+.wrapper .contnet .game li {
+  width: 130px;
+  cursor: pointer;
+}
+.wrapper .contnet .game li img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: all 0.3s;
+}
+.wrapper .contnet .game li:hover img {
+  filter: invert(0.1);
+}
+.wrapper .contnet .game li#rock {
+  width: 145px;
+  transform: translateY(13px);
+}
+.wrapper .contnet .game li#paper {
+  transform: translateY(5px);
+}
+.wrapper .contnet .choice_area {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.wrapper .contnet .choice_area p {
+  margin: 5px 0;
+}
+.wrapper .contnet .choice_area p span {
+  color: #dc143c;
+}
+.wrapper .contnet .result {
+  width: 100%;
+  text-align: center;
+}
+.wrapper .contnet .result h5 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+.wrapper .contnet .result p {
+  font: 400 1.6rem/1 "NeoDunggeunmo";
+}

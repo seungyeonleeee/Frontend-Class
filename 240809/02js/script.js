@@ -21,30 +21,50 @@
 
 //////////////////////////////
 
+// const character = document.querySelector(".character");
+
+// let degree = 0;
+
+// const loop = () => {
+//   // 각도 계산
+//   // 60분법의 각도를 radian으로 변환
+//   const rotation = (degree * Math.PI) / 180;
+
+//   // x축 / y축 값 정의
+//   const targetX = window.innerWidth / 2 - 50 + 100 * Math.cos(rotation);
+//   //100 * Math.cos(rotation) x축의 값을 체크
+//   const targetY = window.innerHeight / 2 - 50 + 100 * Math.sin(rotation);
+//   //100 * Math.sin(rotation) y축의 값을 체크
+
+//   character.style.left = `${targetX}px`;
+//   character.style.top = `${targetY}px`;
+
+//   degree += 1;
+
+//   // 재귀함수
+//   requestAnimationFrame(loop);
+
+//   console.log(rotation);
+// };
+
+// loop();
+
 const character = document.querySelector(".character");
 
 let degree = 0;
 
 const loop = () => {
-  // 각도 계산
-  // 60분법의 각도를 radian으로 변환
   const rotation = (degree * Math.PI) / 180;
 
-  // x축 / y축 값 정의
-  const targetX = window.innerWidth / 2 - 50 + 100 * Math.cos(rotation);
-  //100 * Math.cos(rotation) x축의 값을 체크
-  const targetY = window.innerHeight / 2 - 50 + 100 * Math.sin(rotation);
-  //100 * Math.sin(rotation) y축의 값을 체크
+  const targetX = innerWidth / 2 - 50 + 100 * Math.cos(rotation);
+  const targetY = innerHeight / 2 - 50 + 100 * Math.sin(rotation);
 
   character.style.left = `${targetX}px`;
   character.style.top = `${targetY}px`;
 
-  degree += 1;
+  degree += 2;
 
-  // 재귀함수
   requestAnimationFrame(loop);
-
-  console.log(rotation);
 };
 
 loop();
