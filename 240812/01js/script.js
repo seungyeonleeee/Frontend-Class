@@ -1,5 +1,10 @@
-window.onload = function () {
+// window.onload = function () {
+//   let randomNumber = Math.floor(Math.random() * 5) + 1;
+//   console.log(randomNumber);
+//   document.body.style.backgroundImage = `url(./img/bg-${randomNumber}.jpg)`;
+// };
+
+onload = function () {
   let randomNumber = Math.floor(Math.random() * 5) + 1;
-  console.log(randomNumber);
-  document.body.style.backgroundImage = `url(./img/bg-${randomNumber}.jpg)`;
+  this.document.body.style.backgroundImage = `url(./img/bg-${randomNumber}.jpg)`;
 };

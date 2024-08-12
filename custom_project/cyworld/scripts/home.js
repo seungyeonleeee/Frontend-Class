@@ -1,21 +1,21 @@
 // text_box
-// const textContent = "제 미니홈피에 오신 걸 환영합니다! \n 구경하고 가세요~";
-// const text = document.querySelector(".text");
-// const cursor = document.querySelector(".blick");
+const textContent =
+  "제 미니홈피에 오신 걸 환영합니다! \n 구경하고 가세요~ ˛ε♡з¸";
+const text = document.querySelector(".text");
+const cursor = document.querySelector(".blick");
 
-// let i = 0;
+let i = 0;
 
-// const typing = () => {
-//   if (i < textContent.length) {
-//     let txt = textContent[i++];
-//     textContent.innerHTML += txt === "\n" ? "<br/>" : txt;
-//     setTimeout(typing, 250);
-//   } else {
-//     cursor.style.animation = "none";
-//     cursor.style.display = "none";
-//   }
-// };
-// typing();
+const typing = () => {
+  let txt = textContent[i++];
+  text.innerHTML += txt === "\n" ? "<br/>" : txt;
+
+  if (i > textContent.length) {
+    text.textContent = "";
+    i = 0;
+  }
+};
+setInterval(typing, 170);
 
 // guestbook
 const form = document.querySelector("form");
