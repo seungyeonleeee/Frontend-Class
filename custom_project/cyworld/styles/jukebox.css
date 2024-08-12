@@ -216,6 +216,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  cursor: pointer;
 }
 .wrapper .wrapper_body .content .album_table_btns .album_table_pager span {
   font-size: 1.2rem;
