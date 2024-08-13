@@ -19,27 +19,34 @@ setInterval(typing, 170);
 
 // guestbook
 const form = document.querySelector("form");
+const guestbook = document.querySelector("#guestbook");
+const guestbookArea = document.querySelector(".guestbook_area");
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const guestbook = document.querySelector("#guestbook");
-  const guestbookArea = document.querySelector(".guestbook_area");
+const delItme = (e) => {
+  const target = e.target.parentElement;
+  target.remove();
+};
+
+const addItem = (text) => {
   const liItem = document.createElement("li");
+  const p = document.createElement("p");
+  const deleteBtn = document.createElement("span");
 
-  liItem.innerHTML = ` <p>${guestbook.value}</p>
-              <span>삭제</span>
-  `;
+  p.innerText = text;
+  deleteBtn.innerText = `삭제`;
+  // liItem.innerHTML = `<p>${text}</p><span>삭제</span>`;
 
+  deleteBtn.addEventListener("click", delItme);
+
+  liItem.appendChild(p);
+  liItem.appendChild(deleteBtn);
   guestbookArea.appendChild(liItem);
+};
 
+const handler = (e) => {
+  e.preventDefault();
+  addItem(guestbook.value);
   guestbook.value = "";
+};
 
-  const deleteBtns = document.querySelectorAll(".guestbook_area span");
-
-  deleteBtns.forEach((deleteBtn) => {
-    deleteBtn.addEventListener("click", function () {
-      this.parentNode.parentNode.removeChild(this.parentNode);
-      // this.parentNode.remove(this.parentNode);
-    });
-  });
-});
+form.addEventListener("submit", handler);
