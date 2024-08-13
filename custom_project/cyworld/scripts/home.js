@@ -19,6 +19,7 @@ setInterval(typing, 170);
 
 // guestbook
 const form = document.querySelector("form");
+const guestname = document.querySelector("#guestname");
 const guestbook = document.querySelector("#guestbook");
 const guestbookArea = document.querySelector(".guestbook_area");
 
@@ -27,25 +28,30 @@ const delItme = (e) => {
   target.remove();
 };
 
-const addItem = (text) => {
-  const liItem = document.createElement("li");
-  const p = document.createElement("p");
-  const deleteBtn = document.createElement("span");
+const addItem = (name, text) => {
+  if (name !== "" && text !== "") {
+    const liItem = document.createElement("li");
+    const p = document.createElement("p");
+    const b = document.createElement("b");
+    const deleteBtn = document.createElement("span");
 
-  p.innerText = text;
-  deleteBtn.innerText = `삭제`;
-  // liItem.innerHTML = `<p>${text}</p><span>삭제</span>`;
+    p.innerText = text;
+    b.innerText = `${name} : `;
+    deleteBtn.innerText = `삭제`;
+    // liItem.innerHTML = `<p>${text}</p><span>삭제</span>`;
 
-  deleteBtn.addEventListener("click", delItme);
-
-  liItem.appendChild(p);
-  liItem.appendChild(deleteBtn);
-  guestbookArea.appendChild(liItem);
+    deleteBtn.addEventListener("click", delItme);
+    p.prepend(b);
+    liItem.appendChild(p);
+    liItem.appendChild(deleteBtn);
+    guestbookArea.appendChild(liItem);
+  }
 };
 
 const handler = (e) => {
   e.preventDefault();
-  addItem(guestbook.value);
+  addItem(guestname.value, guestbook.value);
+  guestname.value = "";
   guestbook.value = "";
 };
 

@@ -25,15 +25,31 @@
       </div>
       <div class="wrapper_body">
         <div class="content_title">
-          <span class="title">Guest book</span>
+          <span class="title">Guest Book</span>
           <span class="sub_title">일촌평을 남겨보세요!</span>
         </div>
         <div class="content">
           <form action="http://127.0.0.1:5501" method="get">
-            <input type="text" name="guestbook" id="guestbook" />
+            <input
+              type="text"
+              name="guestname"
+              id="guestname"
+              placeholder="이름 입력"
+            />:
+            <input
+              type="text"
+              name="guestbook"
+              id="guestbook"
+              placeholder="내용을 입력하세요"
+            />
             <input type="submit" value="등록" />
           </form>
-          <ul class="guestbook_area"></ul>
+          <ul class="guestbook_area">
+            <!-- <li>
+              <p><b>이승연 : </b>ㅇㅇㅇㅇㅇㅇ</p>
+              <span>삭제</span>
+            </li> -->
+          </ul>
         </div>
       </div>
     </div>

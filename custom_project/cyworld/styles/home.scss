@@ -82,13 +82,22 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 20px;
+        gap: 5px;
         margin-bottom: 10px;
-        input[type="text"] {
-          width: 100%;
+        #guestname {
+          width: 20%;
           padding: 5px 10px;
           border: 1px solid map-get($color, light-gray-color);
           border-radius: 5px;
+          font: 400 1.4rem/1 "Pretendard-Regular";
+        }
+        #guestbook {
+          width: 80%;
+          padding: 5px 10px;
+          border: 1px solid map-get($color, light-gray-color);
+          border-radius: 5px;
+          margin-right: 5px;
+          font: 400 1.4rem/1 "Pretendard-Regular";
         }
         input[type="submit"] {
           padding: 5px 10px;
@@ -108,14 +117,17 @@ body {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 10px;
           margin: 2px 0;
           p {
             width: 90%;
+            padding: 2px;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
             border-bottom: 1px dashed map-get($color, light-gray-color);
+            b {
+              font: 400 1.5rem/1 "NeoDunggeunmo";
+            }
           }
           span {
             padding: 5px;
