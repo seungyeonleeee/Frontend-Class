@@ -1,0 +1,250 @@
+// reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// variable
+$main-dark-color: #000;
+$main-light-color: #fff;
+$main-active-color: #353b48;
+$main-button-color: #dc143c;
+$main-cursor-color: #777;
+$main-hash-color: #ff0;
+
+// common
+html {
+  font-size: 14px;
+  background: $main-dark-color;
+}
+
+// contents
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+// header
+header {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $main-dark-color;
+  nav {
+    width: 900px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .logo {
+      img {
+        height: 30px;
+      }
+    }
+    .search-box {
+      i {
+        font-size: 1.4rem;
+        color: $main-light-color;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+// movie
+.movie {
+  width: 100%;
+  height: 1200px;
+  background: url("https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2020%2F10%2Freasons-results-netflix-korean-dramas-original-sponsored-contents-kingdom-extracurricular-new-01.jpg?w=1260&cbr=1&q=90&fit=max")
+    center/cover no-repeat;
+}
+
+// faq
+.faq {
+  width: 100%;
+  height: 100%;
+  padding: 50px 0;
+  color: $main-light-color;
+  .faq-inner {
+    width: 700px;
+    margin: 0 auto;
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+    }
+    .accordion {
+      font-size: 1.3rem;
+      margin: 10px 0;
+      .title {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 8px;
+        font-weight: bold;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s;
+        &::after {
+          content: "\2b";
+          font-family: "fontawesome";
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          transform: translateY(-50%);
+          transition: all 0.3s;
+        }
+        &.active {
+          background: $main-active-color;
+          &::after {
+            content: "\2b";
+            font-family: "fontawesome";
+            transform: translateY(-50%) rotate(45deg);
+          }
+        }
+      }
+      .content {
+        padding: 10px;
+        margin-bottom: 16px;
+        font-size: 1rem;
+        display: none;
+      }
+    }
+    .newsletter {
+      width: 100%;
+      text-align: center;
+      p {
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        input[type="text"] {
+          flex: 3;
+          height: 60px;
+          font-size: 1.4rem;
+          padding: 0 10px;
+          border: none;
+          &:focus {
+            outline: none;
+          }
+        }
+        input[type="submit"] {
+          flex: 1;
+          height: 60px;
+          font-size: 1.4rem;
+          background: $main-button-color;
+          color: $main-light-color;
+          cursor: pointer;
+          border: none;
+          opacity: 0.9;
+          transition: all 0.3s;
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+// modal-search
+.modal-search {
+  position: fixed;
+  top: -300px;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $main-light-color;
+  background: rgba($color: #000000, $alpha: 0.7);
+  transition: all 0.5s;
+  &.active {
+    top: 0;
+  }
+  .close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    i {
+      font-size: 2rem;
+      color: $main-cursor-color;
+      cursor: pointer;
+      transition: all 0.3s;
+      &:hover {
+        color: $main-light-color;
+      }
+    }
+  }
+  .search {
+    width: 500px;
+    form {
+      display: flex;
+      margin-bottom: 20px;
+      position: relative;
+      input[type="text"] {
+        flex: 5;
+        padding: 15px;
+        padding-left: 30px;
+        border: none;
+        position: relative;
+        &::placeholder {
+          opacity: 1;
+          transition: all 0.3s;
+        }
+        &:focus {
+          outline: none;
+          &::placeholder {
+            opacity: 0;
+          }
+        }
+      }
+      input[type="submit"] {
+        flex: 1;
+        padding: 15px;
+        border: none;
+        background: $main-button-color;
+        color: $main-light-color;
+        opacity: 0.9;
+        transition: all 0.3s;
+        cursor: pointer;
+        &:hover {
+          opacity: 1;
+        }
+      }
+      &::before {
+        content: "\f002";
+        font-family: "fontawesome";
+        color: $main-cursor-color;
+        position: absolute;
+        top: 50%;
+        left: 8px;
+        transform: translateY(-55%);
+        font-size: 1.2rem;
+        z-index: 1;
+      }
+    }
+    .hash-tag {
+      font-size: 1rem;
+      color: $main-light-color;
+      margin-top: 10px;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+  }
+}

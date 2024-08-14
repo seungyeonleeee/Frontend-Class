@@ -38,7 +38,6 @@ const addItem = (name, text) => {
     p.innerText = text;
     b.innerText = `${name} : `;
     deleteBtn.innerText = `삭제`;
-    // liItem.innerHTML = `<p>${text}</p><span>삭제</span>`;
 
     deleteBtn.addEventListener("click", delItme);
     p.prepend(b);
