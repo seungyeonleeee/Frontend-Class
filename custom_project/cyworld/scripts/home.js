@@ -23,20 +23,33 @@ const guestname = document.querySelector("#guestname");
 const guestbook = document.querySelector("#guestbook");
 const guestbookArea = document.querySelector(".guestbook_area");
 
+let books = [];
+
+const save = () => {
+  localStorage.setItem(`books`, JSON.stringify(books));
+};
+
 const delItme = (e) => {
   const target = e.target.parentElement;
+
+  books = books.filter((book) => {
+    book.id != target.id;
+  });
+
+  save();
+
   target.remove();
 };
 
-const addItem = (name, text) => {
-  if (name !== "" && text !== "") {
+const addItem = (book) => {
+  if (book.name !== "" && book.text !== "") {
     const liItem = document.createElement("li");
     const p = document.createElement("p");
     const b = document.createElement("b");
     const deleteBtn = document.createElement("span");
 
-    p.innerText = text;
-    b.innerText = `${name} : `;
+    p.innerText = book.text;
+    b.innerText = `${book.name} : `;
     deleteBtn.innerText = `삭제`;
 
     deleteBtn.addEventListener("click", delItme);
@@ -44,14 +57,39 @@ const addItem = (name, text) => {
     liItem.appendChild(p);
     liItem.appendChild(deleteBtn);
     guestbookArea.appendChild(liItem);
+
+    liItem.id = book.id;
   }
 };
 
 const handler = (e) => {
   e.preventDefault();
-  addItem(guestname.value, guestbook.value);
+
+  const book = {
+    id: Date.now(),
+    name: guestname.value,
+    text: guestbook.value,
+  };
+
+  books.push(book);
+  addItem(book);
+
+  save();
+
   guestname.value = "";
   guestbook.value = "";
 };
+
+const init = () => {
+  const userBooks = JSON.parse(localStorage.getItem(`books`));
+  if (userBooks) {
+    userBooks.forEach((book) => {
+      addItem(book);
+    });
+    books = userBooks;
+  }
+};
+
+init();
 
 form.addEventListener("submit", handler);
