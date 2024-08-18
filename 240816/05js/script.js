@@ -123,15 +123,15 @@
 // let subjects = ["html", "css", "JS", "react", "TS"];
 // console.log(subjects.splice(2)); // 인자값 index
 
-let week = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+// let week = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 // // console.log(week.splice(1, 5)); // 첫번째 인자값 index 두번째 인자값은 갯수
 
 // console.log(week.splice(1, 5, "holiday"));
 // 원본 데이터 값에서 index 1번부터 5개를 드러내고 마지막 인자값을 그사이에 추가
 // console.log(week);
 
-console.log(week.splice(4, 0, "holiday"));
-console.log(week);
+// console.log(week.splice(4, 0, "holiday"));
+// console.log(week);
 
 // ! 원본데이터 값을 변경
 // 주로 원본데이터를 복제한 후, 많이 사용
@@ -141,3 +141,76 @@ console.log(week);
 // console.log(colors.slice(2)); // 첫번째 인자값 index부터 끝까지
 // console.log(colors.slice(1, 4)); // 첫번째 인자값 index 두번째 인자값은 index의 앞까지
 // console.log(colors); // 원본데이터 유지
+
+// let pets = ["dog", "cat", "mouse"];
+// console.log(pets.length);
+// console.log(pets[0]);
+
+// pets[0] = "hamster";
+// console.log(pets);
+
+// const colors = ["red", "green", "blue", "white", "black"];
+
+// for (let i = 0; i < colors.length; i++) {
+//   console.log(colors[i]);
+// }
+// for (let color of colors) {
+//   console.log(color);
+// }
+// colors.forEach((color) => {
+//   console.log(color);
+// });
+
+// const vegitable = ["양상추", "토마토", "피클"];
+// const cheese = ["모짜렐라", "슈레드"];
+// const meat = ["불고기"];
+
+// // const meatBurger = vegitable.concat(meat, "빵");
+// const meatBurger = meat.concat(vegitable);
+// console.log(meatBurger);
+
+// const cheeseBurger = [...vegitable, ...cheese, ...meat, "빵"];
+// console.log(cheeseBurger);
+
+// let numbers = [6, 9, 3, 21, 18];
+// console.log(numbers);
+// console.log(numbers.reverse());
+
+// let week = ["sun", "mon", "tue"];
+// let values = [5, 20, 3, 11, 4, 15];
+
+// console.log(week);
+// console.log(week.sort());
+// console.log(values);
+// console.log(values.sort());
+// console.log(
+//   values.sort((a, b) => {
+//     return b - a;
+//   })
+// );
+
+// let animals = ["lion", "bear", "bird"];
+// console.log(animals);
+// animals.pop();
+// console.log(animals);
+
+// animals.push("tiger");
+// console.log(animals);
+
+// let fruits = ["apple", "pear", "banana"];
+// fruits.shift();
+// console.log(fruits);
+// fruits.unshift("cherry");
+// console.log(fruits);
+
+// let subjects = ["html", "css", "JS", "react", "TS"];
+// console.log(subjects.splice(2));
+// let week = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+// // console.log(week.splice(1, 5));
+// console.log(week.splice(1, 5, "holiday"));
+// console.log(week);
+
+let colors = ["red", "green", "blue", "white", "black"];
+console.log(colors.slice(2));
+console.log(colors.slice(1, 4));
+console.log(colors);
