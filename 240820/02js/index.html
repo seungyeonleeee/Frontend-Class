@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="./script.js"></script>
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: url("./img/background.jpg") center/cover no-repeat;
+        color: #fff;
+        .container {
+          width: 900px;
+          height: 480px;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 100px;
+          border-radius: 10px;
+          background: rgba(0, 0, 0, 0.5);
+          form {
+            width: 90%;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            input[type="text"] {
+              width: 300px;
+              padding: 10px;
+              &:focus {
+                outline: none;
+              }
+            }
+          }
+          #result {
+            font-size: 60px;
+            height: 100%;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <form action="http://127.0.0.1:5500" method="get">
+        <label for="userId">User ID</label>
+        <input
+          type="text"
+          name="userId"
+          id="userId"
+          placeholder="숫자로 된 아이디를 입력하세요"
+        />
+      </form>
+      <p id="result">유저 검색 결과 없음</p>
+    </main>
+  </body>
+</html>

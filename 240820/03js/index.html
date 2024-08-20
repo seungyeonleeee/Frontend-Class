@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="./script.js"></script>
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      ul,
+      li {
+        list-style: none;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: url("./img/background.jpg") center/cover no-repeat;
+        .container {
+          width: 900px;
+          height: 480px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px;
+          border-radius: 10px;
+          background: rgba(0, 0, 0, 0.5);
+          .button-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            .button {
+              padding: 10px 20px;
+              background: rgba(0, 0, 0, 0.1);
+              color: #fff;
+              cursor: pointer;
+            }
+          }
+          .user_list {
+            width: 80%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            background: rgba(255, 255, 255, 0.5);
+            font-size: 1.4rem;
+            border-radius: 10px;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <div class="button-wrapper">
+        <button class="button" data-age="20">20세 이상</button>
+        <button class="button" data-age="30">30세 이상</button>
+        <button class="button" data-age="40">40세 이상</button>
+      </div>
+      <ul class="user_list"></ul>
+    </main>
+  </body>
+</html>
