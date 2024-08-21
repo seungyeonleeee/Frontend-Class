@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #487ef3;
+  color: #333;
+}
+body .container {
+  width: 640px;
+  height: 400px;
+  padding: 40px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+body .container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+body .container form input[type=text] {
+  width: 400px;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #c1c1c1;
+}
+body .container form input[type=text]:focus {
+  outline: none;
+}
+body .container form #warningMessage {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff5967;
+}
+body .container form .button-wrapper {
+  display: flex;
+  gap: 20px;
+}
+body .container form .button-wrapper button {
+  padding: 15px 60px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.3rem;
+}
+body .container form .button-wrapper button.cancel {
+  background: #959595;
+}
+body .container form .button-wrapper button.submit {
+  background: #487ef3;
+}

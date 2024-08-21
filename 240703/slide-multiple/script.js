@@ -6,7 +6,7 @@ const prevBtn = btns.querySelector(".prev");
 const nextBtn = btns.querySelector(".next");
 
 //슬라이드
-const slides = document.querySelector(".slides");
+const slides = document.querySelector(".slides"); //ul
 const slide = slides.querySelectorAll("li");
 //console.log(slide[4]);
 //NodeList[] = 유사배열 => index번호 부여
