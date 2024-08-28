@@ -1,0 +1,45 @@
+// reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// variables
+$main-bg-color: #fff;
+$main-tb-color: #222;
+$main-btn-color: #cecece;
+
+// contents
+body {
+  overflow: hidden;
+  #container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: top;
+    #toolbar {
+      background: $main-tb-color;
+      color: $main-bg-color;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 70px;
+      & > div * {
+        margin-right: 5px;
+      }
+      label {
+        font-size: 0.8rem;
+      }
+      button {
+        background: $main-btn-color;
+        border: none;
+        border-radius: 8px;
+        padding: 6px 10px;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+    }
+  }
+}

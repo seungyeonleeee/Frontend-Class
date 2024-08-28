@@ -50,7 +50,7 @@ fetch(productInfo)
 
       //화폐 단위 만들기
       const price = new Intl.NumberFormat("ko-kr", {
-        style: "currency",
+        // style: "currency",
         currency: "KRW",
       }).format(product.price);
 
