@@ -2,6 +2,9 @@
 import api from "./env.js";
 // import {API_KEY} from "./env.js";
 
+// 11.
+const form = document.querySelector("form");
+
 // 2.
 const url = `https://api.themoviedb.org/3/movie/popular?api_key=${api.API_KEY}&language=ko&page=1`;
 
@@ -78,3 +81,41 @@ fetch(url)
       });
     }
   );
+
+// 15.
+const removeAll = () => {
+  const movies = document.querySelectorAll(".movie");
+  movies.forEach((movie) => {
+    movie.remove();
+  });
+};
+
+// 13.
+const searchMovie = (e) => {
+  e.preventDefault();
+  // console.log("event");
+
+  const input = document.querySelector("#search");
+  // console.log(input.value);
+  const { value: keyword } = input;
+  // console.log(keyword);
+
+  const searchURL = `https://api.themoviedb.org/3/search/movie?api_key=${api.API_KEY}&query=${keyword}&include_adult=false&language=ko&page=1`;
+
+  if (keyword) {
+    // 14.
+    removeAll();
+
+    // 13.
+    fetch(searchURL)
+      .then((response) => response.json())
+      .then(({ results }) =>
+        results.forEach((movie) => {
+          createBlock(movie);
+        })
+      );
+  }
+};
+
+// 12.
+form.addEventListener("submit", searchMovie);
