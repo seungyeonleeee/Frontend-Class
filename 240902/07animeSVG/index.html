@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- anime -->
+    <script src="./anime.js"></script>
+    <!-- custom js -->
+    <script defer src="./script.js"></script>
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      ul,
+      li {
+        list-style: none;
+      }
+
+      section {
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        .circle {
+          position: absolute;
+          top: 22.5%;
+          left: 18.5%;
+          width: 10px;
+          height: 10px;
+          background: #fff;
+          border-radius: 50%;
+        }
+        .eye {
+          position: absolute;
+          top: 40%;
+          left: 25%;
+          width: 20px;
+          height: 20px;
+          background: #fff;
+          border-radius: 50%;
+          animation: ani 1s ease-in-out infinite alternate;
+        }
+        .svg {
+          fill: none;
+          stroke: #fff;
+          stroke-width: 2;
+          width: 1200px;
+        }
+      }
+
+      @keyframes ani {
+        0% {
+          height: 20px;
+          transform: skew(0deg);
+        }
+        100% {
+          height: 10px;
+          transform: skew(20deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div class="circle"></div>
+      <div class="eye"></div>
+      <svg class="svg" viewBox="0 0 851 365">
+        <path
+          d="M291 96C197.4 46 117.833 32.1667 89 36C56.5 40.3208 30.5 59 15 86.5C-69 328 243.5 373.833 380 362C580.4 329.6 695.833 195.833 728.5 133C792.5 151.4 839.5 115 850.5 82C830 77.5 829.5 91.5 808.5 82C782 60 753.5 68 742.5 74.5C736.167 60.8333 728.5 36 703 36C686.479 36 686.5 3.5 671.414 0.5C642.245 57.6374 679.711 105.314 703 122.5C651 169.5 549 201.5 478 190C407 178.5 408 158.5 291 96Z"
+        />
+      </svg>
+    </section>
+  </body>
+</html>
