@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 const Body5 = () => {
   const [text, setText] = useState("");
   const textRef = useRef();
-  // console.log(textRef); // 객체 => current
+  console.log(textRef); // 객체 => current
 
   const handleOnChange = (e) => {
     setText(e.target.value);

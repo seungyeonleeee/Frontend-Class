@@ -131,26 +131,126 @@
 // JS 컴포넌트화 => 함수형 // Class
 
 // 배열의 구조분해할당
-const fruits02 = ["사과", "복숭아"];
-// 비효율적
-// const apple = fruits02[0];
-// const peach = fruits02[1];
+// const fruits02 = ["사과", "복숭아"];
+// // 비효율적
+// // const apple = fruits02[0];
+// // const peach = fruits02[1];
 
-// 구조분해할당
-const [apple, peach] = fruits02; // fruits02가 배열이기 때문에 []
+// // 구조분해할당
+// const [apple, peach] = fruits02; // fruits02가 배열이기 때문에 []
 
-console.log(apple, peach);
+// console.log(apple, peach);
 
-// 객체의 구조분해할당
-const member03 = {
-  name: "David",
-  age: 20,
-};
-// const { name, age } = member03;
-// console.log(name, age);
-const { name: userName, age } = member03;
-console.log(userName, age);
+// // 객체의 구조분해할당
+// const member03 = {
+//   name: "David",
+//   age: 20,
+// };
+// // const { name, age } = member03;
+// // console.log(name, age);
+// const { name: userName, age } = member03;
+// console.log(userName, age);
 
 // 8. 배열 메서드
 // map() // filter() // reduce()
 // map() : 배열안에 있는 요소들에게 특정 함수 안에 있는 기능을 동일하게 실행, 적용 => 새로운 배열로 다시 생성
+
+// const hello = (name, message) => {
+//   console.log(`${name}님 ${message}`);
+// };
+// hello("원빈", "반갑습니다");
+// hello("현빈");
+
+// const addNum = (...numbers) => {
+//   // const result = num01 + num02;
+//   // return result;
+
+//   let sum = 0;
+//   for (let number of numbers) {
+//     sum += number;
+//   }
+//   return sum;
+// };
+// console.log(addNum(1, 2, 3, 4, 5));
+
+// const fruits = ["apple", "banana", "cherry"];
+// // const favorite = fruits;
+// const favorite = [...fruits];
+
+// favorite[1] = "grape";
+
+// console.log(favorite);
+// console.log(fruits);
+
+// const animal = ["bird", "cat"];
+// const fruits01 = ["melon", "fineapple"];
+
+// console.log([animal, fruits01]);
+// console.log([...animal, ...fruits01]);
+
+// let [teacher, ...student] = ["Kim", "Lee", "Park", "Choi"];
+// console.log(teacher, student);
+
+// const book = {
+//   title: "Javascript",
+//   pages: 500,
+// };
+// book.published = "2024-08-19";
+// console.log(book);
+// console.log(book["title"]);
+
+// let user = {
+//   name: "슛돌이",
+// };
+// user.age = 25;
+// console.log(user);
+
+// const makeUser = (name, age) => {
+//   return {
+//     name,
+//     age,
+//   };
+// };
+// const user1 = makeUser("영심이", 20);
+// console.log(user1);
+
+// let id1 = Symbol();
+// let id2 = Symbol();
+
+// console.log(id1 === id2);
+
+// const id = Symbol("id");
+// const tel = Symbol("telephone number");
+
+// const member = {
+//   name: "David",
+//   age: 20,
+//   [id]: 1234,
+//   [tel]: () => {
+//     prompt("당신의 전화번호는?");
+//   },
+// };
+// console.log(member);
+
+// for (let item in member) {
+//   console.log(item);
+// }
+// console.log(member[id]);
+// console.log(member[tel]());
+
+// const fruits02 = ["사과", "복숭아"];
+// // const apple = fruits02[0];
+// // const peach = fruits02[1];
+
+// const [apple, peach] = fruits02;
+
+// console.log(apple, peach);
+
+// const member03 = {
+//   name: "David",
+//   age: 20,
+// };
+// // const { name, age } = member03;
+// // console.log(name, age);
+// const { name: userName, age } = member03;
+// console.log(userName, age);

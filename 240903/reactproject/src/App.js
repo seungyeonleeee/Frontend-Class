@@ -8,7 +8,7 @@ function App() {
   const BodyProps = {
     name: "Lee",
     location: "서울시",
-    // favorList: ["파스타", "소금빵", "떡볶이"],
+    favorList: ["파스타", "소금빵", "떡볶이"],
   };
 
   return (

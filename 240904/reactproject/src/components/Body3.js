@@ -26,6 +26,7 @@ const Body3 = () => {
     birth: "",
     bio: "",
   });
+  // console.log(state);
 
   const handleOnChange = (e) => {
     console.log("현재 수정 대상 : ", e.target.name);

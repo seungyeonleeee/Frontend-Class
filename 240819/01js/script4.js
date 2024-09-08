@@ -16,15 +16,29 @@
 
 // console.log(bag);
 
+// const myCup = new Map([
+//   ["color", "white"],
+//   ["material", "ceramic"],
+//   ["capacity", "300ml"],
+// ]);
+// console.log(myCup);
+// console.log(myCup.size); // 배열의 length
+
+// myCup.set("type", "mini");
+// console.log(myCup);
+
+// Set
+
+const bag = new Map();
+console.log(bag);
+bag.set("color", "red");
+console.log(bag);
+
 const myCup = new Map([
   ["color", "white"],
   ["material", "ceramic"],
   ["capacity", "300ml"],
 ]);
-console.log(myCup);
-console.log(myCup.size); // 배열의 length
-
+console.log(myCup.size);
 myCup.set("type", "mini");
 console.log(myCup);
-
-// Set

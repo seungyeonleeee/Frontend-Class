@@ -15,3 +15,14 @@
 // }
 // console.log("종료");
 // // 에러가 발생되면 에러객체가 나옴 이벤트 e객체처럼 err
+
+try {
+  console.log("시작");
+  add();
+  console.log("실행중");
+  console.log("끝");
+} catch (err) {
+  console.log(err.name);
+  console.log(err.message);
+}
+console.log("종료");

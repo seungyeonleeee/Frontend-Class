@@ -24,7 +24,7 @@ canvas.addEventListener("mousedown", (e) => {
 
   startX = e.clientX;
   startY = e.clientY;
-  // console.log(startX, startY);
+  console.log(startX, startY);
 });
 
 // 7.

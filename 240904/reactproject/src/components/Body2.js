@@ -19,6 +19,8 @@ const Body2 = () => {
     setBio(e.target.value);
   };
 
+  console.log(name, gender, birth, bio);
+
   return (
     <div>
       <div>

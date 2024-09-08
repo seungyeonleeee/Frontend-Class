@@ -38,8 +38,8 @@ const Body1 = () => {
   return (
     <div>
       {/* <button onClick={handleOnClick}>클릭하세요</button> */}
-
-      {/* <button name="A버튼" onClick={handleOnClick}>
+      {/* 
+      <button name="A버튼" onClick={handleOnClick}>
         A버튼
       </button>
       <button name="B버튼" onClick={handleOnClick}>

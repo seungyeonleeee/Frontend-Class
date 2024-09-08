@@ -10,8 +10,8 @@ const circle = {
   x: 100,
   y: 100,
   radius: 30,
-  dx: 4,
-  dy: 4,
+  dx: 5,
+  dy: 5,
   color: "#222",
 };
 

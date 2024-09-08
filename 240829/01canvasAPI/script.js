@@ -5,9 +5,9 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// save()
-// restore()
-// - save && restore를 활용한 작업
+// // save()
+// // restore()
+// // - save && restore를 활용한 작업
 // // 1.
 // ctx.fillStyle = "#ccc";
 // ctx.fillRect(10, 10, 100, 100);

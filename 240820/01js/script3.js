@@ -68,8 +68,59 @@
 // 일반함수를 이터러블한 속성을 갖게끔 해보기
 
 // 제너레이터 함수
+// function* fnc() {
+//   // yield : 일시정지
+//   yield 1;
+//   yield 2;
+//   yield 3;
+// }
+
+// const g1 = fnc();
+// console.log(g1);
+
+// console.log(g1.next());
+// console.log(g1.next());
+// console.log(g1.next());
+// console.log(g1.next());
+
+// for (let i of g1) {
+//   console.log(i); // 1 2 3
+// }
+
+// for문 사용 가능 => 이터러블한 객체
+
+////////////////////////////////////////////////
+
+// let hi = "hello";
+// for (let ch of hi) {
+//   console.log(ch);
+// }
+// let chArray = [...hi];
+// console.log(chArray);
+// let [ch1, ch2, ch3, ch4, ch5] = hi;
+// console.log(ch1, ch2, ch3, ch4, ch5);
+
+// const arr = [1, 2, 3, 4, 5];
+// console.log(arr);
+
+// let it = arr[Symbol.iterator]();
+// console.log(it);
+
+// console.log(it.next());
+// console.log(it.next());
+// console.log(it.next());
+// console.log(it.next());
+// console.log(it.next());
+// console.log(it.next());
+
+// function fnc() {
+//   console.log("1");
+//   console.log("2");
+//   console.log("3");
+// }
+// fnc();
+
 function* fnc() {
-  // yield : 일시정지
   yield 1;
   yield 2;
   yield 3;
@@ -84,7 +135,5 @@ console.log(g1);
 // console.log(g1.next());
 
 for (let i of g1) {
-  console.log(i); // 1 2 3
+  console.log(i);
 }
-
-// for문 사용 가능 => 이터러블한 객체

@@ -40,6 +40,6 @@ ctx.stroke();
 
 ctx.beginPath();
 ctx.arc(200, 200, 50, 0, (Math.PI / 180) * 60, false);
-// ctx.closePath(); => 선을 이어버림
+// ctx.closePath(); // => 선을 이어버림
 ctx.strokeStyle = "rgb(0, 0, 255)";
 ctx.stroke();

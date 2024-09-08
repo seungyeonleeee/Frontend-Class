@@ -13,7 +13,7 @@ ctx.fillRect(100, 50, 100, 100);
 // destination : 먼저 그려진 도형 || source : 나중에 그려진 도형
 // 겹쳐져있는 도형 요소들의 그래픽 작업
 // globalCompositeOperation => 속성
-ctx.globalCompositeOperation = "xor";
+ctx.globalCompositeOperation = "destination-atop";
 
 // 2.
 ctx.fillStyle = "#222";

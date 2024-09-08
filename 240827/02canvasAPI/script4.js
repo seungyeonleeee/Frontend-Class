@@ -8,7 +8,7 @@ const ctx = canvas.getContext("2d");
 
 // 2.
 // 2차 베지에 곡선
-// quadracticCurveTo(cpx, cpy, endx, endy)
+// quadracticCurveTo(cpx, cpy, endx, endy);
 // ctx.beginPath();
 // ctx.moveTo(50, 200); // 곡선의 시작점
 // ctx.quadraticCurveTo(200, 50, 350, 200);

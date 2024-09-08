@@ -8,8 +8,9 @@
 // const displayHello = async () => {
 //   console.log("Hello");
 // };
-// // displayHello();
-// console.log(displayHello()); // Promise
+// displayHello();
+// console.log(displayHello());
+// // Promise
 
 // Promise
 // // 1
@@ -32,25 +33,56 @@
 // async 함수 내부에서만 반드시 사용
 
 // 1
+// const whatsYoutFavorite = async () => {
+//   const fav = "Javascript";
+//   return fav;
+// };
+
+// // 3
+// const displaySubject = async (subject) => {
+//   return `Hello, ${subject}`;
+// };
+
+// // 2
+// // whatsYoutFavorite().then(displaySubject).then(console.log);
+
+// // 4
+// const init = async () => {
+//   const response = await whatsYoutFavorite();
+//   const result = await displaySubject(response);
+//   console.log(result);
+// };
+// init();
+// 복습 시 async // await 쓰지말고 확인해보기
+// 동시 출발이라 못찾아옴
+
+////////////////////////////////////////
+
+// const whatsYoutFavorite = () => {
+//   const fav = "Javascript";
+//   return new Promise((resolve, reject) => resolve(fav));
+// };
+
+// const displaySubject = (subject) => {
+//   return new Promise((resolve, reject) => resolve(`Hello, ${subject}`));
+// };
+
+// whatsYoutFavorite().then(displaySubject).then(console.log);
+
 const whatsYoutFavorite = async () => {
   const fav = "Javascript";
   return fav;
 };
 
-// 3
 const displaySubject = async (subject) => {
   return `Hello, ${subject}`;
 };
 
-// 2
 // whatsYoutFavorite().then(displaySubject).then(console.log);
 
-// 4
 const init = async () => {
   const response = await whatsYoutFavorite();
   const result = await displaySubject(response);
   console.log(result);
 };
 init();
-// 복습 시 async // await 쓰지말고 확인해보기
-// 동시 출발이라 못찾아옴

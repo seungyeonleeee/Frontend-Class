@@ -32,19 +32,38 @@
 // console.log(fetch("student-6.json")); // Promise
 // fetch() 의 반환값이 Promise() => fetch는 Promise의 진화
 
+// fetch("student-6.json")
+//   .then((response) => response.json())
+//   .then((json) => {
+//     // console.log(json);
+//     let output = "";
+//     json.forEach((student) => {
+//       output += `
+//        <h2>${student.name}</h2>
+//        <ul>
+//           <li>전공 : ${student.major}</li>
+//           <li>학년 : ${student.grade}</li>
+//        </ul>
+//       `;
+//     });
+//     document.querySelector("#result").innerHTML = output;
+//   })
+//   .catch((err) => console.log(err));
+
+/////////////////////////////////////
+
 fetch("student-6.json")
   .then((response) => response.json())
   .then((json) => {
-    // console.log(json);
     let output = "";
     json.forEach((student) => {
       output += `
-       <h2>${student.name}</h2>
-       <ul>
-          <li>전공 : ${student.major}</li>
-          <li>학년 : ${student.grade}</li>
-       </ul>
-      `;
+           <h2>${student.name}</h2>
+           <ul>
+              <li>전공 : ${student.major}</li>
+              <li>학년 : ${student.grade}</li>
+           </ul>
+          `;
     });
     document.querySelector("#result").innerHTML = output;
   })

@@ -6,7 +6,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 // 도형 회전
-// // 1.
+// 1.
 // ctx.fillStyle = "#ccc";
 // ctx.fillRect(150, 150, 100, 100);
 
@@ -17,10 +17,10 @@ canvas.height = window.innerHeight;
 // ctx.rotate((Math.PI / 180) * 45);
 // ctx.strokeRect(0, 0, 100, 100);
 
-// // // 2.
-// // ctx.rotate((Math.PI / 180) * 45);
-// // ctx.strokeRect(150, 150, 100, 100);
-// // // rotate를 먼저 한 후 150, 150 이동
+// // 2.
+// ctx.rotate((Math.PI / 180) * 45);
+// ctx.strokeRect(150, 150, 100, 100);
+// // rotate를 먼저 한 후 150, 150 이동
 
 // 도형 확대 & 축소 배율
 // 5.

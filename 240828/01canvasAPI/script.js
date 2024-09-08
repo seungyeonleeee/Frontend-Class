@@ -7,11 +7,11 @@ canvas.height = innerHeight;
 const ctx = canvas.getContext("2d");
 // console.log(ctx);
 
-// // 4. css-font속성과 같음 이 2개는 필수값
-// ctx.font = "60px arial";
-// // 3.
-// ctx.fillText("HELLO", 50, 70);
-// ctx.strokeText("HELLO", 50, 150);
+// 4. css-font속성과 같음 이 2개는 필수값
+ctx.font = "60px arial";
+// 3.
+ctx.fillText("HELLO", 300, 300);
+ctx.strokeText("HELLO", 300, 350);
 
 // 5.
 ctx.font = "italic 60px serif";

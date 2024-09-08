@@ -27,7 +27,8 @@ function App() {
   // 2개의 인자값 1.콜백함수, 2. 의존성 배열
   // 콜백이 뒤에 붙은 배열에 의존한다
 
-  // useEffect(() => { //6 text추가
+  // useEffect(() => {
+  //   //6 text추가
   //   console.log("업데이트 : ", count, text);
   // }, [count, text]);
 
@@ -45,29 +46,29 @@ function App() {
   // 렌더링 : 업데이트
 
   // 9
-  useEffect(() => {
-    if (!didMountRef.current) didMountRef.current = true;
-    else console.log("컴포넌트 업데이트");
-  });
+  // useEffect(() => {
+  //   if (!didMountRef.current) didMountRef.current = true;
+  //   else console.log("컴포넌트 업데이트");
+  // });
 
   // 10
-  useEffect(() => {
-    console.log("컴포넌트 마운트");
-  }, []);
-
-  // // 11 언마운트
   // useEffect(() => {
-  //   const intervalID = setInterval(() => {
-  //     console.log("깜빡");
-  //   }, 1000);
+  //   console.log("컴포넌트 마운트");
+  // }, []);
 
-  //   // 12
-  //   // useEffect에서 return은 언마운트 정의할 때만 씀
-  //   return () => {
-  //     console.log("클린업");
-  //     clearInterval(intervalID);
-  //   };
-  // });
+  // 11 언마운트
+  useEffect(() => {
+    const intervalID = setInterval(() => {
+      console.log("깜빡");
+    }, 1000);
+
+    // 12
+    // useEffect에서 return은 언마운트 정의할 때만 씀
+    return () => {
+      console.log("클린업");
+      clearInterval(intervalID);
+    };
+  });
 
   // 3
   const handleChangeText = (e) => {
