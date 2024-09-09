@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+// 62 useMemo 추가
+import React, { useState, useMemo } from "react";
 import "./TodoList.css";
 import TodoItem from "./TodoItem";
 
-const TodoList = ({ todo }) => {
+const TodoList = ({ todo, onUpdate, onDelete }) => {
   // 23
   // console.log(todo);
 
@@ -30,9 +31,39 @@ const TodoList = ({ todo }) => {
   //   setSearch(e.target.value);
   // };
 
+  // 59 ,   // 63 useMemo
+  const analyzeTodo = useMemo(() => {
+    // 61
+    // console.log("analyzeTodo 함수호출");
+    // 검색기능을 써도 무조건 실행됨 => 최적화 안됨
+    // todoList 안에 input의 상태가 업데이트 되기 때문
+
+    // 59
+    const totalCount = todo.length;
+    const doneCount = todo.filter((it) => it.isDone).length;
+    const notDoneCount = totalCount - doneCount;
+    return {
+      totalCount,
+      doneCount,
+      notDoneCount,
+    };
+  }, [todo]);
+
+  // 60
+  // const { totalCount, doneCount, notDoneCount } = analyzeTodo{};
+  // console.log(totalCount, doneCount, notDoneCount);
+
+  // 64
+  const { totalCount, doneCount, notDoneCount } = analyzeTodo;
+
   return (
     <div className="Todolist">
       <h4>Todo List</h4>
+      <div>
+        <div>총 개수 : {totalCount}</div>
+        <div>완료된 할 일 : {doneCount}</div>
+        <div>아직 완료하지 못한 일 : {notDoneCount}</div>
+      </div>
       <input
         value={search}
         onChange={onChangeSearch}
@@ -51,7 +82,12 @@ const TodoList = ({ todo }) => {
         {
           // 33
           getSearchResult().map((it) => (
-            <TodoItem key={it.id} {...it} />
+            <TodoItem
+              key={it.id}
+              {...it}
+              onUpdate={onUpdate}
+              onDelete={onDelete}
+            />
           ))
         }
       </div>
