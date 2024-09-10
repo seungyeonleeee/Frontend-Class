@@ -1,11 +1,15 @@
 import "./App.css";
 // 2 , // 7 , // 50 , useState 삭제, // 69 useCallback 추가
-import { useRef, useReducer, useCallback } from "react";
+import React, { useRef, useReducer, useCallback } from "react";
 import Header from "./components/Header";
 import TodoEditor from "./components/TodoEditor";
 import TodoList from "./components/TodoList";
 // 40
 // import TestComp from "./components/TestComp";
+
+// 73 , // 76 - export : 값 보내주기
+export const TodoContext = React.createContext();
+// console.log(TodoContext); // 미들웨어
 
 // 1
 const mockTodo = [
@@ -134,8 +138,13 @@ function App() {
     <div className="App">
       {/* <TestComp /> */}
       <Header />
-      <TodoEditor onCreate={onCreate} />
-      <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete} />
+      {/* 74 Provider - 공급자역할 */}
+      <TodoContext.Provider value={{ todo, onCreate, onUpdate, onDelete }}>
+        <TodoEditor />
+        <TodoList />
+      </TodoContext.Provider>
+      {/* <TodoEditor onCreate={onCreate} /> */}
+      {/* <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete} /> */}
     </div>
   );
 }

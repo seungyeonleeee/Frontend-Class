@@ -1,9 +1,21 @@
-// 62 useMemo 추가
-import React, { useState, useMemo } from "react";
+// 62 useMemo 추가, 77 useContext 추가
+import React, { useState, useMemo, useContext } from "react";
 import "./TodoList.css";
 import TodoItem from "./TodoItem";
+// 79
+import { TodoContext } from "../App";
 
-const TodoList = ({ todo, onUpdate, onDelete }) => {
+const TodoList = () => {
+  // 82 { todo, onUpdate, onDelete } 매개변수 삭제
+  // 78
+  // const storeData = useContext(TodoContext);
+  // 80
+  // console.log(storeData);
+  // 81
+  // const { todo, onUpdate, onDelete } = useContext(TodoContext);
+  // 83, // 92 todo = []
+  const { todo = [] } = useContext(TodoContext);
+
   // 23
   // console.log(todo);
 
@@ -85,8 +97,9 @@ const TodoList = ({ todo, onUpdate, onDelete }) => {
             <TodoItem
               key={it.id}
               {...it}
-              onUpdate={onUpdate}
-              onDelete={onDelete}
+              // 84
+              // onUpdate={onUpdate}
+              // onDelete={onDelete}
             />
           ))
         }
@@ -98,5 +111,11 @@ const TodoList = ({ todo, onUpdate, onDelete }) => {
 // map함수 쓰면 콘솔창 에러 Warning: Each child in a list should have a unique "key" prop.
 // 28
 // <Todoitem key={it.id} {...it} />
+
+// 75
+// TodoList.defaultProps = {
+//   todo: [],
+// };
+// 곧 없어질 문법이라 오류메세지 뜸
 
 export default TodoList;

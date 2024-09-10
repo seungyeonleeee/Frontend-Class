@@ -1,7 +1,15 @@
-import React, { useState, useRef } from "react";
+// 88 useContext
+import React, { useState, useRef, useContext } from "react";
 import "./TodoEditor.css";
+// 89
+import { TodoContext } from "../App";
 
-const TodoEditor = ({ onCreate }) => {
+const TodoEditor = () => {
+  // 91 { onCreate } 매개변수 지우기
+
+  // 90
+  const { onCreate } = useContext(TodoContext);
+
   // 12
   // console.log(onCreate); // => 함수 도착
 
