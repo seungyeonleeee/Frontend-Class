@@ -2,6 +2,8 @@
 import React from "react";
 // 23
 import styled from "styled-components";
+// 27
+import PostListItem from "./PostListItem";
 
 // 24
 const Wrapper = styled.div`
@@ -12,13 +14,22 @@ const Wrapper = styled.div`
 `;
 
 const PostList = ({ posts, onClickItem }) => {
+  // 28
+  // console.log(posts);
+
   return (
     // 25
     <Wrapper>
-      <div>리액트에서 컴포넌트 렌더링하기</div>
-      <div>리액트 컴포넌트 개념 소개</div>
-      <div>리액트와 자바스크립트의 상관관계</div>
-      <div>안녕하세요! David 입니다.</div>
+      {
+        // 29
+        posts.map((post) => (
+          <PostListItem
+            key={post.id}
+            post={post}
+            onClick={() => onClickItem(post)}
+          />
+        ))
+      }
     </Wrapper>
   );
 };

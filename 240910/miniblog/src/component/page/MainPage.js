@@ -18,7 +18,6 @@ const Wrapper = styled.div`
   align-items: center;
   padding: 16px;
   margin: 0 auto;
-  border: 1px solid #ccc;
 `;
 
 // 18
