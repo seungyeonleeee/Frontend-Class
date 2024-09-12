@@ -293,6 +293,7 @@ body.nav_active {
       left: 50%;
       transform: translate(-50%, -50%);
       opacity: 1;
+      z-index: 1;
     }
     .img_wrap {
       width: 500px;
@@ -300,7 +301,7 @@ body.nav_active {
       display: flex;
       flex-wrap: wrap;
       .tail {
-        background: #caeceb;
+        background: #0694b8;
         width: calc(100% / 20);
         height: calc(100% / 20);
       }
@@ -313,6 +314,7 @@ body.nav_active {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
 }
 
