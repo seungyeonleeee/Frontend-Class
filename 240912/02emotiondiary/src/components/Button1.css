@@ -1,0 +1,13 @@
+/* // 70 */
+.Button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+}
+.Button_default {
+  background: crimson;
+}
+.Button_positive {
+  background: #64c964;
+  color: #fff;
+}
