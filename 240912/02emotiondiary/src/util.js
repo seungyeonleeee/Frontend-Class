@@ -65,3 +65,32 @@ export const emotionList = [
     img: getEmotionImgById(5),
   },
 ];
+
+// 138 해당 월에 매칭되어지는 일기의 값 업데이트 함수 만들기
+export const getMonthRangeByDate = (date) => {
+  // 139 시작 시간
+  const beginTimeStamp = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    // 일, 시, 분, 초
+    1,
+    0,
+    0,
+    0
+  ).getTime();
+  // 밀리초 값 가져오기
+
+  // 140 끝나는 시간
+  const endTimeStamp = new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    0,
+    23,
+    59,
+    59
+    // date.getMonth() + 1, 0 => 익월의 존재하지 않는 0일 (특정 기간의 마지막날)
+  ).getTime();
+
+  // 141
+  return { beginTimeStamp, endTimeStamp };
+};

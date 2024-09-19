@@ -59,21 +59,22 @@ const reducer = (state, action) => {
 
 // 103
 const mockData = [
+  // 169 정렬 확인을 위해 date값 인위적으로 바꿔주기
   {
     id: "mock1",
-    date: new Date().getTime(),
+    date: new Date().getTime() - 1,
     content: "mock1",
     emotionId: 1,
   },
   {
     id: "mock2",
-    date: new Date().getTime(),
+    date: new Date().getTime() - 2,
     content: "mock2",
     emotionId: 2,
   },
   {
     id: "mock3",
-    date: new Date().getTime(),
+    date: new Date().getTime() - 3,
     content: "mock3",
     emotionId: 3,
   },
@@ -180,7 +181,11 @@ const App = () => {
                 path="/diary/:id"
                 element={<Diary />}
               />
-              <Route path="/edit" element={<Edit />} />
+              <Route
+                // 124
+                path="/edit/:id"
+                element={<Edit />}
+              />
             </Routes>
           </Wrapper>
         </DiaryDispatchContext.Provider>
