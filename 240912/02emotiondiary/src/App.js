@@ -6,6 +6,8 @@ import React, { useReducer, useRef, useEffect, useState } from "react";
 // 16, // 19 Link
 import { Routes, Route, Link } from "react-router-dom";
 
+import GlobalStyles from "./styles/GlobalStyles.styles";
+
 // 98
 import styled from "styled-components";
 
@@ -23,11 +25,12 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
-import { type } from "@testing-library/user-event/dist/type";
 
 // 99
 const Wrapper = styled.div`
   padding: 20px;
+  height: 100vh;
+  background: var(--primary-color);
 `;
 
 // 102
@@ -151,45 +154,49 @@ const App = () => {
     return (
       // 13
       // <BrowserRouter>
-
-      // 121
-      <DiaryStateContext.Provider value={data}>
-        {/* // 123 */}
-        <DiaryDispatchContext.Provider value={{ onCreate, onUpdate, onDelete }}>
-          <Wrapper>
-            {/* <img src={emotion1}></img>
-            <img
-              src={
-                // 4 이미지 소스 가져오는 방법 - 2 (절대경로)
-                `${process.env.PUBLIC_URL}/img1/emotion2.png`
-              }
-            ></img> */}
-            {/* <img
-              // 9 잘 나오는지 확인
-              src={getEmotionImgById(1)}
-            />
-            <img src={getEmotionImgById(2)} />
-            <img src={getEmotionImgById(3)} />
-            <img src={getEmotionImgById(4)} />
-            <img src={getEmotionImgById(5)} /> */}
-            {/* 14 */}
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/new" element={<New />} />
-              <Route
-                // 26 파라미터 추가
-                path="/diary/:id"
-                element={<Diary />}
+      <>
+        <GlobalStyles />
+        {/* // 121 */}
+        <DiaryStateContext.Provider value={data}>
+          {/* // 123 */}
+          <DiaryDispatchContext.Provider
+            value={{ onCreate, onUpdate, onDelete }}
+          >
+            <Wrapper>
+              {/* <img src={emotion1}></img>
+              <img
+                src={
+                  // 4 이미지 소스 가져오는 방법 - 2 (절대경로)
+                  `${process.env.PUBLIC_URL}/img1/emotion2.png`
+                }
+              ></img> */}
+              {/* <img
+                // 9 잘 나오는지 확인
+                src={getEmotionImgById(1)}
               />
-              <Route
-                // 124
-                path="/edit/:id"
-                element={<Edit />}
-              />
-            </Routes>
-          </Wrapper>
-        </DiaryDispatchContext.Provider>
-      </DiaryStateContext.Provider>
+              <img src={getEmotionImgById(2)} />
+              <img src={getEmotionImgById(3)} />
+              <img src={getEmotionImgById(4)} />
+              <img src={getEmotionImgById(5)} /> */}
+              {/* 14 */}
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/new" element={<New />} />
+                <Route
+                  // 26 파라미터 추가
+                  path="/diary/:id"
+                  element={<Diary />}
+                />
+                <Route
+                  // 124
+                  path="/edit/:id"
+                  element={<Edit />}
+                />
+              </Routes>
+            </Wrapper>
+          </DiaryDispatchContext.Provider>
+        </DiaryStateContext.Provider>
+      </>
       // </BrowserRouter>
     );
   }

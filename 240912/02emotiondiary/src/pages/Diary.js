@@ -66,7 +66,7 @@ const Diary = () => {
               onClick={goBack}
             />
           }
-          itle={title}
+          title={title}
           rightChild={
             <Button
               text={"수정하기"}
@@ -78,7 +78,7 @@ const Diary = () => {
         {/* <div>{id}번 일기</div>
         <div>Diary Page</div> */}
         {/* // 226 */}
-        <Viewer />
+        <Viewer content={content} emotionId={emotionId} />
       </div>
     );
   }
