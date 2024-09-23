@@ -20,8 +20,8 @@ import Button from "../components/Button";
 // 148
 import DiaryList from "../components/DiaryList";
 
-// 142
-import { getMonthRangeByDate } from "../util";
+// 142, // 258 setPageTitle
+import { getMonthRangeByDate, setPageTitle } from "../util";
 
 const Home = () => {
   // 31
@@ -58,6 +58,11 @@ const Home = () => {
     }
     // Home.js의 state 확인해보기
   }, [data, pivotDtae]);
+
+  // 259
+  useEffect(() => {
+    setPageTitle("Welcome Seungyeon's Diary");
+  }, []);
 
   // 132
   const headerTitle = `${pivotDtae.getFullYear()}년 ${

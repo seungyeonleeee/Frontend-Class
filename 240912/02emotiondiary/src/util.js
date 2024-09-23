@@ -94,3 +94,10 @@ export const getMonthRangeByDate = (date) => {
   // 141
   return { beginTimeStamp, endTimeStamp };
 };
+
+// 257 각각의 도착한 페이지마다 <title>태그 바꿔주기
+export const setPageTitle = (title) => {
+  const titleElement = document.getElementsByTagName("title")[0];
+  // console.log(titleElement); // 배열
+  titleElement.innerText = title;
+};
