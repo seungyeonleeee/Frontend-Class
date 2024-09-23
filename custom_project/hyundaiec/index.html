@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- jQuery -->
     <script src="./jquery-2.1.4.js"></script>
-    <!-- page scroll effects -->
-    <link rel="stylesheet" href="./velocity/velocity.css" />
-    <script src="./velocity/modernizr.js"></script>
-    <script src="./velocity/velocity.min.js"></script>
-    <script src="./velocity/velocity.ui.min.js"></script>
-    <script src="./velocity/main.js"></script>
+    <!-- fullpage css & js -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.extensions.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.js"></script>
     <!-- slick slider -->
     <link rel="stylesheet" href="./slick/slick-theme.css" />
     <link rel="stylesheet" href="./slick/slick.css" />
@@ -30,329 +31,310 @@
     <script defer src="./script.js"></script>
     <title>Hyndai E&C</title>
   </head>
-  <body data-hijacking="on" data-animation="catch">
-    <div class="container">
-      <section class="cd-section visible" id="home">
-        <div>
-          <article class="content">
-            <div class="home_inner"></div>
-          </article>
+  <body>
+    <header>
+      <div class="header_inner">
+        <div id="logo">
+          <a href="#">
+            <img src="./images/logo.svg" alt="logo" />
+          </a>
         </div>
+        <nav class="gnb">
+          <ul>
+            <li><a href="#Num0">home</a></li>
+            <li><a href="#Num1">about</a></li>
+            <li><a href="#Num2">project</a></li>
+            <li><a href="#Num3">news</a></li>
+            <li><a href="#Num4">contact</a></li>
+          </ul>
+        </nav>
+        <div class="trigger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </header>
+    <div id="fullpage">
+      <section class="section">
+        <article class="content">
+          <div class="home_inner"></div>
+        </article>
       </section>
-      <!-- <section class="cd-section" id="about">
-        <div>
-          <article class="content">
-            <div class="about_inner">
-              <div class="about_heading">
-                <h2>현대건설은 새로운 가치를 창조합니다</h2>
-                <p>
-                  대한민국 최초로 해외시장에 진출하며 한국 건설의 지평을 넓힌
-                  현대건설은 창의적인 생각과 열정으로 <br />
-                  보다 나은 세상을 건설하고, 끊임없는 혁신과 도전으로 더 나은
-                  미래를 열어갑니다.
-                </p>
-              </div>
-              <ul class="count_wrap">
-                <li>
-                  <div class="icon">
-                    <span
-                      >창립 <br />
-                      1947년부터 <br />
-                      현재까지</span
-                    >
-                    <img src="./images/about-icon01.png" alt="about-icon01" />
-                  </div>
-                  <div class="count">0</div>
-                </li>
-                <li>
-                  <div class="icon">
-                    <span
-                      >진출 <br />
-                      국가</span
-                    >
-                    <img src="./images/about-icon02.png" alt="about-icon02" />
-                  </div>
-                  <div class="count">0</div>
-                </li>
-                <li>
-                  <div class="icon">
-                    <span
-                      >글로벌 <br />
-                      프로젝트 <br />
-                      실적</span
-                    >
-                    <img src="./images/about-icon03.png" alt="about-icon03" />
-                  </div>
-                  <div class="count">0</div>
-                </li>
-                <li>
-                  <div class="icon">
-                    <span
-                      >지속가능경영 <br />
-                      월드지수 <br />
-                      편입</span
-                    >
-                    <img src="./images/about-icon04.png" alt="about-icon04" />
-                  </div>
-                  <div class="count">0</div>
-                </li>
-              </ul>
+      <section class="section">
+        <article class="content">
+          <div class="about_inner">
+            <div class="about_heading">
+              <h2>현대건설은 새로운 가치를 창조합니다</h2>
+              <p>
+                대한민국 최초로 해외시장에 진출하며 한국 건설의 지평을 넓힌
+                현대건설은 창의적인 생각과 열정으로 <br />
+                보다 나은 세상을 건설하고, 끊임없는 혁신과 도전으로 더 나은
+                미래를 열어갑니다.
+              </p>
             </div>
-          </article>
-        </div>
-      </section> -->
-      <!-- <section class="cd-section" id="project">
-        <div>
-          <article class="content">
-            <div class="project_inner">
-              <input type="radio" name="tabmenu" id="tab1" checked />
-              <input type="radio" name="tabmenu" id="tab2" />
-              <input type="radio" name="tabmenu" id="tab3" />
-              <div class="tabs">
-                <div class="tab">
-                  <div class="project_info" data-text="01">
-                    <h3>카타르 국립박물관</h3>
-                    <p>
-                      카타르 수도 도하 중심부에 ‘카타르 국립박물관(NMoQ·National
-                      Museum of Qatar)’이 2019년 3월 27일 화려하게 개관했습니다.
-                      <br />
-                      ‘시공 자체가 위대한 도전’이라 불렸던 카타르 국립박물관.
-                      <br />
-                      현대건설은 이번 준공으로 현대건설에 불가능이란 없음을 다시
-                      한번 입증할 수 있었습니다.
-                    </p>
-                    <ul>
-                      <li><b>Area</b> : 카타르 / 도하</li>
-                      <li><b>Completed Date</b> : March 2019</li>
-                      <li><b>Fulfillment</b> : 건축사업부</li>
-                    </ul>
-                    <div class="hashtag">
-                      <span>#현대건설</span>
-                      <span>#건축사업</span>
-                      <span>#문화시설</span>
-                    </div>
-                    <a
-                      class="view_project"
-                      data-Featherlight="iframe"
-                      href="./project-detail-01.html"
-                    >
-                      View Project
-                      <i class="fa-solid fa-caret-right"></i>
-                    </a>
-                  </div>
-                  <div class="project_photo">
-                    <img src="./images/project01-main.jpg" alt="project01-01" />
-                    <img
-                      src="./images/project01-main02.jpg"
-                      alt="project01-02"
-                    />
-                    <img
-                      src="./images/project01-main03.jpg"
-                      alt="project01-03"
-                    />
-                    <img
-                      src="./images/project01-main04.jpg"
-                      alt="project01-04"
-                    />
-                  </div>
+            <ul class="count_wrap">
+              <li>
+                <div class="icon">
+                  <span
+                    >창립 <br />
+                    1947년부터 <br />
+                    현재까지</span
+                  >
+                  <img src="./images/about-icon01.png" alt="about-icon01" />
                 </div>
-                <div class="tab">
-                  <div class="project_info" data-text="02">
-                    <h3>여수신북항 외곽시설 축조공사</h3>
-                    <p>
-                      1923년 개항 이후 100여 년간 오랜 역사를 품어 온 여수항에
-                      현대건설이 다시 한번 큰 획을 그었습니다.
-                      <br />
-                      남해안 최대 규모, 관광 메카의 특색을 모두 갖춘
-                      항만시설로서 ‘해양관광 거점’의 명맥을 더욱 굳건히 이어갈
-                      ‘여수신북항 외곽시설’ 입니다.
-                    </p>
-                    <ul>
-                      <li><b>Area</b> : 대한민국 / 여수</li>
-                      <li><b>Completed Date</b> : August 2019</li>
-                      <li><b>Fulfillment</b> : 여수지방해양수산청</li>
-                    </ul>
-                    <div class="hashtag">
-                      <span>#현대건설</span>
-                      <span>#토목사업</span>
-                      <span>#해양항만</span>
-                    </div>
-                    <a
-                      class="view_project"
-                      data-Featherlight="iframe"
-                      href="./project-detail-02.html"
-                    >
-                      View Project
-                      <i class="fa-solid fa-caret-right"></i>
-                    </a>
-                  </div>
-                  <div class="project_photo">
-                    <img src="./images/project02-main.jpg" alt="project02-01" />
-                    <img
-                      src="./images/project02-main02.jpg"
-                      alt="project02-02"
-                    />
-                    <img
-                      src="./images/project02-sub03.jpg"
-                      alt="project02-03"
-                    />
-                    <img
-                      src="./images/project02-main03.jpg"
-                      alt="project02-04"
-                    />
-                  </div>
+                <div class="count">0</div>
+              </li>
+              <li>
+                <div class="icon">
+                  <span
+                    >진출 <br />
+                    국가</span
+                  >
+                  <img src="./images/about-icon02.png" alt="about-icon02" />
                 </div>
-                <div class="tab">
-                  <div class="project_info" data-text="03">
-                    <h3>디에이치 아너힐즈</h3>
-                    <p>
-                      디에이치 아너힐즈 단지는 개포공원의 우거진 숲과 단지
-                      곳곳에 전시된 알레산드로 멘디니, 신타 탄트라, 론 아라드,
-                      김병진 등 국내외 유명 작가들의 작품이 어우러져 마치 야외
-                      미술관을 거니는 듯한 여유를 선사합니다.
-                      <br />
-                      완벽한 프리미엄 라이프를 지향하는 디에이치.
-                      <br />
-                      그 견고한 철학을 담은 고품격 주거 공간의 탄생이 더 큰
-                      기대를 모으고 있습니다.
-                    </p>
-                    <ul>
-                      <li><b>Area</b> : 대한민국 / 서울</li>
-                      <li><b>Completed Date</b> : May 2019</li>
-                      <li><b>Fulfillment</b> : 주택사업본부</li>
-                    </ul>
-                    <div class="hashtag">
-                      <span>#주택사업</span>
-                      <span>#디에이치</span>
-                    </div>
-                    <a
-                      class="view_project"
-                      data-Featherlight="iframe"
-                      href="./project-detail-03.html"
-                    >
-                      View Project
-                      <i class="fa-solid fa-caret-right"></i>
-                    </a>
-                  </div>
-                  <div class="project_photo">
-                    <img src="./images/project03-main.png" alt="project03-01" />
-                    <img
-                      src="./images/project03-sub01.jpg"
-                      alt="project03-02"
-                    />
-                    <img
-                      src="./images/project03-sub02.jpg"
-                      alt="project03-03"
-                    />
-                    <img
-                      src="./images/project03-sub04.jpg"
-                      alt="project03-04"
-                    />
-                  </div>
+                <div class="count">0</div>
+              </li>
+              <li>
+                <div class="icon">
+                  <span
+                    >글로벌 <br />
+                    프로젝트 <br />
+                    실적</span
+                  >
+                  <img src="./images/about-icon03.png" alt="about-icon03" />
                 </div>
-              </div>
-              <div class="btn">
-                <label for="tab1"></label>
-                <label for="tab2"></label>
-                <label for="tab3"></label>
-              </div>
-              <div class="message">
-                <span>make a history of construction</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section> -->
-      <!-- <section class="cd-section visible" id="news">
-        <div>
-          <article class="content">
-            <div class="news_inner">
-              <h3>Hyundai E&C Newsroom</h3>
-              <ul>
-                <li>
-                  <div class="news_img">
-                    <img src="./images/news-main01.jpg" alt="news-main01" />
-                  </div>
-                  <div class="news_info">
-                    <h5 class="title">
-                      현대건설, 불가리아 에너지부 장관과 원전 수행 및 인프라
-                      사업 확대 방안 논의
-                    </h5>
-                    <div class="hashtag">
-                      <span>#현대건설</span>
-                      <span>#불가리아</span>
-                      <span>#대형원전</span>
-                      <span>#코즐로두이</span>
-                    </div>
-                    <p class="date">2024.09.03</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="news_img">
-                    <img src="./images/news-main02.jpg" alt="news-main01" />
-                  </div>
-                  <div class="news_info">
-                    <h5 class="title">
-                      현대건설, 불가리아 에너지부 장관과 원전 수행 및 인프라
-                      사업 확대 방안 논
-                    </h5>
-                    <div class="hashtag">
-                      <span>#현대건설</span>
-                      <span>#불가리아</span>
-                      <span>#대형원전</span>
-                      <span>#코즐로두이</span>
-                    </div>
-                    <p class="date">2024.09.03</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="news_img">
-                    <img src="./images/news-main03.jpg" alt="news-main01" />
-                  </div>
-                  <div class="news_info">
-                    <h5 class="title">
-                      현대건설, 불가리아 에너지부 장관과 원전 수행 및 인프라
-                      사업 확대 방안 논의
-                    </h5>
-                    <div class="hashtag">
-                      <span>#현대건설</span>
-                      <span>#불가리아</span>
-                      <span>#대형원전</span>
-                      <span>#코즐로두이</span>
-                    </div>
-                    <p class="date">2024.09.03</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </article>
-        </div>
-      </section> -->
-      <header>
-        <div class="header_inner">
-          <div id="logo">
-            <a href="#">
-              <img src="./images/logo.svg" alt="logo" />
-            </a>
-          </div>
-          <nav class="gnb">
-            <ul>
-              <li><a href="#home">home</a></li>
-              <li><a href="#about">about</a></li>
-              <li><a href="#project">project</a></li>
-              <li><a href="#news">news</a></li>
-              <li><a href="#awards">awards</a></li>
-              <li><a href="#location">location</a></li>
-              <li><a href="#contact">contact</a></li>
+                <div class="count">0</div>
+              </li>
+              <li>
+                <div class="icon">
+                  <span
+                    >지속가능경영 <br />
+                    월드지수 <br />
+                    편입</span
+                  >
+                  <img src="./images/about-icon04.png" alt="about-icon04" />
+                </div>
+                <div class="count">0</div>
+              </li>
             </ul>
-          </nav>
-          <div class="trigger">
-            <span></span>
-            <span></span>
-            <span></span>
           </div>
-        </div>
-      </header>
+        </article>
+      </section>
+      <section class="section">
+        <article class="content">
+          <div class="project_inner">
+            <input type="radio" name="tabmenu" id="tab1" checked />
+            <input type="radio" name="tabmenu" id="tab2" />
+            <input type="radio" name="tabmenu" id="tab3" />
+            <div class="tabs">
+              <div class="tab">
+                <div class="project_info" data-text="01">
+                  <h3>카타르 국립박물관</h3>
+                  <p>
+                    카타르 수도 도하 중심부에 ‘카타르 국립박물관(NMoQ·National
+                    Museum of Qatar)’이 2019년 3월 27일 화려하게 개관했습니다.
+                    <br />
+                    ‘시공 자체가 위대한 도전’이라 불렸던 카타르 국립박물관.
+                    <br />
+                    현대건설은 이번 준공으로 현대건설에 불가능이란 없음을 다시
+                    한번 입증할 수 있었습니다.
+                  </p>
+                  <ul>
+                    <li><b>Area</b> : 카타르 / 도하</li>
+                    <li><b>Completed Date</b> : March 2019</li>
+                    <li><b>Fulfillment</b> : 건축사업부</li>
+                  </ul>
+                  <div class="hashtag">
+                    <span>#현대건설</span>
+                    <span>#건축사업</span>
+                    <span>#문화시설</span>
+                  </div>
+                  <a
+                    class="view_project"
+                    data-Featherlight="iframe"
+                    href="./project-detail-01.html"
+                  >
+                    View Project
+                    <i class="fa-solid fa-caret-right"></i>
+                  </a>
+                </div>
+                <div class="project_photo">
+                  <img src="./images/project01-main.jpg" alt="project01-01" />
+                  <img src="./images/project01-main02.jpg" alt="project01-02" />
+                  <img src="./images/project01-main03.jpg" alt="project01-03" />
+                  <img src="./images/project01-main04.jpg" alt="project01-04" />
+                </div>
+              </div>
+              <div class="tab">
+                <div class="project_info" data-text="02">
+                  <h3>여수신북항 외곽시설 축조공사</h3>
+                  <p>
+                    1923년 개항 이후 100여 년간 오랜 역사를 품어 온 여수항에
+                    현대건설이 다시 한번 큰 획을 그었습니다.
+                    <br />
+                    남해안 최대 규모, 관광 메카의 특색을 모두 갖춘 항만시설로서
+                    ‘해양관광 거점’의 명맥을 더욱 굳건히 이어갈 ‘여수신북항
+                    외곽시설’ 입니다.
+                  </p>
+                  <ul>
+                    <li><b>Area</b> : 대한민국 / 여수</li>
+                    <li><b>Completed Date</b> : August 2019</li>
+                    <li><b>Fulfillment</b> : 여수지방해양수산청</li>
+                  </ul>
+                  <div class="hashtag">
+                    <span>#현대건설</span>
+                    <span>#토목사업</span>
+                    <span>#해양항만</span>
+                  </div>
+                  <a
+                    class="view_project"
+                    data-Featherlight="iframe"
+                    href="./project-detail-02.html"
+                  >
+                    View Project
+                    <i class="fa-solid fa-caret-right"></i>
+                  </a>
+                </div>
+                <div class="project_photo">
+                  <img src="./images/project02-main.jpg" alt="project02-01" />
+                  <img src="./images/project02-main02.jpg" alt="project02-02" />
+                  <img src="./images/project02-sub03.jpg" alt="project02-03" />
+                  <img src="./images/project02-main03.jpg" alt="project02-04" />
+                </div>
+              </div>
+              <div class="tab">
+                <div class="project_info" data-text="03">
+                  <h3>디에이치 아너힐즈</h3>
+                  <p>
+                    디에이치 아너힐즈 단지는 개포공원의 우거진 숲과 단지 곳곳에
+                    전시된 알레산드로 멘디니, 신타 탄트라, 론 아라드, 김병진 등
+                    국내외 유명 작가들의 작품이 어우러져 마치 야외 미술관을
+                    거니는 듯한 여유를 선사합니다.
+                    <br />
+                    완벽한 프리미엄 라이프를 지향하는 디에이치.
+                    <br />
+                    그 견고한 철학을 담은 고품격 주거 공간의 탄생이 더 큰 기대를
+                    모으고 있습니다.
+                  </p>
+                  <ul>
+                    <li><b>Area</b> : 대한민국 / 서울</li>
+                    <li><b>Completed Date</b> : May 2019</li>
+                    <li><b>Fulfillment</b> : 주택사업본부</li>
+                  </ul>
+                  <div class="hashtag">
+                    <span>#주택사업</span>
+                    <span>#디에이치</span>
+                  </div>
+                  <a
+                    class="view_project"
+                    data-Featherlight="iframe"
+                    href="./project-detail-03.html"
+                  >
+                    View Project
+                    <i class="fa-solid fa-caret-right"></i>
+                  </a>
+                </div>
+                <div class="project_photo">
+                  <img src="./images/project03-main.png" alt="project03-01" />
+                  <img src="./images/project03-sub01.jpg" alt="project03-02" />
+                  <img src="./images/project03-sub02.jpg" alt="project03-03" />
+                  <img src="./images/project03-sub04.jpg" alt="project03-04" />
+                </div>
+              </div>
+            </div>
+            <div class="btn">
+              <label for="tab1"></label>
+              <label for="tab2"></label>
+              <label for="tab3"></label>
+            </div>
+            <div class="message">
+              <span>make a history of construction</span>
+            </div>
+          </div>
+        </article>
+      </section>
+      <section class="section">
+        <article class="content">
+          <div class="news_inner">
+            <h3>Hyundai E<span>&</span>C Newsroom</h3>
+            <ul class="news_items"></ul>
+          </div>
+        </article>
+        <div class="news_overlay"></div>
+      </section>
+      <section class="section">
+        <article class="content">
+          <div class="contact_inner">
+            <div class="contact_feature">
+              <div class="contact_form">
+                <h3><b>Contact</b> Us</h3>
+                <p>
+                  궁금한 사항이 있으시면 질문해주세요. 빠르게 답변 드리겠습니다.
+                </p>
+                <form
+                  action="http://127.0.0.1:5500"
+                  method="get"
+                  class="send_box"
+                >
+                  <label for="email">이메일 <span>*</span></label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="연락 받으실 이메일을 입력해주세요"
+                  />
+
+                  <label for="subject">제목 <span>*</span></label>
+                  <input
+                    id="subject"
+                    type="text"
+                    placeholder="제목을 입력해주세요"
+                  />
+                  <label for="message">문의사항 <span>*</span></label>
+                  <textarea
+                    name="message"
+                    id="message"
+                    cols="30"
+                    rows="10"
+                    placeholder="문의사항을 입력해주세요"
+                  ></textarea>
+                  <input type="submit" value="문의하기" />
+                </form>
+              </div>
+              <div class="contact_info">
+                <div>
+                  <h4>Our <b>Office</b></h4>
+                  <ul>
+                    <li>주소 : 03058 서울시 종로구 율곡로 75 현대빌딩</li>
+                    <li>전화번호 : 1577-7755</li>
+                    <li>이메일 : ascenter@hdec.co.kr</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Business <b>Hours</b></h4>
+                  <p>
+                    <i class="fa-regular fa-clock"></i>
+                    평일 09:00 - 18:00
+                  </p>
+                </div>
+                <div>
+                  <h4>Please <b>Refer</b></h4>
+                  <ul>
+                    <li>· 본인 인증 후 문의글을 남기실 수 있습니다.</li>
+                    <li>
+                      · 욕설이나 타인을 비탕하는 글, 기타 부적절한 게시글은
+                      예고없이 삭제될 수 있습니다.
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <em><span>© HYUNDAI E&C</span>. ALL RIGHTS RESERVED.</em>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
     </div>
   </body>
 </html>
