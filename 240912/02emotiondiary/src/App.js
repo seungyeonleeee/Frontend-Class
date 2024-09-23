@@ -25,12 +25,13 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
+import { type } from "@testing-library/user-event/dist/type";
 
 // 99
 const Wrapper = styled.div`
   padding: 20px;
   height: 100vh;
-  background: var(--primary-color);
+  /* background: var(--primary-color); */
 `;
 
 // 102
@@ -42,17 +43,34 @@ const reducer = (state, action) => {
       return action.data;
     }
     case "CREATE": {
-      return [action.data, ...state];
+      // 253 - 로컬스토리지
+      const newState = [action.data, ...state];
+
+      localStorage.setItem("diary", JSON.stringify(newState));
+
+      return newState;
     }
     // 109
     case "UPDATE": {
-      return state.map((it) =>
+      // 254
+      const newState = state.map((it) =>
         String(it.id) === String(action.data.id) ? { ...action.data } : it
       );
+
+      localStorage.setItem("diary", JSON.stringify(newState));
+
+      return newState;
     }
     // 111
     case "DELETE": {
-      return state.filter((it) => String(it.id) !== String(action.targetId));
+      // 255
+      const newState = state.filter(
+        (it) => String(it.id) !== String(action.targetId)
+      );
+
+      localStorage.setItem("diary", JSON.stringify(newState));
+
+      return newState;
     }
     default: {
       return state;
@@ -61,27 +79,27 @@ const reducer = (state, action) => {
 };
 
 // 103
-const mockData = [
-  // 169 정렬 확인을 위해 date값 인위적으로 바꿔주기
-  {
-    id: "mock1",
-    date: new Date().getTime() - 1,
-    content: "mock1",
-    emotionId: 1,
-  },
-  {
-    id: "mock2",
-    date: new Date().getTime() - 2,
-    content: "mock2",
-    emotionId: 2,
-  },
-  {
-    id: "mock3",
-    date: new Date().getTime() - 3,
-    content: "mock3",
-    emotionId: 3,
-  },
-];
+// const mockData = [
+//   // 169 정렬 확인을 위해 date값 인위적으로 바꿔주기
+//   {
+//     id: "mock1",
+//     date: new Date().getTime() - 1,
+//     content: "mock1",
+//     emotionId: 1,
+//   },
+//   {
+//     id: "mock2",
+//     date: new Date().getTime() - 2,
+//     content: "mock2",
+//     emotionId: 2,
+//   },
+//   {
+//     id: "mock3",
+//     date: new Date().getTime() - 3,
+//     content: "mock3",
+//     emotionId: 3,
+//   },
+// ];
 
 // 120 목업데이터 보내는 함수
 export const DiaryStateContext = React.createContext();
@@ -102,12 +120,37 @@ const App = () => {
 
   // 113
   useEffect(() => {
+    // dispatch({
+    //   type: "INIT",
+    //   data: mockData,
+    // });
+
+    // // 117
+    // setIsDataLoaded(true);
+
+    // 256
+    const rawData = localStorage.getItem("diary");
+    // 최초의 어떠한 데이터도 없을 때
+    if (!rawData) {
+      setIsDataLoaded(true);
+      return;
+    }
+    // 최초의 일기가 아무것도 없을 때
+    const localData = JSON.parse(rawData);
+    if (localData.length === 0) {
+      setIsDataLoaded(true);
+      return;
+    }
+    // 최신순 정렬 = id 내림차순
+    localData.sort((a, b) => Number(b.id) - Number(a.id));
+    // id 최초 세팅
+    idRef.current = localData[0].id + 1;
+    // 상태변화촉발함수
     dispatch({
       type: "INIT",
-      data: mockData,
+      data: localData,
     });
-
-    // 117
+    // 진짜 데이터가 있을 때
     setIsDataLoaded(true);
   }, []);
 

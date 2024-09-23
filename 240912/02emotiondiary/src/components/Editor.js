@@ -1,5 +1,5 @@
-// 51,  // 55 useState,  // 95 useEffect
-import React, { useState, useEffect } from "react";
+// 51,  // 55 useState,  // 95 useEffect, // 253 useCallback
+import React, { useState, useEffect, useCallback } from "react";
 // 75
 import { useNavigate } from "react-router-dom";
 // 77
@@ -107,13 +107,13 @@ const Editor = ({ initData, onSubmit }) => {
     navigate(-1);
   };
 
-  // 89
-  const handleChangeEmotion = (emotionId) => {
-    setState({
+  // 89, // 254 useCallback
+  const handleChangeEmotion = useCallback((emotionId) => {
+    setState((state) => ({
       ...state,
       emotionId,
-    });
-  };
+    }));
+  }, []);
 
   return (
     // 54

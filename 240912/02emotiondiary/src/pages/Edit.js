@@ -1,5 +1,5 @@
-// 243 useContext
-import React, { useContext } from "react";
+// 243 useContext,  // 265 useEffect
+import React, { useContext, useEffect } from "react";
 // 21, // 237 useParams
 import { useNavigate, useParams } from "react-router-dom";
 // 244 삭제기능 App.js
@@ -7,8 +7,12 @@ import { DiaryDispatchContext } from "../App";
 // 236
 import Header from "../components/Header";
 import Button from "../components/Button";
+// 247
+import Editor from "../components/Editor";
 // 239
 import useDiary from "../hooks/useDiary";
+// 266
+import { setPageTitle } from "../util";
 
 const Edit = () => {
   // 23
@@ -33,8 +37,13 @@ const Edit = () => {
   const data = useDiary(id);
   // console.log(data);
 
-  // 245
-  const { onDelete } = useContext(DiaryDispatchContext);
+  // 267
+  useEffect(() => {
+    setPageTitle(`${id} Diary Edit`);
+  }, []);
+
+  // 245, // 250 onUpdate
+  const { onDelete, onUpdate } = useContext(DiaryDispatchContext);
   // console.log(fnc);
   // console.log(onDelete);
 
@@ -49,6 +58,16 @@ const Edit = () => {
   // 242
   const goBack = () => {
     navigate(-1);
+  };
+
+  // 249
+  const onSubmit = (data) => {
+    // 251
+    if (window.confirm("일기를 정말 수정할까요?")) {
+      const { date, content, emotionId } = data;
+      onUpdate(id, date, content, emotionId);
+      navigate("/");
+    }
   };
 
   // 241 data 잘 가져왔는지 확인
@@ -73,6 +92,8 @@ const Edit = () => {
               />
             }
           />
+          {/* // 248 */}
+          <Editor initData={data} onSubmit={onSubmit} />
         </div>
       </div>
     );

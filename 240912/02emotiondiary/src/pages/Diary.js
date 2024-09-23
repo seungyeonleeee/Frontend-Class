@@ -1,4 +1,5 @@
-import React from "react";
+// 262 useEffect
+import React, { useEffect } from "react";
 // 200,  // 221 useNavigate
 import { useParams, useNavigate } from "react-router-dom";
 // 27
@@ -9,8 +10,8 @@ import useDiary from "../hooks/useDiary";
 import Header from "../components/Header";
 // 216
 import Button from "../components/Button";
-// 217
-import { getFormattedDate } from "../util";
+// 217, // 263 setPageTitle
+import { getFormattedDate, setPageTitle } from "../util";
 // 225
 import Viewer from "../components/Viewer";
 
@@ -35,6 +36,11 @@ const Diary = () => {
   const data = useDiary(id);
   // 212
   // console.log(data); // 비동기로 파싱하기 때문에 {} 먼저 나옴
+
+  // 264
+  useEffect(() => {
+    setPageTitle(`${id} Diary`);
+  }, []);
 
   // 213
   if (!data) {

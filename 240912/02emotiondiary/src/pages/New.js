@@ -1,5 +1,5 @@
 // 229, // 232
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // 233
 import { DiaryDispatchContext } from "../App";
@@ -7,8 +7,15 @@ import Header from "../components/Header";
 import Button from "../components/Button";
 // 231
 import Editor from "../components/Editor";
+// 260
+import { setPageTitle } from "../util";
 
 const New = () => {
+  // 261
+  useEffect(() => {
+    setPageTitle("New Diary");
+  }, []);
+
   // 234
   const { onCreate } = useContext(DiaryDispatchContext);
   // console.log(fnc);

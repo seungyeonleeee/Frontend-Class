@@ -38,7 +38,7 @@ const Select = styled.select`
   border-radius: 5px;
   padding: 10px 20px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 24px;
   font-family: "Nanum Pen Script", cursive;
 `;
 

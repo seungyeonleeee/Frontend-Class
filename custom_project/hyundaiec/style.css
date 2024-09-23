@@ -119,7 +119,8 @@ body .cd-section > div .content {
 .about_inner .count_wrap li .icon img {
   width: 200px;
   height: 200px;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 .about_inner .count_wrap li .count {
   font: 600 5rem/1 "Noto Sans KR", sans-serif;
@@ -260,7 +261,8 @@ body .cd-section > div .content {
   height: 100%;
 }
 .project_inner .tabs .tab > div.project_photo .slick-list .slick-track .slick-slide div img {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .project_inner .btn {
   position: absolute;
@@ -351,7 +353,8 @@ body .cd-section > div .content {
   height: 60%;
 }
 .news_inner ul li .news_img img {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .news_inner ul li .news_info {
   height: 40%;
@@ -497,7 +500,8 @@ body .cd-section > div .content {
 .modal .hiring-info > div.photo img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .modal .hiring-info > div.photo.project-info {
   display: flex;
