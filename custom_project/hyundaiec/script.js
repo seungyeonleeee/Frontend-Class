@@ -61,54 +61,54 @@ const sectionNews = (item) => {
   newsDetail.className = `news_detail`;
 
   const liItemDesc = `
-                <div class="news_img">
-                  <img src="./${item.img}" />
-                </div>
-                <div class="news_info">
-                  <h5 class="title">
-                    ${item.title}
-                  </h5>
-                  <div class="hashtag">
-                    <span>${item.hashtag[0]}</span>
-                    <span>${item.hashtag[1]}</span>
-                    <span>${item.hashtag[2]}</span>
-                    <span>${item.hashtag[3]}</span>
-                  </div>
-                  <p class="date">${item.date}</p>
-                </div>
-  `;
+            <div class="news_img">
+              <img src="./${item.img}" />
+            </div>
+            <div class="news_info">
+              <h5 class="title">
+                ${item.title}
+              </h5>
+              <div class="hashtag">
+                <span>${item.hashtag[0]}</span>
+                <span>${item.hashtag[1]}</span>
+                <span>${item.hashtag[2]}</span>
+                <span>${item.hashtag[3]}</span>
+              </div>
+              <p class="date">${item.date}</p>
+            </div>
+`;
   const detailDesc = `
-    <div class="detail_wrap">
-                <div class="detail_left">
-                  <div class="detail_img">
-                    <img src="./${item.img}" />
-                    <div class="hashtag">
-                      <span>${item.hashtag[0]}</span>
-                      <span>${item.hashtag[1]}</span>
-                      <span>${item.hashtag[2]}</span>
-                      <span>${item.hashtag[3]}</span>
-                    </div>
-                  </div>
-                  <button class="closeBtn">
-                    <i class="fa-solid fa-chevron-left"></i>
-                    다른 뉴스 보기
-                  </button>
-                </div>
-                <div class="detail_right">
-                  <div class="detail_heading">
-                    <h5 class="title">
-                    ${item.title}
-                    </h5>
-                    <p class="date">
-                    ${item.date}
-                    </p>
-                  </div>
-                  <p class="text">
-                  ${item.text}
-                  </p>
+<div class="detail_wrap">
+            <div class="detail_left">
+              <div class="detail_img">
+                <img src="./${item.img}" />
+                <div class="hashtag">
+                  <span>${item.hashtag[0]}</span>
+                  <span>${item.hashtag[1]}</span>
+                  <span>${item.hashtag[2]}</span>
+                  <span>${item.hashtag[3]}</span>
                 </div>
               </div>
-  `;
+              <button class="closeBtn">
+                <i class="fa-solid fa-chevron-left"></i>
+                다른 뉴스 보기
+              </button>
+            </div>
+            <div class="detail_right">
+              <div class="detail_heading">
+                <h5 class="title">
+                ${item.title}
+                </h5>
+                <p class="date">
+                ${item.date}
+                </p>
+              </div>
+              <p class="text">
+              ${item.text}
+              </p>
+            </div>
+          </div>
+`;
 
   liItem.addEventListener("click", () => {
     newsDetail.classList.add("active");
@@ -144,7 +144,7 @@ new fullpage("#fullpage", {
     // if (new_elem.index === 0) sec4();
     if (new_elem.index === 1) sectionAbout();
     if (old_elem.index === 1) sectionAbout_reset();
-    if (new_elem.index === 3) sectionNews();
+    // if (new_elem.index === 3) sectionNews();
     if (new_elem.index === 4) sectionContact();
   },
 });
