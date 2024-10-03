@@ -70,11 +70,16 @@ body header .header_inner .trigger {
 }
 body .content {
   width: 100%;
+  min-width: 1500px;
   height: calc(100% - 70px);
   position: absolute;
   left: 0;
   bottom: 0;
   padding: 20px;
+}
+
+#fp-nav ul li a span {
+  background: #002d74;
 }
 
 .home_inner {
@@ -83,8 +88,48 @@ body .content {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  background: #01a251;
+}
+.home_inner svg {
+  width: 200px;
+  animation: ani 1s both;
+  opacity: 0.5;
+}
+.home_inner svg.home_svg02 {
+  animation-delay: 1s;
+}
+.home_inner svg.home_svg03 {
+  animation-delay: 2s;
+}
+.home_inner svg.home_svg04 {
+  animation-delay: 3s;
+}
+.home_inner svg.home_svg05 {
+  animation-delay: 4s;
+}
+.home_inner h1 {
+  position: absolute;
+  text-align: center;
+  font-size: 3rem;
+  line-height: 1.4;
+  color: #002d74;
+  opacity: 0;
+}
+.home_inner img {
+  position: absolute;
+  width: 500px;
+  opacity: 0;
 }
 
+@keyframes ani {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .about_inner {
   height: 100%;
   display: flex;

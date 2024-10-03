@@ -1,6 +1,57 @@
 const data = "./db.json";
 
 // home - anime.js
+const sectionHome = () => {
+  // anime({
+  //   targets: ".home_svg polyline",
+  //   strokeDashoffset: [anime.setDashoffset, 0],
+  //   duration: 4000,
+  //   easing: "easeInOutSine",
+  //   loop: true,
+  //   direction: "alternate",
+  // });
+  const tl = anime.timeline({
+    easing: "linear",
+    duration: 1000,
+  });
+
+  tl.add({
+    targets: ".home_svg01 line",
+    strokeDashoffset: [anime.setDashoffset, 0],
+  })
+    .add({
+      targets: ".home_svg02 line",
+      strokeDashoffset: [anime.setDashoffset, 0],
+    })
+    .add({
+      targets: ".home_svg03 polyline",
+      strokeDashoffset: [anime.setDashoffset, 0],
+    })
+    .add({
+      targets: ".home_svg04 line",
+      strokeDashoffset: [anime.setDashoffset, 0],
+    })
+    .add({
+      targets: ".home_svg05 line",
+      strokeDashoffset: [anime.setDashoffset, 0],
+    })
+    .add({
+      targets: ".home_inner",
+      background: "#fff",
+    })
+    .add({
+      targets: ".home_inner h1",
+      opacity: 1,
+    })
+    .add({
+      targets: ".home_inner h1",
+      opacity: 0,
+    })
+    .add({
+      targets: ".home_inner img",
+      opacity: 1,
+    });
+};
 
 // about - countEvent
 const sectionAbout = () => {
@@ -141,11 +192,10 @@ new fullpage("#fullpage", {
   navigation: true,
   anchors: ["Num0", "Num1", "Num2", "Num3", "Num4"],
   afterLoad: (old_elem, new_elem) => {
-    // if (new_elem.index === 0) sec4();
+    if (new_elem.index === 0) sectionHome();
     if (new_elem.index === 1) sectionAbout();
     if (old_elem.index === 1) sectionAbout_reset();
-    // if (new_elem.index === 3) sectionNews();
-    if (new_elem.index === 4) sectionContact();
+    // if (new_elem.index === 4) sectionContact();
   },
 });
 
