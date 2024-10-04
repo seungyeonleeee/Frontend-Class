@@ -54,8 +54,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: "SimKyungha";
-    /* background: url("https://i.pinimg.com/736x/1c/bf/47/1cbf47f7112e62ad68d0e7dc74e32605.jpg") center/cover no-repeat; */
-    background: lightsteelblue;
+    background: #9badc4;
     height: 100vh;
   }
 `;
