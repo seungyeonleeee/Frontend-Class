@@ -24,42 +24,42 @@ const reducer = (state = initialState, action) => {
 
   switch (type) {
     case "ADD_CONTACT":
-      state.contactList.push({
-        name: payload.name,
-        phoneNumber: payload.phoneNumber,
-      });
-      break;
-    // return {
-    //   ...state,
-    //   contactList: [
-    //     ...state.contactList,
-    //     {
-    //       name: payload.name,
-    //       phoneNumber: payload.phoneNumber,
-    //     },
-    //   ],
-    // };
+      // state.contactList.push({
+      //   name: payload.name,
+      //   phoneNumber: payload.phoneNumber,
+      // });
+      // break;
+      return {
+        ...state,
+        contactList: [
+          ...state.contactList,
+          {
+            name: payload.name,
+            phoneNumber: payload.phoneNumber,
+          },
+        ],
+      };
 
     // 34
     case "SEARCH":
-      state.keyword = payload.keyword;
-      break;
-    // return {
-    //   ...state,
-    //   keyword: payload.keyword,
-    // };
+      // state.keyword = payload.keyword;
+      // break;
+      return {
+        ...state,
+        keyword: payload.keyword,
+      };
 
-    // default:
-    //   return { ...state };
+    default:
+      return { ...state };
   }
-  return { ...state };
+  // return { ...state };
 };
 
 export default reducer;
 
-const userList = [
-  {
-    name: "David",
-    number: 123456789,
-  },
-];
+// const userList = [
+//   {
+//     name: "David",
+//     number: 123456789,
+//   },
+// ];

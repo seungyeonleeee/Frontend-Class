@@ -1,4 +1,10 @@
-import React, { useRef, useReducer, useCallback } from "react";
+import React, {
+  useRef,
+  useReducer,
+  useCallback,
+  useState,
+  useEffect,
+} from "react";
 import { styled } from "styled-components";
 import { GlobalStyles } from "./styles/GlobalStyles";
 import Header from "./components/Header";
@@ -64,7 +70,7 @@ const App = () => {
 
   const idRef = useRef(3);
 
-  const onCreate = useCallback(() => {
+  const onCreate = useCallback((content) => {
     dispatch({
       type: "CREATE",
       newItem: {
@@ -92,12 +98,14 @@ const App = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <GlobalStyles />
-      <Header />
-      <TodoEditor onCreate={onCreate} />
-      <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete} />
-    </Wrapper>
+    <TodoContext.Provider value={{ todo, dispatch }}>
+      <Wrapper>
+        <GlobalStyles />
+        <Header />
+        <TodoEditor onCreate={onCreate} />
+        <TodoList onUpdate={onUpdate} onDelete={onDelete} onCreate={onCreate} />
+      </Wrapper>
+    </TodoContext.Provider>
   );
 };
 

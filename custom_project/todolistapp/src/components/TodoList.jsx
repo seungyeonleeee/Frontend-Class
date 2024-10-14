@@ -2,7 +2,7 @@ import React, { useState, useMemo, useContext } from "react";
 import TodoItem from "./TodoItem";
 import { TodoContext } from "../App";
 
-const TodoList = () => {
+const TodoList = ({ onCreate, onUpdate, onDelete }) => {
   const { todo = [] } = useContext(TodoContext);
 
   const [search, setSearch] = useState("");
@@ -18,6 +18,8 @@ const TodoList = () => {
           item.content.toLowerCase().includes(search.toLocaleLowerCase())
         );
   };
+
+  console.log(getSearchResult());
 
   const analyzeTodo = useMemo(() => {
     const totalCount = todo.length;
@@ -45,8 +47,8 @@ const TodoList = () => {
           <TodoItem
             key={item.id}
             {...item}
-            // onUpdate={onUpdate}
-            // onDelete={onDelete}
+            onUpdate={onUpdate}
+            onDelete={onDelete}
           />
         ))}
       </div>
