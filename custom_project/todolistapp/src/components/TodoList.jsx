@@ -2,8 +2,8 @@ import React, { useState, useMemo, useContext } from "react";
 import TodoItem from "./TodoItem";
 import { TodoContext } from "../App";
 
-const TodoList = ({ onCreate, onUpdate, onDelete }) => {
-  const { todo = [] } = useContext(TodoContext);
+const TodoList = () => {
+  const { todo } = useContext(TodoContext);
 
   const [search, setSearch] = useState("");
 
@@ -18,8 +18,6 @@ const TodoList = ({ onCreate, onUpdate, onDelete }) => {
           item.content.toLowerCase().includes(search.toLocaleLowerCase())
         );
   };
-
-  console.log(getSearchResult());
 
   const analyzeTodo = useMemo(() => {
     const totalCount = todo.length;
@@ -43,13 +41,8 @@ const TodoList = ({ onCreate, onUpdate, onDelete }) => {
         placeholder="검색어를 입력하세요"
       />
       <div>
-        {getSearchResult().map((item) => (
-          <TodoItem
-            key={item.id}
-            {...item}
-            onUpdate={onUpdate}
-            onDelete={onDelete}
-          />
+        {getSearchResult().map((item, i) => (
+          <TodoItem key={i} {...item} />
         ))}
       </div>
     </div>

@@ -25,32 +25,36 @@ const Wrapper = styled.div`
   margin: 0 auto;
 `;
 
+const localTodo = JSON.parse(localStorage.getItem("todo")) || [];
+
 // mockup data
-const mockTodo = [
-  {
-    id: 0,
-    isDone: false,
-    content: "React 공부하기",
-    createdDate: new Date().getTime(),
-  },
-  {
-    id: 1,
-    isDone: false,
-    content: "Javascript 공부하기",
-    createdDate: new Date().getTime(),
-  },
-  {
-    id: 2,
-    isDone: false,
-    content: "여행가기",
-    createdDate: new Date().getTime(),
-  },
-];
+// const mockTodo = [
+//   {
+//     id: 0,
+//     isDone: false,
+//     content: "React 공부하기",
+//     createdDate: new Date().getTime(),
+//   },
+//   {
+//     id: 1,
+//     isDone: false,
+//     content: "Javascript 공부하기",
+//     createdDate: new Date().getTime(),
+//   },
+//   {
+//     id: 2,
+//     isDone: false,
+//     content: "여행가기",
+//     createdDate: new Date().getTime(),
+//   },
+// ];
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "CREATE": {
-      return [action.newItem, ...state];
+      const newState = [action.newItem, ...state];
+      localStorage.setItem("todo", JSON.stringify(newState));
+      return newState;
     }
     case "UPDATE": {
       return state.map((item) =>
@@ -58,7 +62,10 @@ const reducer = (state, action) => {
       );
     }
     case "DELETE": {
-      return state.filter((item) => item.id !== action.targetId);
+      const newState = state.filter((item) => item.id !== action.targetId);
+      localStorage.setItem("todo", JSON.stringify(newState));
+      if (newState.length === 0) localStorage.removeItem("todo");
+      return newState;
     }
     default:
       return state;
@@ -66,9 +73,9 @@ const reducer = (state, action) => {
 };
 
 const App = () => {
-  const [todo, dispatch] = useReducer(reducer, mockTodo);
+  const [todo, dispatch] = useReducer(reducer, localTodo);
 
-  const idRef = useRef(3);
+  const idRef = useRef(1);
 
   const onCreate = useCallback((content) => {
     dispatch({
@@ -77,7 +84,7 @@ const App = () => {
         id: idRef.current,
         isDone: false,
         content,
-        createdData: new Date().getTime(),
+        createdDate: new Date().getTime(),
       },
     });
     idRef.current += 1;
@@ -98,14 +105,14 @@ const App = () => {
   }, []);
 
   return (
-    <TodoContext.Provider value={{ todo, dispatch }}>
-      <Wrapper>
-        <GlobalStyles />
-        <Header />
-        <TodoEditor onCreate={onCreate} />
-        <TodoList onUpdate={onUpdate} onDelete={onDelete} onCreate={onCreate} />
-      </Wrapper>
-    </TodoContext.Provider>
+    <Wrapper>
+      <GlobalStyles />
+      <Header />
+      <TodoContext.Provider value={{ todo, onCreate, onUpdate, onDelete }}>
+        <TodoEditor />
+        <TodoList />
+      </TodoContext.Provider>
+    </Wrapper>
   );
 };
 

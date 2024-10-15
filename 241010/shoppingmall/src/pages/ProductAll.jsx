@@ -19,7 +19,7 @@ const ProductAll = () => {
   const dispatch = useDispatch();
 
   // 12
-  const productList = useSelector((state) => state.productList);
+  const productList = useSelector((state) => state.product.productList);
 
   // 20 json 데이터 가져오기
   // db.json을 서버로 가져오지 않고 import할 때에는 반드시 src폴더 안에 있어야 함

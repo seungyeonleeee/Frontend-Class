@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // 2
 // import { Routes, Route } from "react-router-dom";
 // import Home from "./pages/Home";
@@ -11,6 +11,7 @@ import Layout from "./components/Layout";
 import ProductAll from "./pages/ProductAll";
 import Login from "./pages/Login";
 import PrivateRoute from "./routes/PrivateRoute";
+import { useSelector } from "react-redux";
 
 // 10
 const GlobalStyles = createGlobalStyle`
@@ -33,6 +34,14 @@ const GlobalStyles = createGlobalStyle`
 const App = () => {
   // 29 로그인 여부 제어
   const [authenticate, setAuthenticate] = useState(false);
+
+  // 22
+  const trueOk = useSelector((state) => state.auth.authenticate);
+
+  // 23
+  useEffect(() => {
+    setAuthenticate(trueOk);
+  }, [trueOk]);
 
   // 8, // 30 router 위치 안으로
   const router = createBrowserRouter([

@@ -34,6 +34,7 @@ const Wrapper = styled.div`
   /* background: var(--primary-color); */
 `;
 
+const todo = JSON.parse(localStorage.getItem("todo")) || [];
 // 102
 const reducer = (state, action) => {
   // 107
@@ -45,7 +46,6 @@ const reducer = (state, action) => {
     case "CREATE": {
       // 253 - 로컬스토리지
       const newState = [action.data, ...state];
-
       localStorage.setItem("diary", JSON.stringify(newState));
 
       return newState;
@@ -113,7 +113,7 @@ const App = () => {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   // 101
-  const [data, dispatch] = useReducer(reducer, []);
+  const [data, dispatch] = useReducer(reducer, todo);
 
   // 105
   const idRef = useRef(0);

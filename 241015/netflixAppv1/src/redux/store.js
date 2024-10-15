@@ -1,15 +1,10 @@
-// 3
 import { createStore, applyMiddleware } from "redux";
-import { thunk } from "redux-thunk";
-// import productReducer from "./reducers/productReducer";
-// 24
 import { composeWithDevTools } from "redux-devtools-extension";
-// 21 rootReducer라는 이름으로 index파일 넣기
+import { thunk } from "redux-thunk";
 import rootReducer from "./reducers";
 
-const store = createStore(
+let store = createStore(
   rootReducer,
-  // 25
   composeWithDevTools(applyMiddleware(thunk))
 );
 

@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import { TodoContext } from "../App";
 
-const TodoItem = ({ id, isDone, content, createdDate, onUpdate, onDelete }) => {
+const TodoItem = ({ id, isDone, content, createdDate }) => {
+  const { onUpdate, onDelete } = useContext(TodoContext);
+
   const onChangeCheckbox = () => {
     onUpdate(id);
   };
@@ -10,15 +12,13 @@ const TodoItem = ({ id, isDone, content, createdDate, onUpdate, onDelete }) => {
   };
 
   return (
-    <div className="todoItem">
-      <div className="checkbox_col">
+    <div>
+      <div>
         <input checked={isDone} type="checkbox" onChange={onChangeCheckbox} />
       </div>
-      <div className="title_col">{content}</div>
-      <div className="data_col">
-        {new Date(createdDate).toLocaleDateString()}
-      </div>
-      <div className="btn_col">
+      <div>{content}</div>
+      <div>{new Date(createdDate).toLocaleDateString()}</div>
+      <div>
         <button onClick={onClickDelete}>삭제</button>
       </div>
     </div>
