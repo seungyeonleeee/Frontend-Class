@@ -14,9 +14,6 @@ export const GlobalStyles = createGlobalStyle`
     src: url("/fonts/Montserrat-Bold.ttf") format("truetype");
   }
 
-  /* variables */
- 
-
   /* reset */
   * {
     margin: 0;
@@ -31,15 +28,27 @@ export const GlobalStyles = createGlobalStyle`
     color: inherit;
   }
   input {
+    background: transparent;
     border: none;
-    border-bottom: 1px solid #000;
-    transition: all .3s;
-    &:focus {
+    &::placeholder {
+      opacity: 1;
+      transition: opacity 0.3s;
+    }
+    &:focus{
       outline: none;
-      border-bottom: 1px solid lightblue;
+      &::placeholder {
+        opacity: 0;
+      }
     }
   }
+  button{
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
 
+  /* common */
   body{ 
     font-family: "GmarketSans";
   }
