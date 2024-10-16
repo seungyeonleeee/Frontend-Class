@@ -105,14 +105,14 @@ const TodoEditor = () => {
           value={content}
           onChange={onChangeContent}
           onKeyDown={onKeyDown}
-          placeholder="Write a new To Do"
+          placeholder="To Do를 작성하세요"
         />
         <button onClick={onSubmit}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.5}
+            strokeWidth={1}
             className="size-6"
           >
             <path
