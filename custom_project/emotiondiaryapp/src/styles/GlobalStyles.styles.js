@@ -16,4 +16,8 @@ export const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     color: inherit;
   }
+  button {
+    border: none;
+    background: transparent;
+  }
 `;

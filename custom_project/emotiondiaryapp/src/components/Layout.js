@@ -5,11 +5,11 @@ import Header from "./Header";
 const Layout = () => {
   return (
     <>
-      <Header
+      {/* <Header
         title={"title"}
         leftChild={"leftchild"}
         rightChild={"rightchild"}
-      />
+      /> */}
       <Outlet />
     </>
   );

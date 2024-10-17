@@ -39,7 +39,7 @@ const MovieOverView = styled.p`
 `;
 
 const Banner = ({ movie }) => {
-  console.log(movie);
+  // console.log(movie);
 
   return (
     <BgImg>

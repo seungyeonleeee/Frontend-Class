@@ -10,22 +10,22 @@ const api = axios.create({
 
 api.interceptors.request.use(
   function (config) {
-    console.log("request start", config);
+    // console.log("request start", config);
     return config;
   },
   function (error) {
-    console.error("request error", error);
+    // console.error("request error", error);
     return Promise.reject(error);
   }
 );
 
 api.interceptors.response.use(
   function (response) {
-    console.log("get response", response);
+    // console.log("get response", response);
     return response;
   },
   function (error) {
-    console.error("response error", error);
+    // console.error("response error", error);
     return Promise.reject(error);
   }
 );
