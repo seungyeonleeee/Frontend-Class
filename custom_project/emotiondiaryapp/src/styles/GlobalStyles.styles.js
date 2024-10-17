@@ -4,6 +4,17 @@ import reset from "styled-reset";
 export const GlobalStyles = createGlobalStyle`
   ${reset}
 
+  /* fonts */
+  @font-face {
+    font-family: "HakgyoansimDunggeunmiso";
+    src: url("/fonts/HakgyoansimDunggeunmisoTTFB.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "Paperlogy";
+    src: url("/fonts/Paperlogy-5Medium.ttf") format("truetype");
+  }
+
+  /* reset */
   * {
     margin: 0;
     padding: 0;
@@ -19,5 +30,27 @@ export const GlobalStyles = createGlobalStyle`
   button {
     border: none;
     background: transparent;
+    font-family: "Paperlogy";
+  }
+  input {
+    font-family: "Paperlogy";
+  }
+  textarea {
+    font-family: "Paperlogy";
+  }
+
+  /* variable */
+  :root {
+    --bg-light-color: #fff;
+    --bg-dark-color: #222;
+    --bg-orange-color: #F86F03;
+    --bg-blue-color: #525FE1;
+  } 
+
+  /* common */
+  body {
+    background: var(--bg-light-color);
+    color: var(--bg-dark-color);
+    font-family: "Paperlogy";
   }
 `;

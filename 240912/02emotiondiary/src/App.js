@@ -34,7 +34,6 @@ const Wrapper = styled.div`
   /* background: var(--primary-color); */
 `;
 
-const todo = JSON.parse(localStorage.getItem("todo")) || [];
 // 102
 const reducer = (state, action) => {
   // 107
@@ -113,7 +112,7 @@ const App = () => {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   // 101
-  const [data, dispatch] = useReducer(reducer, todo);
+  const [data, dispatch] = useReducer(reducer, []);
 
   // 105
   const idRef = useRef(0);
