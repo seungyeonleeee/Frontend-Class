@@ -1,7 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import DiaryItem from "./DiaryItem";
 import Button from "./Button";
+
+const Wrapper = styled.section``;
+const DiaryHeading = styled.article`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
+const ListContents = styled.article``;
+const LeftContent = styled.div`
+  flex: 1;
+  select {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    background: var(--bg-light-gray);
+    font-family: "Paperlogy";
+    cursor: pointer;
+  }
+`;
+const RightContent = styled.div`
+  flex: 3;
+  button {
+    width: 100%;
+  }
+`;
 
 // Sort Option
 const sortOptionList = [
@@ -11,18 +39,34 @@ const sortOptionList = [
 
 const DiaryList = ({ data }) => {
   const [sortType, setSortType] = useState("latest");
+  const [sortedData, setSortedData] = useState([]);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const copyList = JSON.parse(JSON.stringify(data));
+    copyList.sort((a, b) => {
+      if (sortType === "latest") {
+        return Number(b.date) - Number(a.date);
+      } else {
+        return Number(a.date) - Number(b.date);
+      }
+    });
+    setSortedData(copyList);
+  }, [data, sortType]);
 
   const onChangeSortType = (e) => {
     setSortType(e.target.value);
   };
 
-  // console.log(data);
+  const onClickNew = () => {
+    navigate("/new");
+  };
+
   return (
-    <div>
-      <div>
-        <div>
+    <Wrapper>
+      <DiaryHeading>
+        <LeftContent>
           <select onChange={onChangeSortType} value={sortType}>
             {sortOptionList.map((option, index) => (
               <option key={index} value={option.value}>
@@ -30,12 +74,21 @@ const DiaryList = ({ data }) => {
               </option>
             ))}
           </select>
-        </div>
-        <div>
-          <Button type={"positive"} />
-        </div>
-      </div>
-    </div>
+        </LeftContent>
+        <RightContent>
+          <Button
+            type={"positive"}
+            text={"새 일기 쓰기"}
+            onClick={onClickNew}
+          />
+        </RightContent>
+      </DiaryHeading>
+      <ListContents>
+        {sortedData.map((item) => (
+          <DiaryItem key={item.id} {...item} />
+        ))}
+      </ListContents>
+    </Wrapper>
   );
 };
 

@@ -30,7 +30,7 @@ export const GlobalStyles = createGlobalStyle`
   button {
     border: none;
     background: transparent;
-    font-family: "Paperlogy";
+    font-family: "HakgyoansimDunggeunmiso";
   }
   input {
     font-family: "Paperlogy";
@@ -38,11 +38,13 @@ export const GlobalStyles = createGlobalStyle`
   textarea {
     font-family: "Paperlogy";
   }
+  
 
   /* variable */
   :root {
     --bg-light-color: #fff;
     --bg-dark-color: #222;
+    --bg-light-gray: #eee;
     --bg-orange-color: #F86F03;
     --bg-blue-color: #525FE1;
   } 

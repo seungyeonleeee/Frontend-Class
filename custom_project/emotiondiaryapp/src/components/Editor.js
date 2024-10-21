@@ -20,7 +20,7 @@ const EmotionGroup = styled.ul`
   align-items: center;
 `;
 
-const Editor = ({ initData }) => {
+const Editor = ({ initData, onSubmit }) => {
   const navigate = useNavigate();
 
   const [state, setState] = useState({
@@ -44,15 +44,17 @@ const Editor = ({ initData }) => {
   const handleChangeContent = (e) => {
     setState({ ...state, content: e.target.value });
   };
+  const handleSubmit = () => {
+    onSubmit(state);
+  };
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   const handleChangeEmotion = (emotionId) => {
     setState((state) => ({
       ...state,
       emotionId,
     }));
-  };
-
-  const handleGoBack = () => {
-    navigate(-1);
   };
 
   return (
@@ -84,6 +86,7 @@ const Editor = ({ initData }) => {
       </EditorSection>
       <div>
         <Button text={"취소하기"} onClick={handleGoBack} />
+        <Button text={"작성완료"} type={"positive"} onClick={handleSubmit} />
       </div>
     </Wrapper>
   );

@@ -19,6 +19,8 @@ const Home = () => {
           (item) => beginTimeStamp <= item.date && item.date <= endTimeStamp
         )
       );
+    } else {
+      setFilteredData([]);
     }
   }, [data, pivotDtae]);
 
@@ -78,13 +80,6 @@ const Home = () => {
           />
         }
       />
-      {/* <Editor
-        initData={{
-          date: new Date().getTime(),
-          emotionId: 1,
-          content: "이전에 작성했던 일기",
-        }}
-      /> */}
       <DiaryList data={filteredData} />
     </div>
   );

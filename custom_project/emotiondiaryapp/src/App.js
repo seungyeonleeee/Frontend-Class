@@ -1,11 +1,23 @@
 import React, { useState, useReducer, useRef, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import styled from "styled-components";
 import { GlobalStyles } from "./styles/GlobalStyles.styles";
 import Home from "./pages/Home";
 import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
 import { type } from "@testing-library/user-event/dist/type";
+
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  margin: 0 auto;
+  background: var(--bg-light-color);
+  box-shadow: 0 7px 29px rgba(100, 100, 100, 0.2);
+`;
 
 // Reducer
 const reducer = (state, action) => {
@@ -26,19 +38,19 @@ const reducer = (state, action) => {
 const mockData = [
   {
     id: "mock1",
-    date: new Date().getTime(),
+    date: new Date().getTime() - 1,
     content: "mock1",
     emotionId: 1,
   },
   {
     id: "mock2",
-    date: new Date().getTime(),
+    date: new Date().getTime() - 2,
     content: "mock2",
     emotionId: 2,
   },
   {
     id: "mock3",
-    date: new Date().getTime(),
+    date: new Date().getTime() - 3,
     content: "mock3",
     emotionId: 3,
   },
@@ -104,12 +116,14 @@ const App = () => {
           <DiaryDispatchContext.Provider
             value={{ onCreate, onUpdate, onDelete }}
           >
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/new" element={<New />} />
-              <Route path="/diary/:id" element={<Diary />} />
-              <Route path="/edit/:id" element={<Edit />} />
-            </Routes>
+            <Wrapper>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/new" element={<New />} />
+                <Route path="/diary/:id" element={<Diary />} />
+                <Route path="/edit/:id" element={<Edit />} />
+              </Routes>
+            </Wrapper>
           </DiaryDispatchContext.Provider>
         </DiaryStateContext.Provider>
       </>

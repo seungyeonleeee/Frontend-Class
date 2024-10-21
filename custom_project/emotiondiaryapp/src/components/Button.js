@@ -12,7 +12,7 @@ const ButtonItem = styled.button`
       ? `background: #64c964; color: #fff;`
       : type === "negative"
       ? `background: #fd565f; color: #fff;`
-      : `background: #ccc; color: #000;`}
+      : `background: var(--bg-light-gray); color: #000;`}
   &:hover, &:active {
     ${({ type }) =>
       type === "positive"
@@ -22,8 +22,8 @@ const ButtonItem = styled.button`
         : `background: #ccc; color: #000;`}
   }
   svg {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
   }
 `;
 
