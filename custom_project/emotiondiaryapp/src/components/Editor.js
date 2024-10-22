@@ -10,14 +10,16 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 30px;
 `;
 const EditorSection = styled.article`
   width: 100%;
-  border: 1px solid #f00;
 `;
 const EmotionGroup = styled.ul`
   display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 20px;
 `;
 
 const Editor = ({ initData, onSubmit }) => {

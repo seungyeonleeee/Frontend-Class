@@ -11,12 +11,13 @@ import { type } from "@testing-library/user-event/dist/type";
 const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;
+  min-width: 370px;
   height: 100%;
   min-height: 100vh;
-  padding: 20px;
+  padding: 0 20px 20px;
   margin: 0 auto;
   background: var(--bg-light-color);
-  box-shadow: 0 7px 29px rgba(100, 100, 100, 0.2);
+  box-shadow: 0 7px 30px rgba(0, 0, 0, 0.1);
 `;
 
 // Reducer
@@ -39,7 +40,8 @@ const mockData = [
   {
     id: "mock1",
     date: new Date().getTime() - 1,
-    content: "mock1",
+    content:
+      "mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1mock1",
     emotionId: 1,
   },
   {

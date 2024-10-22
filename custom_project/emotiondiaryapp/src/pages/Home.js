@@ -14,6 +14,7 @@ const Home = () => {
   useEffect(() => {
     if (data.length >= 1) {
       const { beginTimeStamp, endTimeStamp } = getMonthRangeByDate(pivotDtae);
+
       setFilteredData(
         data.filter(
           (item) => beginTimeStamp <= item.date && item.date <= endTimeStamp
@@ -24,9 +25,12 @@ const Home = () => {
     }
   }, [data, pivotDtae]);
 
-  const headerTitle = `${pivotDtae.getFullYear()}년 ${
-    pivotDtae.getMonth() + 1
-  }월`;
+  const headerTitle = `${pivotDtae.getFullYear()}-${
+    pivotDtae.getMonth() + 1 < 10
+      ? "0" + (pivotDtae.getMonth() + 1)
+      : pivotDtae.getMonth() + 1
+  }`;
+
   const onIncreaseMonth = () => {
     setPivotDtae(new Date(pivotDtae.getFullYear(), pivotDtae.getMonth() + 1));
   };

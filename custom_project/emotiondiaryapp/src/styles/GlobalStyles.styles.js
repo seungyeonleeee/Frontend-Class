@@ -44,7 +44,8 @@ export const GlobalStyles = createGlobalStyle`
   :root {
     --bg-light-color: #fff;
     --bg-dark-color: #222;
-    --bg-light-gray: #eee;
+    --bg-light-gray: #f4f4f4;
+    --bg-dark-gray: #575757;
     --bg-orange-color: #F86F03;
     --bg-blue-color: #525FE1;
   } 

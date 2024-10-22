@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-const EmotionContent = styled.li`
+const EmotionContent = styled(motion.li)`
   position: relative;
   width: 80px;
   height: 80px;
@@ -9,6 +10,7 @@ const EmotionContent = styled.li`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all 0.3s ease-out;
   img {
     width: 100%;
     height: 100%;
@@ -18,7 +20,7 @@ const EmotionContent = styled.li`
     position: absolute;
     bottom: 0;
     left: 50%;
-    transform: translate(-50%, 100%);
+    transform: translate(-50%, 50%);
     background: var(--bg-orange-color);
     color: var(--bg-light-color);
     padding: 6px 10px;
@@ -26,12 +28,13 @@ const EmotionContent = styled.li`
     opacity: 0;
     z-index: -1;
     cursor: default;
-    transition: opacity 0.3s;
+    transition: all 0.3s;
   }
   &:hover {
     span {
       opacity: 1;
       z-index: 1;
+      transform: translate(-50%, 100%);
     }
   }
   &.EmotionItem_on {

@@ -16,7 +16,7 @@ const Diary = () => {
     return <div>일기를 불러오고 있습니다...</div>;
   } else {
     const { date, content, emotionId } = data;
-    const title = `${getFormattedDate(new Date(parseInt(date)))} 기록`;
+    const title = `${getFormattedDate(new Date(parseInt(date)))}`;
 
     const goBack = () => {
       navigate(-1);
@@ -27,9 +27,9 @@ const Diary = () => {
     return (
       <div>
         <Header
-          leftChild={<Button text={"< 뒤로가기"} onClick={goBack} />}
+          leftChild={<Button text={"< BACK"} onClick={goBack} />}
           title={title}
-          rightChild={<Button text={"수정하기"} onClick={goEdit} />}
+          rightChild={<Button text={"EDIT"} onClick={goEdit} />}
         />
         <Viewer content={content} emotionId={emotionId} />
       </div>
