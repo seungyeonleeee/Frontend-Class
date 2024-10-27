@@ -12,45 +12,48 @@ const sectionHome = () => {
   // });
   const tl = anime.timeline({
     easing: "linear",
-    duration: 1000,
+    duration: 1100,
   });
 
   tl.add({
-    targets: ".home_svg01 line",
+    targets: ".home_svg01 line,.home_svg01  polyline",
     strokeDashoffset: [anime.setDashoffset, 0],
   })
     .add({
-      targets: ".home_svg02 line",
+      targets:
+        ".home_svg02 line, .home_svg02 polyline, .home_svg02 rect, .home_svg02 polygon",
       strokeDashoffset: [anime.setDashoffset, 0],
     })
     .add({
-      targets: ".home_svg03 polyline",
+      targets: ".home_svg03 line, .home_svg03 polyline, .home_svg03 polygon",
       strokeDashoffset: [anime.setDashoffset, 0],
     })
     .add({
-      targets: ".home_svg04 line",
+      targets:
+        ".home_svg04 line, .home_svg04 polyline , .home_svg04 polygon , .home_svg04 path , .home_svg04 rect",
       strokeDashoffset: [anime.setDashoffset, 0],
     })
     .add({
-      targets: ".home_svg05 line",
+      targets:
+        ".home_svg05 line, .home_svg05 polyline , .home_svg05 rect , .home_svg05 path",
       strokeDashoffset: [anime.setDashoffset, 0],
-    })
-    .add({
-      targets: ".home_inner",
-      background: "#fff",
-    })
-    .add({
-      targets: ".home_inner h1",
-      opacity: 1,
-    })
-    .add({
-      targets: ".home_inner h1",
-      opacity: 0,
-    })
-    .add({
-      targets: ".home_inner img",
-      opacity: 1,
     });
+  // .add({
+  //   targets: ".home_inner",
+  //   background: "#fff",
+  // })
+  // .add({
+  //   targets: ".home_inner h1",
+  //   opacity: 1,
+  // })
+  // .add({
+  //   targets: ".home_inner h1",
+  //   opacity: 0,
+  // })
+  // .add({
+  //   targets: ".home_inner img",
+  //   opacity: 1,
+  // });
 };
 
 // about - countEvent

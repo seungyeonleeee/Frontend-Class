@@ -70,7 +70,7 @@ body header .header_inner .trigger {
 }
 body .content {
   width: 100%;
-  min-width: 1500px;
+  min-width: 1200px;
   height: calc(100% - 70px);
   position: absolute;
   left: 0;
@@ -92,20 +92,33 @@ body .content {
   background: #01a251;
 }
 .home_inner svg {
-  width: 200px;
-  animation: ani 1s both;
-  opacity: 0.5;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 22vw;
+  min-width: 300px;
+}
+.home_inner svg.home_svg01 {
+  top: 45%;
+  left: 20%;
 }
 .home_inner svg.home_svg02 {
+  top: 47%;
+  left: 35%;
   animation-delay: 1s;
 }
 .home_inner svg.home_svg03 {
+  top: 50%;
+  left: 50%;
   animation-delay: 2s;
 }
 .home_inner svg.home_svg04 {
+  top: 55%;
+  left: 65%;
   animation-delay: 3s;
 }
 .home_inner svg.home_svg05 {
+  top: 60%;
+  left: 80%;
   animation-delay: 4s;
 }
 .home_inner h1 {
@@ -124,7 +137,7 @@ body .content {
 
 @keyframes ani {
   0% {
-    opacity: 0.5;
+    opacity: 0;
   }
   100% {
     opacity: 1;
@@ -494,7 +507,8 @@ body .content {
   transform: translateY(-10%);
 }
 .news_inner .news_detail {
-  width: 80vw;
+  width: 90vw;
+  min-width: 1200px;
   height: 80vh;
   position: absolute;
   top: 50%;
@@ -582,6 +596,7 @@ body .content {
   font: 300 1.8rem/1 "Ubuntu", sans-serif;
 }
 .news_inner .news_detail .detail_wrap .detail_right .text {
+  overflow-y: auto;
   font: 400 1.8rem/1.4 "Noto Sans KR", sans-serif;
 }
 .news_inner .news_detail.active {

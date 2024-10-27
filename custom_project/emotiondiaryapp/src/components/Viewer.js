@@ -7,9 +7,13 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 40px;
   margin-top: 20px;
+  padding: 20px;
+  background: var(--bg-light-color);
+  border-radius: 20px;
   cursor: default;
+  box-shadow: 5px 5px 1px rgba(0, 0, 0, 0.1);
 `;
 const EmotionSection = styled.article`
   display: flex;
@@ -21,7 +25,7 @@ const EmotionSection = styled.article`
     font: normal 20px/1 "HakgyoansimDunggeunmiso";
     div {
       display: inline-block;
-      color: var(--bg-orange-color);
+      color: var(--bg-purple-color);
     }
   }
 `;
@@ -31,8 +35,6 @@ const ContentSection = styled.div`
   border-radius: 5px;
   word-break: keep-all;
   overflow-wrap: break-word;
-  background: var(--bg-light-gray);
-  padding: 20px;
   p {
     font-size: 14px;
     line-height: 1.5;

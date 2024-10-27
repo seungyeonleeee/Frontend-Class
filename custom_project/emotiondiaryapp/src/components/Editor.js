@@ -11,15 +11,45 @@ const Wrapper = styled.section`
   flex-direction: column;
   align-items: center;
   gap: 30px;
+  margin: 20px 0;
 `;
 const EditorSection = styled.article`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  h4 {
+    font: normal 12px/1 "HakgyoansimDunggeunmiso";
+    letter-spacing: 2px;
+    color: var(--bg-dark-gray);
+  }
+  input[type="date"] {
+    background: var(--bg-light-color);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 1px rgba(0, 0, 0, 0.05);
+  }
+  textarea {
+    width: 100%;
+    height: 200px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 1px rgba(0, 0, 0, 0.05);
+  }
 `;
-const EmotionGroup = styled.ul`
+const EmotionGroup = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
+  position: relative;
+`;
+const ButtonSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
 `;
 
 const Editor = ({ initData, onSubmit }) => {
@@ -62,7 +92,11 @@ const Editor = ({ initData, onSubmit }) => {
   return (
     <Wrapper>
       <EditorSection>
-        <h4>오늘의 감정</h4>
+        <h4>Today </h4>
+        <input type="date" value={state.date} onChange={handleChangeDate} />
+      </EditorSection>
+      <EditorSection>
+        <h4>How was your day?</h4>
         <EmotionGroup>
           {emotionList.map((item) => (
             <EmotionItem
@@ -75,21 +109,17 @@ const Editor = ({ initData, onSubmit }) => {
         </EmotionGroup>
       </EditorSection>
       <EditorSection>
-        <h4>오늘의 날짜</h4>
-        <input type="date" value={state.date} onChange={handleChangeDate} />
-      </EditorSection>
-      <EditorSection>
-        <h4>오늘의 일기</h4>
+        <h4>Diary</h4>
         <textarea
-          placeholder="오늘은 어땠나요?"
+          placeholder="일기를 작성해 보세요"
           value={state.content}
           onChange={handleChangeContent}
         />
       </EditorSection>
-      <div>
+      <ButtonSection>
         <Button text={"취소하기"} onClick={handleGoBack} />
         <Button text={"작성완료"} type={"positive"} onClick={handleSubmit} />
-      </div>
+      </ButtonSection>
     </Wrapper>
   );
 };

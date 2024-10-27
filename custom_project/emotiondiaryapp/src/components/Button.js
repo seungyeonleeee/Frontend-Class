@@ -5,21 +5,18 @@ const ButtonItem = styled.button`
   position: relative;
   border-radius: 5px;
   padding: 10px;
-  transition: background 0.3s;
+  opacity: 1;
+  box-shadow: 5px 5px 1px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
   cursor: pointer;
   ${({ type }) =>
     type === "positive"
-      ? `background: #64c964; color: #fff;`
+      ? `background: var(--bg-pink-color); color: var(--bg-light-color);`
       : type === "negative"
-      ? `background: #fd565f; color: #fff;`
-      : `background: var(--bg-light-gray); color: #000;`}
+      ? `background: var(--bg-purple-color); color: #fff;`
+      : `background: var(--bg-light-color); color: var(--bg-pink-color);`}
   &:hover, &:active {
-    ${({ type }) =>
-      type === "positive"
-        ? `background: #64c000; color: #fff;`
-        : type === "negative"
-        ? `background: #fd565f; color: #fff;`
-        : `background: #ccc; color: #000;`}
+    opacity: 0.8;
   }
   svg {
     width: 25px;

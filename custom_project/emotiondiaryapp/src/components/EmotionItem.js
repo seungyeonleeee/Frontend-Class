@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-const EmotionContent = styled(motion.li)`
+const EmotionContent = styled(motion.div)`
   position: relative;
   width: 80px;
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
   cursor: pointer;
   transition: all 0.3s ease-out;
   img {
@@ -20,8 +21,8 @@ const EmotionContent = styled(motion.li)`
     position: absolute;
     bottom: 0;
     left: 50%;
-    transform: translate(-50%, 50%);
-    background: var(--bg-orange-color);
+    transform: scale(1) translate(-50%, 50%);
+    background: var(--bg-pink-color);
     color: var(--bg-light-color);
     padding: 6px 10px;
     border-radius: 10px;
@@ -38,7 +39,17 @@ const EmotionContent = styled(motion.li)`
     }
   }
   &.EmotionItem_on {
-    background: var(--bg-blue-color);
+    transform: scale(1.2);
+  }
+`;
+const FeelingTitle = styled.div`
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  span {
+    color: var(--bg-pink-color);
   }
 `;
 
@@ -47,13 +58,20 @@ const EmotionItem = ({ id, name, img, onClick, isSelected }) => {
     onClick(id);
   };
   return (
-    <EmotionContent
-      className={isSelected ? `EmotionItem_on` : null}
-      onClick={handleOnClick}
-    >
-      <img src={img} alt={`emotion${name}`} />
-      <span>{name}</span>
-    </EmotionContent>
+    <>
+      <EmotionContent
+        className={isSelected ? `EmotionItem_on` : null}
+        onClick={handleOnClick}
+      >
+        <img src={img} alt={`emotion${name}`} />
+        <span>{name}</span>
+      </EmotionContent>
+      {isSelected ? (
+        <FeelingTitle>
+          I Feel <span>{name}</span>
+        </FeelingTitle>
+      ) : null}
+    </>
   );
 };
 

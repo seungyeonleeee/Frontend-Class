@@ -81,3 +81,9 @@ export const getMonthRangeByDate = (date) => {
 
   return { beginTimeStamp, endTimeStamp };
 };
+
+// Page Title
+export const setPageTitle = (title) => {
+  const titleElement = document.getElementsByTagName("title")[0];
+  titleElement.innerText = title;
+};

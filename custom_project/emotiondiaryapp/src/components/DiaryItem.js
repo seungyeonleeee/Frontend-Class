@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
+import { DiaryDispatchContext } from "../App";
 import { getEmotionImgById } from "../util";
 import Button from "./Button";
 
@@ -16,8 +17,8 @@ const Wrapper = styled.div`
   margin: 20px 0;
   padding: 20px;
   border-radius: 8px;
-  background: var(--bg-light-gray);
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  background: var(--bg-light-color);
+  box-shadow: 5px 5px 1px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 `;
 const DiarySection = styled.div`
@@ -72,7 +73,7 @@ const DiaryButtonGroup = styled.div`
   }
   &:hover {
     svg {
-      stroke: #f679b8;
+      stroke: var(--bg-pink-color);
     }
   }
 `;
@@ -84,7 +85,7 @@ const ButtonSection = styled(motion.div)`
   transform: translateY(100%);
   display: flex;
   align-items: center;
-  border: 1px solid var(--bg-dark-gray);
+  border: 2px solid var(--bg-light-gray);
   border-radius: 8px;
   overflow: hidden;
   button {
@@ -92,7 +93,7 @@ const ButtonSection = styled(motion.div)`
     border-radius: 0;
     background: var(--bg-light-color);
     &:first-child {
-      border-right: 1px solid var(--bg-dark-gray);
+      border-right: 2px solid var(--bg-light-gray);
     }
   }
 `;
@@ -101,6 +102,8 @@ const DiaryItem = ({ id, date, content, emotionId }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const navigate = useNavigate();
+
+  const { onDelete } = useContext(DiaryDispatchContext);
 
   const goDetail = () => {
     navigate(`/diary/${id}`);
@@ -113,13 +116,18 @@ const DiaryItem = ({ id, date, content, emotionId }) => {
   const openBtnGroup = () => {
     setIsVisible((current) => !current);
   };
+  const onClickDelete = () => {
+    if (window.confirm("일기를 정말 삭제할까요? 다시 복구되지 않습니다.")) {
+      onDelete(id);
+    }
+  };
 
   return (
     <Wrapper>
       <DiarySection onClick={goDetail}>
         <DiaryImg
           whileHover={{ scale: 1.1 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          transition={{ type: "spring", stiffness: 200, damping: 6 }}
         >
           <img src={getEmotionImgById(emotionId)} alt={`emotion${emotionId}`} />
         </DiaryImg>
@@ -142,7 +150,6 @@ const DiaryItem = ({ id, date, content, emotionId }) => {
             d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
           />
         </svg>
-
         <AnimatePresence>
           {isVisible && (
             <ButtonSection
@@ -151,7 +158,7 @@ const DiaryItem = ({ id, date, content, emotionId }) => {
               exit={{ opacity: 0 }}
             >
               <Button text={"EDIT"} onClick={goEdit} />
-              <Button text={"DELETE"} onClick={goEdit} />
+              <Button text={"DELETE"} onClick={onClickDelete} />
             </ButtonSection>
           )}
         </AnimatePresence>

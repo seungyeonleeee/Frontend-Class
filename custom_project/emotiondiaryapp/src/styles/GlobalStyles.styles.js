@@ -31,12 +31,33 @@ export const GlobalStyles = createGlobalStyle`
     border: none;
     background: transparent;
     font-family: "HakgyoansimDunggeunmiso";
+   span{
+    font-family: "arial";
+   }
   }
   input {
     font-family: "Paperlogy";
+    &[type="date"]{
+      border: none;
+      &:focus{
+        outline: none;
+      }
+    }
   }
   textarea {
     font-family: "Paperlogy";
+    resize: none;
+    border: none;
+    &::placeholder{
+      opacity: 1;
+      transition: opacity .3s;
+    }
+    &:focus{
+        outline: none;
+        &::placeholder{
+          opacity: 0;
+        }
+      }
   }
   
 
@@ -44,10 +65,11 @@ export const GlobalStyles = createGlobalStyle`
   :root {
     --bg-light-color: #fff;
     --bg-dark-color: #222;
-    --bg-light-gray: #f4f4f4;
+    --bg-light-gray: #eee;
     --bg-dark-gray: #575757;
-    --bg-orange-color: #F86F03;
-    --bg-blue-color: #525FE1;
+    --bg-light-pink: #fff4fc;
+    --bg-pink-color: #F679B8;
+    --bg-purple-color: #B87ED6;
   } 
 
   /* common */
