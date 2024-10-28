@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import DataView from "./components/DataView";
-import TextInput from "./components/TextInput";
-import Button from "./components/Button";
+import InputContainer from "./components/InputContainer";
+import { ToDoListContextProvider } from "./contexts/ToDoContext";
 
+// styled
 const Container = styled.div`
+  position: relative;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -14,32 +16,38 @@ const Container = styled.div`
   background: #eee;
 `;
 
-const mockData = [
-  "Typescript 복습하기",
-  "Next.js 예습하기",
-  "Node.js 공부하기",
-];
+// mockup
+// const mockData = [
+//   "Typescript 복습하기",
+//   "Next.js 예습하기",
+//   "Node.js 공부하기",
+// ];
 
 const App = () => {
-  // todo list
-  const [toDoList, setToDoList] = useState(mockData);
-  // todo search
-  const [toDo, setTodo] = useState("");
+  // // toggle input
+  // const [showToDoInput, setShowToDoInput] = useState(false);
+  // // todo list
+  // const [toDoList, setToDoList] = useState(mockData);
+  // // todo search
+  // const [toDo, setToDo] = useState("");
 
-  const onAdd = () => {
-    if (toDo === "") return;
-    setToDoList([toDo, ...toDoList]);
-    setTodo("");
-  };
-  const onDelete = (todo: string) => {
-    setToDoList(toDoList.filter((item) => item !== todo));
-  };
+  // const onAdd = (toDo: string) => {
+  //   if (toDo === "") return;
+
+  //   setToDoList([toDo, ...toDoList]);
+  //   setShowToDoInput(false);
+  //   setToDo("");
+  // };
+  // const onDelete = (todo: string) => {
+  //   setToDoList(toDoList.filter((item) => item !== todo));
+  // };
 
   return (
     <Container>
-      <DataView toDoList={toDoList} onDelete={onDelete} />
-      <TextInput value={toDo} onChange={setTodo} />
-      <Button label={"추가"} color="#304ffe" onClick={onAdd} />
+      <ToDoListContextProvider>
+        <DataView />
+        <InputContainer />
+      </ToDoListContextProvider>
     </Container>
   );
 };

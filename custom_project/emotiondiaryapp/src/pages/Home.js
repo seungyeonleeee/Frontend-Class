@@ -5,11 +5,13 @@ import Button from "../components/Button";
 import Editor from "../components/Editor";
 import DiaryList from "../components/DiaryList";
 import { getMonthRangeByDate } from "../util";
+import FirstScreen from "../components/FirstScreen";
 
 const Home = () => {
   const data = useContext(DiaryStateContext);
   const [pivotDtae, setPivotDtae] = useState(new Date());
   const [filteredData, setFilteredData] = useState([]);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     if (data.length >= 1) {
@@ -37,8 +39,17 @@ const Home = () => {
   const onDecreaseMonth = () => {
     setPivotDtae(new Date(pivotDtae.getFullYear(), pivotDtae.getMonth() - 1));
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+    }, 4800);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div>
+    <>
+      {isVisible ? <FirstScreen /> : null}
       <Header
         leftChild={
           <Button
@@ -85,7 +96,7 @@ const Home = () => {
         }
       />
       <DiaryList data={filteredData} />
-    </div>
+    </>
   );
 };
 
