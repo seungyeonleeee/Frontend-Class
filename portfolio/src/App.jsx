@@ -1,13 +1,15 @@
 import React from "react";
 import { GlobalStyles } from "./styles/GlobalStyles";
+import Header from "./components/Header";
 import ViewMoreButton from "./components/ViewMoreButton";
+import Home from "./components/Home";
 
 const App = () => {
   return (
     <div>
       <GlobalStyles />
-      안녕하세요
-      <ViewMoreButton text={"Read More"} />
+      {/* <Header /> */}
+      <Home />
     </div>
   );
 };
