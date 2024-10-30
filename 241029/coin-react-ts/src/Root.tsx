@@ -1,6 +1,9 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme } from "./theme";
 
 const GlobalStyle = createGlobalStyle`
   /* font */
@@ -31,8 +34,14 @@ const GlobalStyle = createGlobalStyle`
 const App = () => {
   return (
     <>
-      <GlobalStyle />
-      <Outlet />
+      <ThemeProvider theme={lightTheme}>
+        <GlobalStyle />
+        <Outlet />
+        <ReactQueryDevtools
+          initialIsOpen={false}
+          buttonPosition="bottom-left"
+        />
+      </ThemeProvider>
     </>
   );
 };

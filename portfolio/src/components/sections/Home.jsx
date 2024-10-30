@@ -1,23 +1,22 @@
 import React from "react";
 import styled from "styled-components";
-import { Inner } from "../util";
+import { wrapper, Inner } from "../../util";
 
 const Container = styled.section`
   position: relative;
-  width: 100%;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${wrapper}
 `;
 const HomeInner = styled(Inner)`
   position: relative;
-  align-items: center;
-  justify-content: center;
 `;
 const MainCharacter = styled.div`
-  width: 350px;
-  height: 350px;
+  width: 25%;
+  /* height: 350px; */
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `;
 const LineCharacter = styled.div`
   position: absolute;

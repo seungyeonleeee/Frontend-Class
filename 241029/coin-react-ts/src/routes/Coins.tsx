@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCoins } from "../api";
+import { Helmet } from "react-helmet";
 
 const Container = styled.main`
   width: 100%;
@@ -83,7 +86,7 @@ const Img = styled.img`
 //   },
 // ];
 
-interface CoinInterface {
+export interface CoinInterface {
   id: string;
   name: string;
   symbol: string;
@@ -94,33 +97,45 @@ interface CoinInterface {
 }
 
 const Coins = () => {
-  const [coins, setCoins] = useState<CoinInterface[]>([]);
-  const [loading, setLoading] = useState(true);
+  // const [coins, setCoins] = useState<CoinInterface[]>([]);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/Divjason/coindata/refs/heads/main/coins.json"
-      );
-      const json = await response.json();
-      // console.log(json);
+  // useEffect(() => {
+  //   (async () => {
+  //     const response = await fetch(
+  //       "https://raw.githubusercontent.com/Divjason/coindata/refs/heads/main/coins.json"
+  //     );
+  //     const json = await response.json();
+  //     // console.log(json);
 
-      setCoins(json.slice(0, 101));
+  //     setCoins(json.slice(0, 101));
 
-      setLoading(false);
-    })();
-  }, []);
+  //     setLoading(false);
+  //   })();
+  // }, []);
+
+  // react-query를 통해서 찾아오기
+  // state를 쪼개지 않아도 됨
+  const { isLoading, data } = useQuery<CoinInterface[]>({
+    queryKey: ["allCoins"],
+    queryFn: fetchCoins,
+  });
+  // const { 로딩여부, 찾아오는 데이터 } = queryKey: 식별자 이름(필수), queryFn: 실제 실행자
+  // console.log(isLoading, data); // isLoading : true => 로딩중
 
   return (
     <Container>
+      <Helmet>
+        <title>Coin List</title>
+      </Helmet>
       <Header>
-        <Title>Coins</Title>
+        <Title>Coin List</Title>
       </Header>
-      {loading ? (
+      {isLoading ? (
         <Loader>Loading ...</Loader>
       ) : (
         <CoinList>
-          {coins.map((coin) => (
+          {data?.slice(0, 100).map((coin) => (
             <Coin key={coin.id}>
               <Link to={`/${coin.id}`} state={`${coin.name}`}>
                 🏆 Now Rank: {coin.rank}

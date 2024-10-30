@@ -1,9 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useLocation, Outlet } from "react-router-dom";
+import {
+  useParams,
+  useLocation,
+  Outlet,
+  Link,
+  useMatch,
+} from "react-router-dom";
 import styled from "styled-components";
-import Chart from "./Chart";
-import Price from "./Price";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCoinInfo, fetchCoinPrice } from "../api";
+import { CoinInterface } from "./Coins";
+import { Helmet } from "react-helmet";
 
+// Style
 const Container = styled.main`
   width: 100%;
   height: 100vh;
@@ -49,22 +57,52 @@ const Description = styled.div`
   border-radius: 10px;
   margin-bottom: 10px;
 `;
+const Tabs = styled.div`
+  width: 600px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+const Tab = styled.span<IsActice>`
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  background: ${(props) =>
+    props.isActive ? props.theme.textColor : props.theme.accentColor};
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  padding: 8px 0;
+  border-radius: 8px;
+  transition: all 0.3s;
+  cursor: pointer;
+  &:hover {
+    background: ${({ theme }) => theme.textColor};
+    color: ${({ theme }) => theme.accentColor};
+  }
+  a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+  }
+`;
 
+// Type
 interface RouterParams {
   coinId: string;
 }
 interface LocationState {
   state: string;
 }
-interface InfoData {
-  id: string;
-  name: string;
-  symbol: string;
-  rank: number;
-  is_new: boolean;
-  is_active: boolean;
-  type: string;
-}
+// interface InfoData {
+//   id: string;
+//   name: string;
+//   symbol: string;
+//   rank: number;
+//   is_new: boolean;
+//   is_active: boolean;
+//   type: string;
+// }
 interface PriceData {
   id: string;
   name: string;
@@ -98,12 +136,15 @@ interface PriceData {
     };
   };
 }
+interface IsActice {
+  isActive: boolean;
+}
 
 const Coin = () => {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
-  const [info, setInfo] = useState<InfoData>();
-  const [priceInfo, setPriceInfo] = useState<PriceData>();
+  // const [info, setInfo] = useState<InfoData>();
+  // const [priceInfo, setPriceInfo] = useState<PriceData>();
 
   // Link값으로 받아오기
   const { state } = useLocation() as LocationState;
@@ -113,31 +154,57 @@ const Coin = () => {
   const { coinId } = useParams<RouterParams | any>();
   // console.log(coinId);
 
-  useEffect(() => {
-    (async () => {
-      const infoData = await (
-        await fetch(
-          `https://my-json-server.typicode.com/Divjason/coinlist/coins/${coinId}`
-        )
-      ).json();
-      // console.log(infoData);
-      const priceData = await (
-        await fetch(
-          `https://my-json-server.typicode.com/Divjason/coinprice/coinprice/${coinId}`
-        )
-      ).json();
-      // console.log(priceData);
+  // useMatch
+  // 내가 인자값으로 정의해놓은 페이지에 도착하면 객체 전달 // 아니면 null 반환
+  const priceMatch = useMatch("/:coinId/price");
+  const chartMatch = useMatch("/:coinId/chart");
+  // console.log(priceMatch);
+  // console.log(chartMatch);
 
-      setInfo(infoData);
-      setPriceInfo(priceData);
-      setLoading(false);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const infoData = await (
+  //       await fetch(
+  //         `https://my-json-server.typicode.com/Divjason/coinlist/coins/${coinId}`
+  //       )
+  //     ).json();
+  //     // console.log(infoData);
+  //     const priceData = await (
+  //       await fetch(
+  //         `https://my-json-server.typicode.com/Divjason/coinprice/coinprice/${coinId}`
+  //       )
+  //     ).json();
+  //     // console.log(priceData);
+
+  //     setInfo(infoData);
+  //     setPriceInfo(priceData);
+  //     setLoading(false);
+  //   })();
+  // }, []);
+
+  // ReactQeury로 가져오기
+  // { key=value: name } : 구조분해할당 후 이름 바꾸기
+  const { isLoading: infoLoading, data: infoData } = useQuery<CoinInterface>({
+    queryKey: ["info", coinId],
+    queryFn: () => fetchCoinInfo(coinId),
+  });
+  const { isLoading: priceLoading, data: priceData } = useQuery<PriceData>({
+    queryKey: ["price", coinId],
+    queryFn: () => fetchCoinPrice(coinId),
+    // refetchInterval: 5000, // 5초에 한번씩 업데이트
+  });
+
+  const loading = infoLoading || priceLoading;
 
   return (
     <Container>
+      <Helmet>
+        <title>Coin</title>
+      </Helmet>
       <Header>
-        <Title>{state ? state : loading ? "Loading ..." : info?.name}</Title>
+        <Title>
+          {state ? state : loading ? "Loading ..." : infoData?.name}
+        </Title>
         {/* 주소값으로 즐겨찾기를 해놓은 상태라면, 부모를 거치지 않았기 때문에 state가 뜨지 않음 */}
       </Header>
       {loading ? (
@@ -147,19 +214,19 @@ const Coin = () => {
           <Overview>
             <OverviewItem>
               <span>Rank: </span>
-              <span>{info?.rank}</span>
+              <span>{infoData?.rank}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Symbol: </span>
-              <span>{info?.symbol}</span>
+              <span>{infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Open Source: </span>
-              <span>{info?.is_active ? "Yes" : "No"}</span>
+              <span>{infoData?.is_active ? "Yes" : "No"}</span>
             </OverviewItem>
           </Overview>
           <Description>
-            🎇 Information of {info?.type} type: Lorem ipsum dolor sit amet,
+            🎇 Information of {infoData?.type} type: Lorem ipsum dolor sit amet,
             consectetur adipisicing elit. Facilis nostrum possimus, laborum
             totam voluptates natus praesentium voluptatibus ad ratione
             perspiciatis minima? Earum cupiditate temporibus esse eaque aut
@@ -168,13 +235,23 @@ const Coin = () => {
           <Overview>
             <OverviewItem>
               <span>Total Supply: </span>
-              <span>{priceInfo?.total_supply}</span>
+              <span>{priceData?.total_supply}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Max Supply: </span>
-              <span>{priceInfo?.max_supply}</span>
+              <span>{priceData?.max_supply}</span>
             </OverviewItem>
           </Overview>
+
+          <Tabs>
+            <Tab isActive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
+            </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+          </Tabs>
+
           <Outlet />
         </>
       )}
