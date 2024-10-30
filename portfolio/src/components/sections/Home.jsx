@@ -1,29 +1,66 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import { delay, motion } from "framer-motion";
 import { wrapper, Inner } from "../../util";
 
+// Style
 const Container = styled.section`
   position: relative;
   height: 100vh;
   ${wrapper}
 `;
+const Background = styled(motion.div)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-light-color);
+  overflow: hidden;
+`;
+const Circle = styled(motion.span)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-block;
+  border: 1px solid #f1eee9;
+  border-radius: 50%;
+  &:nth-child(1) {
+    width: 600px;
+    height: 600px;
+  }
+  &:nth-child(2) {
+    width: 1200px;
+    height: 1200px;
+  }
+  &:nth-child(3) {
+    width: 1700px;
+    height: 1700px;
+  }
+`;
 const HomeInner = styled(Inner)`
   position: relative;
+  z-index: 1;
 `;
-const MainCharacter = styled.div`
+const MainElement = styled(motion.div)`
   width: 25%;
-  /* height: 350px; */
+  min-width: 300px;
   svg {
     width: 100%;
     height: 100%;
   }
 `;
-const LineCharacter = styled.div`
+const LineElement = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  width: 35%;
+  min-width: 500px;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `;
-const TextGroup = styled.div`
+const TextGroup = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -44,34 +81,116 @@ const TextGroup = styled.div`
   }
 `;
 
+// Variants
+const lineVariants = {
+  start: {
+    x: -706,
+  },
+  end: {
+    x: 0,
+    transition: {
+      delay: 0.5,
+      duration: 1.5,
+      ease: "easeOut",
+    },
+  },
+};
+const FadeInVariants = {
+  start: (coord) => ({
+    opacity: 0,
+    x: coord?.x || 0,
+    y: coord?.y || 0,
+  }),
+  end: (sec) => ({
+    opacity: 1,
+    x: 0,
+    y: 0,
+    transition: {
+      delay: sec?.delay || 0,
+      duration: 1,
+      ease: "easeOut",
+    },
+  }),
+};
+const backgroundVariants = {
+  start: { opacity: 0 },
+  end: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 1,
+    },
+  },
+};
+const circleVariants = {
+  start: {
+    opacity: 0,
+    width: 0,
+    height: 0,
+  },
+  end: (size) => ({
+    opacity: 1,
+    width: size?.width || 0,
+    height: size?.height || 0,
+    transition: {
+      delay: 1.8,
+      duration: 2,
+      ease: "easeOut",
+    },
+  }),
+};
+
 const Home = () => {
   return (
     <Container>
-      <LineCharacter>
-        <svg
-          width="706"
-          height="507"
+      <Background variants={backgroundVariants} initial="start" animate="end">
+        <Circle
+          variants={circleVariants}
+          custom={{ width: 600, height: 600 }}
+        />
+        <Circle
+          variants={circleVariants}
+          custom={{ width: 1200, height: 1200 }}
+        />
+        <Circle
+          variants={circleVariants}
+          custom={{ width: 1700, height: 1700 }}
+        />
+      </Background>
+      <LineElement>
+        <motion.svg
           viewBox="0 0 706 507"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g clip-path="url(#clip0_99_180)">
+          <mask id="reveal-mask">
+            <motion.rect
+              x="0"
+              y="0"
+              width="706"
+              height="507"
+              fill="#fff"
+              variants={lineVariants}
+              initial={"start"}
+              animate={"end"}
+            />
+          </mask>
+          <g mask="url(#reveal-mask)">
             <path
               d="M-139.892 -82C-117.669 -46.0125 -60.5082 31.3225 -9.645 52.7621C53.934 79.5616 63.0535 72.3843 98.938 94.1865C128.148 111.933 138.53 134.133 141.276 141.237C145.414 156.061 148.422 189.024 118.513 185.948C98.9775 183.939 99.6709 158.671 111.864 148.185C123.006 138.604 146.282 150.112 167.095 156.673C205.011 168.627 222.663 175.896 242.157 194.16C259.23 210.155 279.456 232.599 292.719 300.49C311.186 395.022 337.827 463.946 420.327 488.5C588.327 538.5 629.403 426 703.403 449.5"
               stroke="#FF481F"
-              stroke-width="3"
-              stroke-linecap="round"
+              strokeWidth="3"
+              strokeLinecap="round"
             />
           </g>
-          <defs>
-            <clipPath id="clip0_99_180">
-              <rect width="706" height="507" fill="white" />
-            </clipPath>
-          </defs>
-        </svg>
-      </LineCharacter>
+        </motion.svg>
+      </LineElement>
       <HomeInner>
-        <MainCharacter>
+        <MainElement
+          custom={{ x: 0, y: 20 }}
+          initial="start"
+          animate="end"
+          variants={FadeInVariants}
+        >
           <svg
             width="332"
             height="306"
@@ -84,8 +203,14 @@ const Home = () => {
               fill="black"
             />
           </svg>
-        </MainCharacter>
-        <TextGroup className="titleGroup">
+        </MainElement>
+        <TextGroup
+          className="titleGroup"
+          custom={{ x: -20, y: 0, delay: 0.7 }}
+          initial="start"
+          animate="end"
+          variants={FadeInVariants}
+        >
           <h1>
             <span>이을</span> 승
           </h1>

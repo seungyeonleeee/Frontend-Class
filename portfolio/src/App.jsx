@@ -11,8 +11,8 @@ const App = () => {
     <div>
       <GlobalStyles />
       {/* <Header /> */}
-      {/* <Home /> */}
-      <About />
+      <Home />
+      {/* <About /> */}
       {/* <LoadingScreen /> */}
     </div>
   );

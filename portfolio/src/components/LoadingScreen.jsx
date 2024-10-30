@@ -46,7 +46,7 @@ const Container = styled.section`
     box-shadow: 0 0 100px var(--bg-beige-color);
   }
 `;
-const AnimationCharacter = styled.article`
+const AnimationElement = styled.article`
   position: relative;
   width: 100%;
   height: 100%;
@@ -80,7 +80,7 @@ const lineVariants = {
 const LoadingScreen = () => {
   return (
     <Container>
-      <AnimationCharacter>
+      <AnimationElement>
         <motion.svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1920 450"
@@ -111,7 +111,7 @@ const LoadingScreen = () => {
             />
           </g>
         </motion.svg>
-      </AnimationCharacter>
+      </AnimationElement>
     </Container>
   );
 };

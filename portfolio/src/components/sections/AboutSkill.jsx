@@ -6,6 +6,11 @@ const Container = styled.div`
   ${wrapper}
   flex-direction: column;
   gap: 50px;
+  span {
+    font: 400 16px/1 "Poppins-Regular";
+    letter-spacing: 8px;
+    color: var(--bg-dark-gray);
+  }
 `;
 const Skill = styled.div`
   height: 500px;
@@ -31,12 +36,10 @@ const SkillList = styled.ul`
   display: flex;
   li {
     flex: 1;
-    height: 650px;
+    height: 600px;
     display: flex;
     &:nth-child(2n) {
-      & > ${Skill} {
-        justify-content: flex-end;
-      }
+      align-items: flex-end;
     }
   }
 `;
