@@ -6,6 +6,7 @@ const Container = styled.div`
   ${wrapper}
   flex-direction: column;
   gap: 50px;
+  background: var(--bg-beige-color);
   span {
     font: 400 16px/1 "Poppins-Regular";
     letter-spacing: 8px;

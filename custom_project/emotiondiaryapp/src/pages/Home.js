@@ -11,7 +11,6 @@ const Home = () => {
   const data = useContext(DiaryStateContext);
   const [pivotDtae, setPivotDtae] = useState(new Date());
   const [filteredData, setFilteredData] = useState([]);
-  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     if (data.length >= 1) {
@@ -40,16 +39,8 @@ const Home = () => {
     setPivotDtae(new Date(pivotDtae.getFullYear(), pivotDtae.getMonth() - 1));
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 4800);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <>
-      {isVisible ? <FirstScreen /> : null}
       <Header
         leftChild={
           <Button

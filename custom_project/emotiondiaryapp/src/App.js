@@ -57,6 +57,7 @@ export const DiaryDispatchContext = React.createContext();
 
 const App = () => {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const [data, dispatch] = useReducer(reducer, []);
 
@@ -84,6 +85,13 @@ const App = () => {
     });
 
     setIsDataLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+    }, 4800);
+    return () => clearTimeout(timer);
   }, []);
 
   // Functions
@@ -123,6 +131,7 @@ const App = () => {
     return (
       <>
         <GlobalStyles />
+        {isVisible ? <FirstScreen /> : null}
         <DiaryStateContext.Provider value={data}>
           <DiaryDispatchContext.Provider
             value={{ onCreate, onUpdate, onDelete }}

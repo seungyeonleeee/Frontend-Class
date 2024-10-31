@@ -51,13 +51,13 @@ const SortList = styled.div`
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background: #f2f2f2;
+    background: var(--bg-pink-color);
     padding: 15px 20px;
     z-index: 1;
     li {
       font: normal 14px/1 "HakgyoansimDunggeunmiso";
       letter-spacing: 2px;
-      color: var(--bg-dark-gray);
+      color: var(--bg-light-color);
       cursor: pointer;
     }
   }

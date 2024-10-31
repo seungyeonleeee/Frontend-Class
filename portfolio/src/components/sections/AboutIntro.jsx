@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { wrapper, ImgBoxLarge } from "../../util";
+import { wrapper, ImgBoxLarge, SectionTitle } from "../../util";
 
 const Container = styled.div`
   ${wrapper}
@@ -14,14 +14,6 @@ const TextBox = styled.ul`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    h3 {
-      font-size: 44px;
-      font-weight: 500;
-      margin-bottom: 20px;
-      span {
-        font-family: "Poppins-Medium";
-      }
-    }
     h5 {
       font: 400 18px/1 "Poppins-Regular";
       font-size: 18px;
@@ -42,9 +34,9 @@ const AboutIntro = () => {
       <ImgBoxLarge />
       <TextBox>
         <li>
-          <h3>
+          <SectionTitle>
             이 승연 <span> SeungYeon Lee</span>
-          </h3>
+          </SectionTitle>
           <h5>1998.01.10</h5>
         </li>
         <li>

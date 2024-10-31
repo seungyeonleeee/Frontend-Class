@@ -4,6 +4,7 @@ import {
   Outlet,
   Link,
   useMatch,
+  useOutletContext,
 } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
@@ -69,9 +70,9 @@ const Tab = styled.span<IsActice>`
   font-size: 14px;
   font-weight: bold;
   background: ${(props) =>
-    props.isActive ? props.theme.textColor : props.theme.accentColor};
+    props.$isActive ? props.theme.textColor : props.theme.accentColor};
   color: ${(props) =>
-    props.isActive ? props.theme.accentColor : props.theme.textColor};
+    props.$isActive ? props.theme.accentColor : props.theme.textColor};
   padding: 8px 0;
   border-radius: 8px;
   transition: all 0.3s;
@@ -137,7 +138,7 @@ interface PriceData {
   };
 }
 interface IsActice {
-  isActive: boolean;
+  $isActive: boolean;
 }
 
 const Coin = () => {
@@ -191,7 +192,7 @@ const Coin = () => {
   const { isLoading: priceLoading, data: priceData } = useQuery<PriceData>({
     queryKey: ["price", coinId],
     queryFn: () => fetchCoinPrice(coinId),
-    // refetchInterval: 5000, // 5초에 한번씩 업데이트
+    refetchInterval: 5000, // 5초에 한번씩 업데이트
   });
 
   const loading = infoLoading || priceLoading;
@@ -202,9 +203,11 @@ const Coin = () => {
         <title>Coin</title>
       </Helmet>
       <Header>
-        <Title>
-          {state ? state : loading ? "Loading ..." : infoData?.name}
-        </Title>
+        <Link to={"/"}>
+          <Title>
+            {state ? state : loading ? "Loading ..." : infoData?.name}
+          </Title>
+        </Link>
         {/* 주소값으로 즐겨찾기를 해놓은 상태라면, 부모를 거치지 않았기 때문에 state가 뜨지 않음 */}
       </Header>
       {loading ? (
@@ -244,10 +247,10 @@ const Coin = () => {
           </Overview>
 
           <Tabs>
-            <Tab isActive={chartMatch !== null}>
+            <Tab $isActive={chartMatch !== null}>
               <Link to={`/${coinId}/chart`}>Chart</Link>
             </Tab>
-            <Tab isActive={priceMatch !== null}>
+            <Tab $isActive={priceMatch !== null}>
               <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
           </Tabs>

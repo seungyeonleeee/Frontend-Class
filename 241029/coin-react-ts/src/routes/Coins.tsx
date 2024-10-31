@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCoins } from "../api";
 import { Helmet } from "react-helmet";
+import { isDarkAtom } from "../atoms";
+import { useSetRecoilState } from "recoil";
 
 const Container = styled.main`
   width: 100%;
@@ -14,10 +16,22 @@ const Container = styled.main`
   margin-top: 50px;
 `;
 const Header = styled.header`
+  width: 760px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 32px;
 `;
 const Title = styled.h1`
   color: ${({ theme }) => theme.accentColor};
+`;
+const Button = styled.button`
+  background: ${({ theme }) => theme.accentColor};
+  color: ${({ theme }) => theme.bgColor};
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
 `;
 const CoinList = styled.ul`
   width: 760px;
@@ -123,6 +137,9 @@ const Coins = () => {
   // const { 로딩여부, 찾아오는 데이터 } = queryKey: 식별자 이름(필수), queryFn: 실제 실행자
   // console.log(isLoading, data); // isLoading : true => 로딩중
 
+  const setterFn = useSetRecoilState(isDarkAtom);
+  // useSetRecoilState 값을 설정하는 역할
+
   return (
     <Container>
       <Helmet>
@@ -130,6 +147,7 @@ const Coins = () => {
       </Helmet>
       <Header>
         <Title>Coin List</Title>
+        <Button onClick={() => setterFn((prev) => !prev)}>Mode</Button>
       </Header>
       {isLoading ? (
         <Loader>Loading ...</Loader>

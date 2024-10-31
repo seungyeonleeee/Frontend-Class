@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import ViewMoreButton from "./components/ViewMoreButton";
 import Home from "./components/sections/Home";
 import About from "./components/sections/About";
+import Project from "./components/sections/Project";
 import LoadingScreen from "./components/LoadingScreen";
 
 const App = () => {
@@ -11,8 +12,9 @@ const App = () => {
     <div>
       <GlobalStyles />
       {/* <Header /> */}
-      <Home />
+      {/* <Home /> */}
       {/* <About /> */}
+      <Project />
       {/* <LoadingScreen /> */}
     </div>
   );

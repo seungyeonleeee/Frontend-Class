@@ -3,6 +3,16 @@ import styled, { keyframes } from "styled-components";
 import { delay, motion } from "framer-motion";
 import { wrapper, Inner } from "../../util";
 
+// Animation
+const shadow = keyframes`
+  0% {
+    box-shadow: 0px 0px 0px transparent;
+  }
+  100% {
+   box-shadow: 30px -10px 100px rgba(240, 239, 238, 0.8);
+  }
+`;
+// rgba(240, 239, 238, 0.8)
 // Style
 const Container = styled.section`
   position: relative;
@@ -24,17 +34,21 @@ const Circle = styled(motion.span)`
   display: inline-block;
   border: 1px solid #f1eee9;
   border-radius: 50%;
+  /* animation: ${shadow} 1s ease-in-out both; */
   &:nth-child(1) {
     width: 600px;
     height: 600px;
+    animation-delay: 1s;
   }
   &:nth-child(2) {
     width: 1200px;
     height: 1200px;
+    animation-delay: 1.5s;
   }
   &:nth-child(3) {
     width: 1700px;
     height: 1700px;
+    animation-delay: 2s;
   }
 `;
 const HomeInner = styled(Inner)`
@@ -132,31 +146,57 @@ const circleVariants = {
     width: size?.width || 0,
     height: size?.height || 0,
     transition: {
-      delay: 1.8,
-      duration: 2,
+      // delay: 1.8,
+      duration: 1.5,
       ease: "easeOut",
     },
   }),
+  shadow: {
+    boxShadow: [
+      "0px 0px 0px transparent",
+      "30px -10px 100px rgba(240, 239, 238, 0.8)",
+      "0px 0px 0px transparent",
+    ],
+    transition: {
+      delay: 1.5, // boxShadow가 시작될 때의 지연 시간
+      duration: 2, // boxShadow가 나타나고 사라지는 총 시간
+      repeat: Infinity,
+      repeatType: "loop",
+      repeatDelay: 8,
+      ease: "easeInOut",
+    },
+  },
 };
 
 const Home = () => {
+  const onCircleShadow = (index) => {
+    // 'shadow' 애니메이션을 따로 실행
+    document.querySelectorAll(".circle")[index]?.animate(circleVariants.shadow);
+  };
+
   return (
     <Container>
       <Background variants={backgroundVariants} initial="start" animate="end">
         <Circle
-          variants={circleVariants}
           custom={{ width: 600, height: 600 }}
+          initial="start"
+          animate="end"
+          variants={circleVariants}
         />
         <Circle
-          variants={circleVariants}
           custom={{ width: 1200, height: 1200 }}
+          initial="start"
+          animate="end"
+          variants={circleVariants}
         />
         <Circle
-          variants={circleVariants}
           custom={{ width: 1700, height: 1700 }}
+          initial="start"
+          animate="end"
+          variants={circleVariants}
         />
       </Background>
-      <LineElement>
+      {/* <LineElement>
         <motion.svg
           viewBox="0 0 706 507"
           fill="none"
@@ -216,7 +256,7 @@ const Home = () => {
           </h1>
           <p>서로의 이야기를 이어 공감을 쌓아갑니다.</p>
         </TextGroup>
-      </HomeInner>
+      </HomeInner> */}
     </Container>
   );
 };

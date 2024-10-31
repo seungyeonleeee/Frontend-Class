@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCoinHistory } from "../api";
 import ApexChart from "react-apexcharts";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 const Container = styled.div`
   margin-top: 10px;
@@ -21,6 +23,10 @@ interface CoinHistory {
 }
 
 const Chart = () => {
+  // Recoil
+  const isDark = useRecoilValue(isDarkAtom);
+  // useRecoilValue 찾아오는 역할
+
   // 파라미터 값으로 id 가져오기
   const { coinId } = useParams();
   // console.log(coinId);
@@ -33,23 +39,25 @@ const Chart = () => {
   });
   // console.log(isLoading, data);
 
+  const chartData = Array.isArray(data) && data.length > 0 ? data : [];
+
   return (
     <Container>
       {isLoading ? (
         "Loading Chart ..."
-      ) : (
+      ) : chartData.length > 0 ? (
         <ApexChart
           width={600}
           type="line"
           series={[
             {
               name: "Price",
-              data: data?.map((price) => Number(price.close)) || [],
+              data: chartData?.map((price) => Number(price.close)) || [],
             },
           ]}
           options={{
             theme: {
-              mode: "dark",
+              mode: isDark ? "dark" : "light",
             },
             stroke: {
               width: 4,
@@ -68,17 +76,24 @@ const Chart = () => {
               labels: {
                 show: true,
               },
+              categories: chartData.map((price) =>
+                new Date(price.time_close * 1000).toLocaleDateString()
+              ),
             },
             yaxis: {
               labels: {
                 show: true,
+                style: {
+                  fontSize: "12px",
+                },
+                formatter: (value) => `${value.toFixed(3)}`,
               },
             },
-            colors: ["red"],
+            colors: ["#ff0844"],
             fill: {
               type: "gradient",
               gradient: {
-                gradientToColors: ["blue"],
+                gradientToColors: ["#005bea"],
                 stops: [0, 100],
               },
             },
@@ -89,8 +104,10 @@ const Chart = () => {
             },
           }}
         />
+      ) : (
+        "No Data available to display chart."
       )}
-      {/*  type, series, options => 필수값 */}
+      {/* ApexChart: type, series, options => 필수값 */}
     </Container>
   );
 };

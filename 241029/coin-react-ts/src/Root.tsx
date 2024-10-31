@@ -4,11 +4,10 @@ import { createGlobalStyle } from "styled-components";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./theme";
+import { isDarkAtom } from "./atoms";
+import { useRecoilValue } from "recoil";
 
 const GlobalStyle = createGlobalStyle`
-  /* font */
-  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
-
   /* reset */
   * {
     margin: 0;
@@ -32,9 +31,13 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () => {
+  // Recoil
+  const isDark = useRecoilValue(isDarkAtom);
+  // console.log(isDark); // false => default값
+
   return (
     <>
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <GlobalStyle />
         <Outlet />
         <ReactQueryDevtools
