@@ -9,6 +9,7 @@ const Container = styled.section`
   position: relative;
   padding: 100px 0 140px;
   background-color: var(--bg-beige-color);
+  border-radius: 40px 40px 0 0;
 `;
 const AboutInner = styled(Inner)`
   position: relative;

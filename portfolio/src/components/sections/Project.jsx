@@ -12,6 +12,7 @@ const Container = styled.section`
     var(--bg-light-color) 70%,
     var(--bg-beige-color)
   );
+  border-radius: 40px 40px 0 0;
 `;
 const ProjectInner = styled(Inner)`
   flex-direction: column;

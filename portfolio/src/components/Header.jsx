@@ -11,6 +11,7 @@ const Container = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 3;
 `;
 const HeaderInner = styled(Inner)`
   align-items: center;

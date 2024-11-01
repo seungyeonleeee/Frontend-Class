@@ -20,12 +20,14 @@ export const ImgBoxLarge = styled.div`
   width: 420px;
   height: 550px;
   border-radius: 20px;
+  overflow: hidden;
   background-color: var(--bg-light-gray);
 `;
 export const ImgBoxSmall = styled.div`
   width: 220px;
   height: 160px;
   border-radius: 10px;
+  overflow: hidden;
   background-color: var(--bg-light-gray);
 `;
 export const SectionTitle = styled.h2`
