@@ -52,10 +52,11 @@ const AboutIntro = () => {
           <h5>Education</h5>
           <div>
             <p className="education">
-              2023.12 ~ 2024.04 (디지털디자인) UI/UX 웹디자인 & 웹퍼블리셔
+              2024.06 ~ 2024.12 K-Digital Training (KDT) 기업연계 프론트엔드
+              개발 수료
             </p>
             <p className="education">
-              2024.06 ~ 2024.12 생성형AI 활용 프론트엔드 개발자 과정 수료
+              2023.12 ~ 2024.04 (디지털디자인) UI/UX 웹디자인 & 웹퍼블리셔 수료
             </p>
           </div>
         </li>

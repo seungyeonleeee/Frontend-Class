@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 // Animation
 const overlay = keyframes`
@@ -24,7 +24,6 @@ const background = keyframes`
 100% {
   background: var(--bg-beige-color);
 }
-
 `;
 
 // Style
@@ -32,7 +31,7 @@ const Container = styled.section`
   position: relative;
   width: 100%;
   height: 100vh;
-  animation: ${background} 1s 1s linear both;
+  animation: ${background} 2.5s 1s linear 2 alternate both;
   overflow: hidden;
   &::before {
     content: "";
@@ -63,21 +62,37 @@ const AnimationElement = styled.article`
 `;
 
 // Variant
-const lineVariants = {
+const maskVariants = {
   start: {
     x: -1920,
   },
   end: {
     x: 0,
     transition: {
-      delay: 2,
+      delay: 1.5,
       duration: 2.5,
       ease: "easeOut",
+    },
+  },
+  disappear: {
+    x: 1920,
+    transition: {
+      duration: 2.5,
+      ease: "easeInOut",
     },
   },
 };
 
 const LoadingScreen = () => {
+  const [animationState, setAnimationState] = useState("end");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimationState("disappear");
+    }, 3500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Container>
       <AnimationElement>
@@ -86,7 +101,6 @@ const LoadingScreen = () => {
           viewBox="0 0 1920 450"
           fill="none"
         >
-          {/* Mask 정의 */}
           <mask id="reveal-mask">
             <motion.rect
               x="0"
@@ -94,15 +108,12 @@ const LoadingScreen = () => {
               width="1920"
               height="450"
               fill="#fff"
-              variants={lineVariants}
-              initial={"start"}
-              animate={"end"}
+              initial="start"
+              animate={animationState}
+              variants={maskVariants}
             />
           </mask>
-
-          {/* 마스크가 적용된 path */}
           <g mask="url(#reveal-mask)">
-            {/* 다른 path가 있다면 여기에 추가 */}
             <path
               fillRule="evenodd"
               clipRule="evenodd"
