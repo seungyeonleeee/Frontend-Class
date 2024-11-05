@@ -49,7 +49,7 @@ const App = () => {
   const [toDos, setToDos] = useRecoilState(toDoState);
 
   // Drag가 끝났을 때 실행시킬 함수
-  const onDragEnd = ({ destination, draggableId, source }: DropResult) => {
+  const onDragEnd = (info: DropResult) => {
     // console.log("D&D Finished");
     // console.log(args);
     // 최종결과값을 매개변수로 찾아올 수 있음
@@ -68,35 +68,69 @@ const App = () => {
     // });
     // // setToDos는 배열로 반환되어야 됨
 
+    // console.log(destination);
+    // console.log(draggableId);
+    // console.log(source);
+    // console.log(info);
+
+    const { destination, draggableId, source } = info;
+
     // console.log(info);
     if (!destination) return;
+    // if (destination?.droppableId === source.droppableId) {
+    //   setToDos((oldToDos) => {
+    //     const boardCopy = [...oldToDos[source.droppableId]];
+    //     // console.log(boardCopy);
+
+    //     boardCopy.splice(source.index, 1);
+    //     boardCopy.splice(destination.index, 0, draggableId);
+
+    //     return {
+    //       ...oldToDos,
+    //       [source.droppableId]: boardCopy,
+    //     };
+    //   });
+    // }
+
+    // if (destination?.droppableId !== source.droppableId) {
+    //   setToDos((oldToDos) => {
+    //     const sourceBoard = [...oldToDos[source.droppableId]];
+    //     const destinationBoard = [...oldToDos[destination?.droppableId]];
+
+    //     sourceBoard.splice(source.index, 1);
+    //     destinationBoard.splice(destination.index, 0, draggableId);
+
+    //     return {
+    //       ...oldToDos,
+    //       [source.droppableId]: sourceBoard,
+    //       [destination?.droppableId]: destinationBoard,
+    //     };
+    //   });
+    // }
     if (destination?.droppableId === source.droppableId) {
       setToDos((oldToDos) => {
         const boardCopy = [...oldToDos[source.droppableId]];
-        // console.log(boardCopy);
-
+        const taskObj = boardCopy[source.index];
         boardCopy.splice(source.index, 1);
-        boardCopy.splice(destination.index, 0, draggableId);
-
+        boardCopy.splice(destination.index, 0, taskObj);
         return {
           ...oldToDos,
           [source.droppableId]: boardCopy,
         };
       });
     }
-
     if (destination?.droppableId !== source.droppableId) {
       setToDos((oldToDos) => {
         const sourceBoard = [...oldToDos[source.droppableId]];
-        const destinationBoard = [...oldToDos[destination?.droppableId]];
+        const taskObj = sourceBoard[source.index];
+        const destinationBoard = [...oldToDos[destination.droppableId]];
 
         sourceBoard.splice(source.index, 1);
-        destinationBoard.splice(destination.index, 0, draggableId);
-
+        destinationBoard.splice(destination.index, 0, taskObj);
         return {
           ...oldToDos,
           [source.droppableId]: sourceBoard,
-          [destination?.droppableId]: destinationBoard,
+          [destination.droppableId]: destinationBoard,
         };
       });
     }
