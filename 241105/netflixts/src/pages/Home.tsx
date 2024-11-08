@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate, useMatch, PathMatch } from "react-router-dom";
 import styled from "styled-components";
-import { motion, AnimatePresence, delay } from "framer-motion";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { getMovies, GetMoviesResult } from "../api";
 import { makeImagePath } from "../utils";
 
@@ -11,6 +12,7 @@ const Container = styled.div`
   height: 3000px;
   margin-top: 60px;
   background: ${({ theme }) => theme.black.lighter};
+  /* position: relative; */
 `;
 const Loader = styled.div`
   width: 100%;
@@ -52,6 +54,7 @@ const Row = styled(motion.div)`
   gap: 10px;
 `;
 const Box = styled(motion.div)<{ $bgPhoto: string | undefined }>`
+  position: relative;
   width: auto;
   height: 200px;
   background: url(${(props) => props.$bgPhoto}) center/cover no-repeat;
@@ -63,6 +66,65 @@ const Box = styled(motion.div)<{ $bgPhoto: string | undefined }>`
   &:last-child {
     transform-origin: center right;
   }
+`;
+const Info = styled(motion.div)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  h4 {
+    color: ${({ theme }) => theme.white.lighter};
+    text-align: center;
+    font-size: 16px;
+  }
+`;
+const ModalBox = styled(motion.div)`
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 40vw;
+  height: 80vh;
+  color: ${({ theme }) => theme.white.darker};
+  background: ${({ theme }) => theme.black.lighter};
+  border-radius: 8px;
+  overflow: hidden;
+`;
+const Overlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+`;
+const MovieCover = styled.img`
+  width: 100%;
+  height: 400px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+`;
+const MovieTitle = styled.h2`
+  color: ${({ theme }) => theme.white.lighter};
+  text-align: center;
+  font-size: 28px;
+  padding: 10px;
+  padding-bottom: 0;
+  position: relative;
+  top: -80px;
+`;
+const MovieOverView = styled.p`
+  padding: 0 20px;
+  font-size: 20px;
+  line-height: 1.5;
+  position: relative;
+  top: -40px;
 `;
 
 // Motion Variants
@@ -88,11 +150,25 @@ const boxVariants = {
     },
   },
 };
+const infoVariants = {
+  hover: {
+    opacity: 0.8,
+    transition: {
+      delay: 0.3,
+      type: "tween",
+    },
+  },
+};
 
 // Pagenation
 const offset = 6; // 한페이지에 보일 슬라이드 개수
 
 const Home = () => {
+  // Modal
+  const history = useNavigate();
+  const movieMatch: PathMatch<string> | null = useMatch("/movies/:movieId");
+  // console.log(movieMatch);
+
   // Get Data
   const { data, isLoading } = useQuery<GetMoviesResult>({
     queryKey: ["nowPlaying"],
@@ -103,6 +179,10 @@ const Home = () => {
   // Slide State
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
+
+  // Scroll Modal
+  const { scrollY } = useScroll();
+  // console.log(scrollY);
 
   // Slide Trigger
   const increaseIndex = () => {
@@ -116,6 +196,19 @@ const Home = () => {
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
 
+  // Click Modal
+  const onBoxClick = (movieId: number) => {
+    history(`/movies/${movieId}`);
+  };
+  const onOverlayClick = () => {
+    history(`/`);
+  };
+  // 클릭한 영화의 정보 가져오기
+  const clickedMovie =
+    movieMatch?.params.movieId &&
+    data?.results.find((movie) => movie.id === +movieMatch.params.movieId!);
+  // console.log(clickedMovie);
+
   return (
     <Container>
       {isLoading ? (
@@ -127,14 +220,7 @@ const Home = () => {
             $bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}
           >
             <Title>{data?.results[0].original_title}</Title>
-            <Title>이승연 바보</Title>
             <Overview>{data?.results[0].overview}</Overview>
-            <Overview>
-              그녀는 4개의 술식 육식, 폭식, 과식, 무식을 다룰 수 있다... <br />
-              그만 팔아라 이상한거 그만 팔아라 그만 팔으라고 했다 진짜 그만
-              팔아라 8천원은 뭐 블랙마켓 강매도 아니고 여기가 무슨 물가가
-              베네수엘라야? <br /> 승연아 사랑해!
-            </Overview>
           </Banner>
           <Slider>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
@@ -151,18 +237,52 @@ const Home = () => {
                   .slice(index * offset, index * offset + offset)
                   .map((movie) => (
                     <Box
+                      onClick={() => onBoxClick(movie.id)}
                       key={movie.id}
+                      layoutId={movie.id + ""}
+                      // layoutId는 문자만 가능
                       variants={boxVariants}
                       $bgPhoto={makeImagePath(movie.backdrop_path || "")}
                       whileHover="hover"
                     >
-                      {movie.title}
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
                     </Box>
                   ))}
                 {/* 2번부터 끝까지 찾아오기(18개로 맞추려고), index = page */}
               </Row>
             </AnimatePresence>
           </Slider>
+          <AnimatePresence>
+            {movieMatch ? (
+              <>
+                <Overlay
+                  onClick={onOverlayClick}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
+                <ModalBox
+                  style={{ top: scrollY.get() + 60 }}
+                  layoutId={movieMatch.params.movieId}
+                >
+                  {clickedMovie && (
+                    <>
+                      <MovieCover
+                        style={{
+                          backgroundImage: `linear-gradient(to top, #000, transparent) ,url(
+                          ${makeImagePath(clickedMovie.backdrop_path, "w500")}
+                        )`,
+                        }}
+                      />
+                      <MovieTitle>{clickedMovie.title}</MovieTitle>
+                      <MovieOverView>{clickedMovie.overview}</MovieOverView>
+                    </>
+                  )}
+                </ModalBox>
+              </>
+            ) : null}
+          </AnimatePresence>
         </>
       )}
     </Container>

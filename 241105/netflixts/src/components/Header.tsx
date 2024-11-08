@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion, useAnimation, useScroll } from "framer-motion";
-import { Link, useMatch } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 // Styled
 const Nav = styled(motion.nav)`
@@ -58,7 +59,7 @@ const Circle = styled(motion.span)`
   border-radius: 50%;
   background: ${({ theme }) => theme.red};
 `;
-const Search = styled.span`
+const Search = styled.form`
   display: flex;
   align-items: center;
   gap: 5px;
@@ -101,6 +102,11 @@ const navVariants = {
   },
 };
 
+// Type
+interface Form {
+  keyword: string;
+}
+
 const Header = () => {
   // Toggle Search
   const [searchOpen, setSearchOpen] = useState(false);
@@ -110,6 +116,7 @@ const Header = () => {
   const tvMatch = useMatch("/tv");
   // console.log(homeMatch, tvMatch);
   // true => 객체, false => null 반환
+  const modalMatch = useMatch("/movies/*");
 
   // Motion Animation
   const inputAnimation = useAnimation();
@@ -118,6 +125,20 @@ const Header = () => {
   // Scroll Event
   const { scrollY } = useScroll();
   // console.log(scrollY);
+
+  // Go To Main
+  const main = useNavigate();
+  const goToMain = () => {
+    main("/");
+  };
+
+  // Search Form
+  const { register, handleSubmit, setValue } = useForm<Form>();
+  const onValid = (data: Form) => {
+    main(`/search?keyword=${data.keyword}`);
+    setValue("keyword", "");
+  };
+
   useEffect(() => {
     // scrollY.on("change", () => console.log(scrollY.get()));
     // 가상 DOM이기 때문에 실시간으로 scrollY값을 받으려면 useEffect 사용
@@ -148,6 +169,7 @@ const Header = () => {
     <Nav variants={navVariants} animate={navAnimation} initial={"top"}>
       <Col>
         <Logo
+          onClick={goToMain}
           variants={logoVariants}
           initial={"normal"}
           whileHover={"active"}
@@ -163,6 +185,7 @@ const Header = () => {
             <Link to={"/"}>
               Home
               {homeMatch && <Circle layoutId="circle" />}
+              {modalMatch && <Circle layoutId="circle" />}
             </Link>
           </Item>
           <Item>
@@ -174,8 +197,9 @@ const Header = () => {
         </Items>
       </Col>
       <Col>
-        <Search>
+        <Search onSubmit={handleSubmit(onValid)}>
           <Input
+            {...register("keyword", { required: true, minLength: 1 })}
             type="text"
             placeholder="Search for MOVIE or TV"
             animate={inputAnimation}
