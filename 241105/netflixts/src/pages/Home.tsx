@@ -12,7 +12,7 @@ const Container = styled.div`
   height: 3000px;
   margin-top: 60px;
   background: ${({ theme }) => theme.black.lighter};
-  /* position: relative; */
+  overflow-x: hidden;
 `;
 const Loader = styled.div`
   width: 100%;
@@ -145,7 +145,7 @@ const boxVariants = {
     scale: 1.2,
     y: -40,
     transition: {
-      delay: 0.3,
+      delay: 0.5,
       type: "tween",
     },
   },

@@ -1,27 +1,22 @@
 import { LinkedList } from "./linkedList.mjs";
 
-// 연결리스트의 stack 추상자료형 함수 기능 4개
+//연결리스트를 활용하여 stack의 추상 자료형을 만들어냄
 
-class Stack {
+export class Stack {
   constructor() {
     this.list = new LinkedList();
   }
-
-  // 데이터 삽입
   push(data) {
     this.list.insertAt(0, data);
   }
 
-  // 데이터 제거
-  pop() {
+  pop(data) {
     try {
       return this.list.deleteAt(0);
     } catch (e) {
       return null;
     }
   }
-
-  // 데이터 참조
   peek() {
     return this.list.getNodeAt(0);
   }
@@ -30,5 +25,3 @@ class Stack {
     return this.list.count === 0;
   }
 }
-
-export { Stack };

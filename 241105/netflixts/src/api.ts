@@ -2,9 +2,10 @@ const API_KEY = `9d225e9b7320979a865e24a4c79106ea`;
 const BASE_PATH = `https://api.themoviedb.org/3`; // 공통 경로
 
 // Movie Data Type
-interface Movie {
+export interface Movie {
   id: number;
   backdrop_path: string;
+  genre_ids: number[];
   poster_path: string;
   title: string;
   original_title: string;
@@ -33,12 +34,24 @@ export const getMovies = () => {
 
 export const searchContents = (keyword: string | null) => {
   return fetch(
-    `${BASE_PATH}/search/multi?api_key=${API_KEY}&query=${keyword}`
+    `${BASE_PATH}/search/movie?api_key=${API_KEY}&query=${keyword}`
   ).then((response) => response.json());
 };
 
 export const searchGeneres = () => {
   return fetch(`${BASE_PATH}/genre/movie/list?api_key=${API_KEY}`).then(
+    (response) => response.json()
+  );
+};
+
+export const getReviews = (movieId: number) => {
+  return fetch(`${BASE_PATH}/movie/${movieId}/reviews?api_key=${API_KEY}`).then(
+    (response) => response.json()
+  );
+};
+
+export const getVideos = (movieId: number) => {
+  return fetch(`${BASE_PATH}/movie/${movieId}/videos?api_key=${API_KEY}`).then(
     (response) => response.json()
   );
 };

@@ -1,52 +1,49 @@
 export class Node {
-  constructor(data, next = null) {
+  constructor(data, next = null, prev = null) {
     this.data = data;
     this.next = next;
+    this.prev = prev;
   }
 }
 
-// let node1 = new Node(1);
-// let node2 = new Node(2);
-// let node3 = new Node(3);
-
-// node1.next = node2;
-// node2.next = node3;
-
-// console.log(node1.data);
-// console.log(node1.next.data);
-// console.log(node1.next.next.data);
-
-export class LinkedList {
+//양방향 연결리스트
+export class DoublyLinkedList {
   constructor() {
     this.head = null;
     this.count = 0;
+    this.tail = null;
   }
   insertAt(index, data) {
     if (index > this.count || index < 0)
       throw new Error("추가할 수 있는 범위를 초과하였습니다.");
     let newNode = new Node(data);
 
-    //새로추가한 노드가 head의 역할이 될 수도 있을때
     if (index === 0) {
-      //기존의 head를 밀어냄
-      // 새 노드가 현재 head를 가리키게 함
       newNode.next = this.head;
-      // head를 새 노드로 변경
+      if (this.head !== null) {
+        this.head.prev = newNode;
+      }
       this.head = newNode;
+      //마지막 요소이므로 다음값이 존재할 수 없음.
+    } else if (index === this.count) {
+      newNode.next = null;
+      newNode.prev = this.tail;
+      if (this.tail !== null) {
+        this.tail.next = newNode;
+      }
     } else {
-      //누군가는 head의 역할을 하고 있음. 이를 currentNode로 지정
       let currentNode = this.head;
-      //next를 계속 만들어줘서 head를 움직임
-      //삽입 위치 직전까지 이동 (INDEX-1)
       for (let i = 0; i < index - 1; i++) {
         currentNode = currentNode.next;
       }
-      //이동이 완료된 후에는 내가 삽입하고 싶은 위치의 바로 앞까지 왔으므로 next로 다음 위치로 이동
       newNode.next = currentNode.next;
-      //해당 위치에 값을 삽입
+      newNode.prev = currentNode;
       currentNode.next = newNode;
+      newNode.next.prev = newNode;
     }
-    //count는 유효성 검사를 통해 예외사항이 발생하지 않으므로 무조건 크기에 동기화돼서 증가할 수밖에 없음.
+    if (newNode.next === null) {
+      this.tail = newNode;
+    }
     this.count++;
   }
   printAll() {
@@ -65,6 +62,7 @@ export class LinkedList {
   clear() {
     this.head = null;
     this.count = 0;
+    this.tail = null;
   }
   insertLast(data) {
     this.insertAt(this.count, data);
@@ -76,22 +74,35 @@ export class LinkedList {
 
     if (index === 0) {
       let deletedNode = this.head;
-      this.head = this.head.next;
+      if (this.head.next === null) {
+        this.head = null;
+        this.tail = null;
+      } else {
+        this.head = this.head.next;
+        this.head.prev = null;
+      }
       this.count--;
-      //제거된 연결리스트를 반환
+      //제거된 노드를 반환
+      return deletedNode;
+    } else if (index === this.count - 1) {
+      let deletedNode = this.tail;
+      this.tail.prev.next = null;
+      this.tail = this.tail.prev;
+      this.count--;
       return deletedNode;
     } else {
       for (let i = 0; i < index - 1; i++) {
         currentNode = currentNode.next;
       }
-      let deletedNode = currentNode;
+      let deletedNode = currentNode.next;
       currentNode.next = currentNode.next.next;
+      currentNode.next.prev = currentNode;
       this.count--;
       return deletedNode;
     }
   }
   deleteLast() {
-    this.deleteAt(this.count - 1);
+    return this.deleteAt(this.count - 1);
   }
   getNodeAt(index) {
     if (index >= this.count || index < 0)
