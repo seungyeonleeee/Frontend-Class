@@ -1,29 +1,44 @@
-import React, { ReactNode } from "react";
-import style from "./index.module.css";
-// Global css는 반드시 모듈화
-import books from "@/mock/book.json";
+import React, { ReactNode, useEffect } from "react";
+import style from "@/styles/index.module.css";
 import SearchableLayout from "@/components/searchable-layout";
 import BookItem from "@/components/book-item";
+import { InferGetServerSidePropsType } from "next";
+import fetchBooks from "@/lib/fetch-books";
+import fetchRandomBooks from "@/lib/fetch-random-books";
 
-const Home = () => {
+export const getServerSideProps = async () => {
+  const [allBooks, randomBooks] = await Promise.all([
+    fetchBooks(),
+    fetchRandomBooks(),
+  ]);
+  return {
+    props: { allBooks, randomBooks },
+  };
+};
+
+const Home = ({
+  allBooks,
+  randomBooks,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  console.log(allBooks);
   return (
     <main className={style.container}>
       <section>
         <h3>지금 추천하는 도서</h3>
-        {books.map((book) => (
+        {randomBooks.map((book) => (
           <BookItem key={book.id} {...book} />
         ))}
       </section>
       <section>
         <h3>등록된 모든 도서</h3>
-        {books.map((book) => (
+        {allBooks.map((book) => (
           <BookItem key={book.id} {...book} />
         ))}
       </section>
     </main>
   );
 };
-// Home컴포넌트 페이지는 내가 지정한 layout을 쓰겠다
+
 Home.getLayout = (page: ReactNode) => {
   return <SearchableLayout>{page}</SearchableLayout>;
 };

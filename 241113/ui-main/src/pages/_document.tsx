@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html lang="kr">
+    <Html lang="ko">
       <Head />
       <body>
         <Main />
@@ -11,5 +11,3 @@ export default function Document() {
     </Html>
   );
 }
-
-// react에서 index의 역할

@@ -1,8 +1,8 @@
-.container {
+.container{
   display: flex;
   flex-direction: column;
   gap: 20px;
-  & h3 {
+  & h3{
     margin-bottom: 0;
   }
 }

@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
 import Link from "next/link";
-import style from "./global-layout.module.css";
+import { ReactNode } from "react";
+import style from "../styles/global-layout.module.css";
 
 const GlobalLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -9,7 +9,7 @@ const GlobalLayout = ({ children }: { children: ReactNode }) => {
         <Link href={"/"}>📕 Book Lists</Link>
       </header>
       <main className={style.main}>{children}</main>
-      <footer className={style.footer}>Copyright @David</footer>
+      <footer>Copyright &copy; Park Phillips</footer>
     </div>
   );
 };
