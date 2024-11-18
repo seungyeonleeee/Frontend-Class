@@ -1,19 +1,19 @@
-import type { IBookData } from "@/types";
+import React from "react";
+import type { BookData } from "@/types";
 import Link from "next/link";
-import style from "@/styles/book-item.module.css";
+import style from "./book-item.module.css";
 
 const BookItem = ({
   id,
   title,
   subTitle,
-  description,
   author,
   publisher,
   coverImgUrl,
-}: IBookData) => {
+}: BookData) => {
   return (
     <Link className={style.container} href={`/book/${id}`}>
-      <img src={coverImgUrl} alt={String(id)} />
+      <img src={coverImgUrl} />
       <div>
         <div className={style.title}>{title}</div>
         <div className={style.subtitle}>{subTitle}</div>

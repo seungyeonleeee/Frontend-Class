@@ -1,15 +1,16 @@
-import { IBookData } from "@/types";
+import { BookData } from "@/types";
 
-const fetchRandomBooks = async (): Promise<IBookData[]> => {
-  const url = "http://localhost:12345/book/random";
+const fetchRandomBooks = async (): Promise<BookData[]> => {
+  const url = "https://onebite-books-server-eight-chi.vercel.app/book/random";
+
   try {
     const response = await fetch(url);
-    // if (!response.ok) {
-    //   throw new Error();
-    // }
+    if (!response.ok) {
+      throw new Error();
+    }
     return await response.json();
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return [];
   }
 };

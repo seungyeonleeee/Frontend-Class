@@ -1,15 +1,16 @@
-import { IBookData } from "@/types";
+import { BookData } from "@/types";
 
-const fetchBooks = async (q?: string): Promise<IBookData[]> => {
-  let url = "http://localhost:12345/book";
+const fetchBooks = async (q?: string): Promise<BookData[]> => {
+  let url = "https://onebite-books-server-eight-chi.vercel.app/book";
+
   if (q) {
     url += `/search?q=${q}`;
   }
   try {
     const response = await fetch(url);
     return await response.json();
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return [];
   }
 };
