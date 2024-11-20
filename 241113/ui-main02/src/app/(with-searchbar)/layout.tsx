@@ -3,7 +3,7 @@
 // search폴더의 하위 파일들은 이 layout의 영향을 받음 (상속)
 // 공통 컴포넌트 역할
 import React, { ReactNode } from "react";
-import Searchbar from "./searchbar";
+import Searchbar from "../../components/searchbar";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
