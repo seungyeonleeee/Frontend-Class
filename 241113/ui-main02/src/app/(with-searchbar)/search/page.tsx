@@ -1,4 +1,6 @@
 import React from "react";
+import type { BookData } from "@/types";
+import BookItem from "@/components/book-item";
 
 const Page = async ({
   searchParams,
@@ -7,8 +9,23 @@ const Page = async ({
 }) => {
   const { q } = await searchParams;
   // console.log(q);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${q}`
+  );
+  if (!response.ok) {
+    return <div>오류가 발생했습니다...</div>;
+  }
 
-  return <div>Search Page : {q}</div>;
+  const books: BookData[] = await response.json();
+  // console.log(books);
+
+  return (
+    <div>
+      {books.map((book) => (
+        <BookItem key={book.id} {...book} />
+      ))}
+    </div>
+  );
 };
 
 export default Page;
