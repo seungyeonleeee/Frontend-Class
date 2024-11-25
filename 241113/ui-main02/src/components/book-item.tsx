@@ -8,7 +8,6 @@ const BookItem = ({
   id,
   title,
   subTitle,
-  description,
   author,
   publisher,
   coverImgUrl,
