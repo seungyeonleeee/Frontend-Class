@@ -1,9 +1,12 @@
 // "use client"; // 클라이언트 컴포넌트로 만들 때
 // 기본적으로 서버 컴포넌트
 
+import { Suspense } from "react";
 import styles from "./page.module.css";
 import BookItem from "@/components/book-item";
 import { BookData } from "@/types";
+import delay from "@/util/delay";
+import BookListSkeleton from "@/components/skeleton/book-list-skeleton";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +18,8 @@ export const dynamic = "force-dynamic";
 
 // 추천도서
 const RecoBooks = async () => {
+  await delay(3000);
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`,
     {
@@ -39,6 +44,8 @@ const RecoBooks = async () => {
 
 // 외부데이터를 관리하는 목적의 컴포넌트
 const AllBooks = async () => {
+  await delay(1500);
+
   // Data
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
@@ -74,11 +81,15 @@ const Home = async () => {
     <div className={styles.container}>
       <section>
         <h3>지금 추천하는 도서</h3>
-        <RecoBooks />
+        <Suspense fallback={<BookListSkeleton count={3} />}>
+          <RecoBooks />
+        </Suspense>
       </section>
       <section>
         <h3>등록된 모든 도서</h3>
-        <AllBooks />
+        <Suspense fallback={<BookListSkeleton count={3} />}>
+          <AllBooks />
+        </Suspense>
       </section>
     </div>
   );
