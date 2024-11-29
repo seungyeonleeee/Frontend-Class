@@ -1,6 +1,10 @@
 import React from "react";
 import style from "./page.module.css";
 import { notFound } from "next/navigation";
+import { createReviewAction } from "@/actions/create-review-actions";
+import { ReviewData } from "@/types";
+import ReviewEditor from "@/components/review-editor";
+import ReviewItem from "@/components/review-item";
 
 // 더 엄격하게
 // export const dynamicParams = false;
@@ -39,39 +43,42 @@ const Booktail = async ({ bookId }: { bookId: string }) => {
   );
 };
 
-// 리뷰
-const ReviewEditor = () => {
-  const createReviewAction = async (formData: FormData) => {
-    "use server"; // server action의 기능을 갖게 됨
-    // console.log("server action");
-    // console.log(formData);
-
-    const content = formData.get("content");
-    const author = formData.get("author");
-    console.log(content, author);
-  };
-
-  return (
-    <section>
-      <form action={createReviewAction}>
-        <input type="text" name="content" placeholder="리뷰내용" />
-        <input type="text" name="author" placeholder="작성자" />
-        <input type="submit" value="작성하기" />
-      </form>
-    </section>
-  );
-};
-
 // Static Parameter를 생성하는 함수
 export const generateStaticParams = () => {
   return [{ id: "1" }, { id: "2" }, { id: "3" }];
+};
+
+const ReviewList = async ({ bookId }: { bookId: string }) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/book/${bookId}`,
+    {
+      next: {
+        tags: [`review-${bookId}`],
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Review fetch failed : ${response.status}`);
+  }
+
+  const reviews: ReviewData[] = await response.json();
+
+  return (
+    <section>
+      {reviews.map((review) => (
+        <ReviewItem key={`review-item-${review.id}`} {...review} />
+      ))}
+    </section>
+  );
 };
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <div className={style.container}>
       <Booktail bookId={(await params).id} />
-      <ReviewEditor />
+      <ReviewEditor bookId={(await params).id} />
+      <ReviewList bookId={(await params).id} />
     </div>
   );
 };
