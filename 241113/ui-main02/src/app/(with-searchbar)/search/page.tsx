@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import type { BookData } from "@/types";
 import BookItem from "@/components/book-item";
 import delay from "@/util/delay";
+import { Metadata } from "next";
 
 // export const dynamic = "force-static";
 
@@ -29,6 +30,25 @@ const SearchResult = async ({ q }: { q: string }) => {
       ))}
     </div>
   );
+};
+
+// 동적인 상태의 SEO
+export const generateMetadata = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ q: string }>;
+}): Promise<Metadata> => {
+  const { q } = await searchParams;
+
+  return {
+    title: `${q} : 한입북스 검색`,
+    description: `${q}의 검색 결과입니다.`,
+    openGraph: {
+      title: `${q} : 한입북스 검색`,
+      description: `${q}의 검색 결과입니다.`,
+      images: ["/thumbnail.png"],
+    },
+  };
 };
 
 const Page = async ({

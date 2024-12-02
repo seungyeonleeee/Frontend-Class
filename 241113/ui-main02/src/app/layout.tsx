@@ -24,7 +24,13 @@ const Footer = async () => {
   );
 };
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
+const RootLayout = ({
+  children,
+  modal,
+}: {
+  children: ReactNode;
+  modal: ReactNode;
+}) => {
   return (
     <html>
       <body>
@@ -35,6 +41,8 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
           <main>{children}</main>
           <Footer />
         </div>
+        {modal}
+        <div id="modal-root"></div>
       </body>
     </html>
   );

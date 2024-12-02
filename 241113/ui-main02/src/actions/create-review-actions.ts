@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use server"; // server action의 기능을 갖게 됨
 
 import delay from "@/util/delay";
-import { error } from "console";
 import { revalidatePath } from "next/cache"; // 알아서 재검증 (새로고침 안해도 새로운 리뷰가 바로 나오게 snapshot기능)
 
 export const createReviewAction = async (_: any, formData: FormData) => {

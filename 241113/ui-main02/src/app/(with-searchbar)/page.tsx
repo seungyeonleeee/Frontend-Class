@@ -7,6 +7,7 @@ import BookItem from "@/components/book-item";
 import { BookData } from "@/types";
 import delay from "@/util/delay";
 import BookListSkeleton from "@/components/skeleton/book-list-skeleton";
+import { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
@@ -49,7 +50,7 @@ const AllBooks = async () => {
   // Data
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
-    { cache: "force-cache" }
+    { cache: "no-cache" }
   );
   if (!response.ok) {
     return <div>오류가 발생했습니다...</div>;
@@ -64,6 +65,17 @@ const AllBooks = async () => {
       ))}
     </div>
   );
+};
+
+// SEO
+export const metadata: Metadata = {
+  title: "한입 북스",
+  description: "한입 북스에 등록된 도서를 만나보세요!",
+  openGraph: {
+    title: "한입 북스",
+    description: "한입 북스에 등록된 도서를 만나보세요!",
+    images: ["/thumbnail.png"],
+  },
 };
 
 const Home = async () => {
