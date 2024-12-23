@@ -66,6 +66,9 @@ const Box = styled(motion.div)<{ $bgPhoto: string | undefined }>`
   &:last-child {
     transform-origin: center right;
   }
+  &:hover {
+    z-index: 10;
+  }
 `;
 const Info = styled(motion.div)`
   position: absolute;
