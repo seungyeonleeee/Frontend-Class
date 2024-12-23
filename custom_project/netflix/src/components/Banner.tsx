@@ -6,8 +6,7 @@ import { GetMoviesResult } from "../api";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled(motion.section)<{ $bgPhoto: string | undefined }>`
-  color: ${({ theme }) => theme.white.darker};
-  height: calc(100vh - 80px);
+  height: calc(100vh - 200px);
   padding: 0 60px;
   background: linear-gradient(
       to bottom,
@@ -16,8 +15,16 @@ const Container = styled(motion.section)<{ $bgPhoto: string | undefined }>`
       rgba(0, 0, 0, 1)
     ),
     url(${(props) => props.$bgPhoto}) center/cover no-repeat;
-  transition: all 1s ease-in-out;
   cursor: pointer;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+  }
 `;
 const Inner = styled.article`
   width: var(--inner-width);
@@ -27,24 +34,60 @@ const Inner = styled.article`
   flex-direction: column;
   justify-content: center;
   gap: 20px;
+  position: relative;
 `;
 const Title = styled(motion.h2)`
-  font-size: 68px;
+  font-size: 6rem;
+  font-weight: 700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 `;
 const Overview = styled(motion.p)`
   width: 60%;
-  font-size: 18px;
+  font-size: 2rem;
   word-break: keep-all;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+`;
+const Button = styled.div`
+  width: 180px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${({ theme }) => theme.red};
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  span {
+    font-size: 2rem;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: background 0.3s ease-in-out;
+  }
+  &:hover,
+  &:active {
+    &::after {
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
 `;
 
 const ContainerVariants = {
   initial: {
     opacity: 0,
+    filter: "blur(10px)",
   },
   animate: {
     opacity: 1,
+    filter: "blur(0px)",
     transition: {
       duration: 1,
     },
@@ -102,7 +145,7 @@ const Banner = ({ data }: { data: GetMoviesResult | undefined }) => {
             delay: 0.2,
           }}
         >
-          {data?.results[randomMovie]?.original_title}
+          {data?.results[randomMovie]?.title}
         </Title>
         <Overview
           variants={textVariants}
@@ -115,6 +158,9 @@ const Banner = ({ data }: { data: GetMoviesResult | undefined }) => {
         >
           {data?.results[randomMovie]?.overview}
         </Overview>
+        <Button>
+          <span>자세히 보기</span>
+        </Button>
       </Inner>
     </Container>
   );

@@ -14,31 +14,12 @@ const Container = styled.main`
   width: 100%;
   height: 3000px;
   /* margin-top: 60px; */
-  background: ${({ theme }) => theme.black.darker};
+  background: ${({ theme }) => theme.black.darkest};
   overflow-x: hidden;
 `;
 const Inner = styled.section`
   width: var(--inner-width);
   margin: 0 auto;
-  position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    width: 100vw;
-    height: 100px;
-    border-top-left-radius: 50% 100%;
-    border-top-right-radius: 50% 100%;
-    border-bottom: none;
-    background: radial-gradient(
-        50% 500% at 50% -420%,
-        rgba(24, 24, 24, 0.4) 80%,
-        rgba(0, 0, 0, 0.1) 100%
-      ),
-      #181818;
-  }
 `;
 const SliderContent = styled.article`
   width: 100%;
@@ -46,6 +27,11 @@ const SliderContent = styled.article`
   flex-direction: column;
   gap: 20px;
   padding: 60px 0;
+  h4 {
+    color: ${({ theme }) => theme.white.lighter};
+    font-size: 2.4rem;
+    font-weight: 700;
+  }
 `;
 const Loader = styled.div`
   width: 100%;
@@ -58,10 +44,6 @@ const Loader = styled.div`
 `;
 
 const Home = () => {
-  // Modal
-
-  // console.log(movieMatch);
-
   // Get Data
   const { data: nowPlayingData, isLoading: nowPlayingLoading } =
     useQuery<GetMoviesResult>({
@@ -87,7 +69,10 @@ const Home = () => {
               <h4>지금 뜨는 영화</h4>
               <Slider data={popularData} />
             </SliderContent>
-            <Slider data={nowPlayingData} />
+            <SliderContent>
+              <h4>현재 상영 중인 영화</h4>
+              <Slider data={nowPlayingData} />
+            </SliderContent>
             <Modal data={popularData} />
           </Inner>
         </>

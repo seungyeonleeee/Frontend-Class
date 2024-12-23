@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate, useMatch } from "react-router-dom";
+import { useNavigate, useMatch, Link } from "react-router-dom";
 import { PathMatch } from "react-router-dom";
 import { AnimatePresence, motion, useScroll } from "framer-motion";
 import { makeImagePath } from "../utils";
@@ -15,7 +15,6 @@ const ModalBox = styled(motion.article)`
   max-width: 667px;
   width: 90%;
   height: auto;
-  color: ${({ theme }) => theme.white.darker};
   background: ${({ theme }) => theme.black.darker};
   border: 1px solid ${({ theme }) => theme.white.darker};
   border-radius: 8px;
@@ -60,10 +59,10 @@ const MovieCover = styled(motion.div)`
     height: 101%;
     background: linear-gradient(
         30deg,
-        rgb(24, 24, 24) 24.16%,
-        rgba(24, 24, 24, 0) 56.61%
+        rgb(24, 24, 24) 24%,
+        rgba(24, 24, 24, 0) 56%
       ),
-      linear-gradient(0deg, rgb(24, 24, 24) 3.91%, rgba(24, 24, 24, 0) 69.26%);
+      linear-gradient(0deg, rgb(24, 24, 24) 4%, rgba(24, 24, 24, 0) 69%);
   }
 `;
 const ModalContents = styled.div`
@@ -74,10 +73,10 @@ const ModalContents = styled.div`
   position: relative;
 `;
 const MovieTitle = styled.h2`
-  color: ${({ theme }) => theme.white.lighter};
-  font-size: 28px;
+  font-size: 2.8rem;
+  font-weight: 500;
   position: absolute;
-  top: -3rem;
+  top: -50px;
 `;
 const MovieInfo = styled.ul`
   display: flex;
@@ -88,13 +87,43 @@ const MovieInfo = styled.ul`
     color: ${({ theme }) => theme.white.darker};
     padding: 5px 10px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 1.4rem;
   }
 `;
-const MovieOverView = styled.p`
-  font-size: 16px;
-  line-height: 1.5;
-  color: ${({ theme }) => theme.white.lighter};
+const MoveSiteButton = styled.div`
+  width: 120px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${({ theme }) => theme.red};
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  a {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 40px;
+    position: relative;
+    z-index: 1;
+  }
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: background 0.3s ease-in-out;
+  }
+  &:hover,
+  &:active {
+    &::after {
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
 `;
 
 const ModalVariants = {
@@ -141,13 +170,13 @@ const Modal = ({ data }: { data: any }) => {
   const onOverlayClick = () => {
     history(`/`);
   };
-  // 클릭한 영화의 정보 가져오기
+
   const clickedMovie =
     movieMatch?.params.movieId &&
     data?.results.find(
       (movie: Movie) => movie.id === +movieMatch.params.movieId!
     );
-  console.log(clickedMovie);
+  // console.log(clickedMovie);
 
   return (
     <AnimatePresence>
@@ -194,7 +223,15 @@ const Modal = ({ data }: { data: any }) => {
                       </li>
                     ))}
                   </MovieInfo>
-                  <MovieOverView>{clickedMovie.overview}</MovieOverView>
+                  {clickedMovie.overview && <p>{clickedMovie.overview}</p>}
+                  <MoveSiteButton>
+                    <Link
+                      target="_blank"
+                      to={`https://www.themoviedb.org/movie/${clickedMovie.id}-${clickedMovie.original_title}?language=ko`}
+                    >
+                      자세히 보기
+                    </Link>
+                  </MoveSiteButton>
                 </ModalContents>
                 <CloseButton onClick={onOverlayClick}>
                   <svg

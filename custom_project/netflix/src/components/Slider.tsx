@@ -1,5 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { makeImagePath } from "../utils";
@@ -9,126 +11,48 @@ import { GetMoviesResult } from "../api";
 const Container = styled.div`
   width: 100%;
 `;
-const Row = styled(motion.div)`
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-`;
-const Box = styled(motion.div)<{ $bgPhoto: string | undefined }>`
+const Box = styled(motion.div)`
   position: relative;
-  width: 150px;
-  height: 225px;
-  background: url(${(props) => props.$bgPhoto}) center/cover no-repeat;
-  font-size: 22px;
+  width: 100%;
+  height: 240px;
+  border-radius: 8px;
+  overflow: hidden;
   cursor: pointer;
-  &:first-child {
-    transform-origin: center left;
-  }
-  &:last-child {
-    transform-origin: center right;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
   }
   &:hover {
-    z-index: 2;
+    img {
+      transform: scale(1.04);
+    }
   }
 `;
-const Info = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  h4 {
-    color: ${({ theme }) => theme.white.lighter};
-    text-align: center;
-    font-size: 16px;
-  }
-`;
-
-// Motion Variants
-const rowVariants = {
-  hidden: {
-    x: window.innerWidth + 10,
-  },
-  visible: {
-    x: 0,
-  },
-  exit: {
-    x: -window.innerWidth - 10,
-  },
-};
-const boxVariants = {
-  normal: {},
-  hover: {
-    scale: 1.2,
-    y: -40,
-    transition: {
-      delay: 0.5,
-      type: "tween",
-    },
-  },
-};
-const infoVariants = {
-  hover: {
-    opacity: 0.8,
-    transition: {
-      delay: 0.3,
-      type: "tween",
-    },
-  },
-};
-
-// Pagenation
-const offset = 6; // 한페이지에 보일 슬라이드 개수
 
 const Slider = ({ data }: { data: GetMoviesResult | undefined }) => {
   const history = useNavigate();
 
-  // Slide State
-  const [index, setIndex] = useState(0);
-  const [leaving, setLeaving] = useState(false);
-  const toggleLeaving = () => setLeaving((prev: boolean) => !prev);
-
-  // Click Modal
   const onBoxClick = (movieId: number) => {
     history(`/movies/${movieId}`);
   };
 
   return (
     <Container>
-      <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
-        <Row
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          transition={{ type: "tween", duration: 1 }}
-          variants={rowVariants}
-          key={index}
-        >
-          {data?.results
-            .slice(0)
-            .slice(index * offset, index * offset + offset)
-            .map((movie) => (
-              <Box
-                onClick={() => onBoxClick(movie.id)}
-                key={movie.id}
-                layoutId={movie.id + ""}
-                // layoutId는 문자만 가능
-                variants={boxVariants}
-                $bgPhoto={makeImagePath(movie.poster_path || "")}
-                whileHover="hover"
-              >
-                <Info variants={infoVariants}>
-                  <h4>{movie.title}</h4>
-                </Info>
-              </Box>
-            ))}
-          {/* 2번부터 끝까지 찾아오기(18개로 맞추려고), index = page */}
-        </Row>
-      </AnimatePresence>
+      <Swiper slidesPerView={6} spaceBetween={20} slidesPerGroup={6} navigation>
+        {data?.results.map((movie) => (
+          <SwiperSlide key={movie.id}>
+            <Box onClick={() => onBoxClick(movie.id)}>
+              <img
+                src={makeImagePath(movie.poster_path || "")}
+                alt={movie.title}
+              />
+            </Box>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </Container>
   );
 };
