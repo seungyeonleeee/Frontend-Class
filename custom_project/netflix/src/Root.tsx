@@ -63,6 +63,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     font: 400 1.6rem/1.3 "Pretendard", sans-serif;
     color: ${({ theme }) => theme.white.lighter};
+    * {
+    -webkit-font-smoothing: antialiased;
+
+    }
   }
 `;
 

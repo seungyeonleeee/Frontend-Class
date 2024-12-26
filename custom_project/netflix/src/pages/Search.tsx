@@ -157,7 +157,7 @@ interface GenresItem {
   id: number;
   name: string;
 }
-interface ReviewContents {
+export interface ReviewContents {
   author: string;
   author_details: {
     name: string;
@@ -279,7 +279,6 @@ const Search = () => {
                     <span>Rate : {movie.vote_average?.toFixed(2)}</span>
                   </MovieRate>
                   <RateNumbers>
-                    {" "}
                     <span>
                       Members : {movie.vote_count?.toLocaleString("ko-kr")}
                     </span>
@@ -325,7 +324,7 @@ const Search = () => {
                     opts={{ width: "100%", height: "800px" }}
                   />
                 ) : (
-                  <div>No Available</div>
+                  <div>Not Available</div>
                 )}
               </VideoSection>
             </SearchBox>

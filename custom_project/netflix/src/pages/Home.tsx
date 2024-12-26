@@ -3,7 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useMatch, PathMatch } from "react-router-dom";
 import styled from "styled-components";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
-import { getNowPlayingMovies, GetMoviesResult, getPopularMovies } from "../api";
+import {
+  getNowPlayingMovies,
+  GetMoviesResult,
+  getPopularMovies,
+  getTopRatedMovies,
+  getUpcomingMovies,
+} from "../api";
 import { makeImagePath } from "../utils";
 import Slider from "../components/Slider";
 import Banner from "../components/Banner";
@@ -44,17 +50,27 @@ const Loader = styled.div`
 `;
 
 const Home = () => {
-  // Get Data
-  const { data: nowPlayingData, isLoading: nowPlayingLoading } =
-    useQuery<GetMoviesResult>({
-      queryKey: ["nowPlaying"],
-      queryFn: getNowPlayingMovies,
-    });
   const { data: popularData, isLoading: popularLoading } =
     useQuery<GetMoviesResult>({
       queryKey: ["popular"],
       queryFn: getPopularMovies,
     });
+  const { data: nowPlayingData, isLoading: nowPlayingLoading } =
+    useQuery<GetMoviesResult>({
+      queryKey: ["nowPlaying"],
+      queryFn: getNowPlayingMovies,
+    });
+  const { data: topRatedData, isLoading: topRatedLoading } =
+    useQuery<GetMoviesResult>({
+      queryKey: ["topRated"],
+      queryFn: getTopRatedMovies,
+    });
+  const { data: upcomingData, isLoading: upcomingLoading } =
+    useQuery<GetMoviesResult>({
+      queryKey: ["upcoming"],
+      queryFn: getUpcomingMovies,
+    });
+
   // console.log(data, isLoading);
 
   return (
@@ -63,7 +79,7 @@ const Home = () => {
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <Banner data={popularData} />
+          <Banner data={nowPlayingData} />
           <Inner>
             <SliderContent>
               <h4>지금 뜨는 영화</h4>
@@ -73,7 +89,14 @@ const Home = () => {
               <h4>현재 상영 중인 영화</h4>
               <Slider data={nowPlayingData} />
             </SliderContent>
-            <Modal data={popularData} />
+            <SliderContent>
+              <h4>평점 높은 영화</h4>
+              <Slider data={topRatedData} />
+            </SliderContent>
+            <SliderContent>
+              <h4>개봉 예정 영화</h4>
+              <Slider data={upcomingData} />
+            </SliderContent>
           </Inner>
         </>
       )}

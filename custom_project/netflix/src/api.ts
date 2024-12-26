@@ -38,6 +38,18 @@ export const getNowPlayingMovies = () => {
   ).then((response) => response.json());
 };
 
+export const getTopRatedMovies = () => {
+  return fetch(
+    `${BASE_PATH}/movie/top_rated?language=ko-kr&api_key=${API_KEY}`
+  ).then((response) => response.json());
+};
+
+export const getUpcomingMovies = () => {
+  return fetch(
+    `${BASE_PATH}/movie/upcoming?language=ko-kr&api_key=${API_KEY}`
+  ).then((response) => response.json());
+};
+
 export const searchContents = (keyword: string | null) => {
   return fetch(
     `${BASE_PATH}/search/movie?language=ko-kr&api_key=${API_KEY}&query=${keyword}`
@@ -52,7 +64,7 @@ export const searchGeneres = () => {
 
 export const getReviews = (movieId: number) => {
   return fetch(
-    `${BASE_PATH}/movie/${movieId}/reviews?language=ko-kr&api_key=${API_KEY}`
+    `${BASE_PATH}/movie/${movieId}/reviews?language=en-US&api_key=${API_KEY}`
   ).then((response) => response.json());
 };
 
