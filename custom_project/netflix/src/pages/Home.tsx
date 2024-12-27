@@ -1,8 +1,5 @@
-import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useMatch, PathMatch } from "react-router-dom";
 import styled from "styled-components";
-import { motion, AnimatePresence, useScroll } from "framer-motion";
 import {
   getNowPlayingMovies,
   GetMoviesResult,
@@ -10,17 +7,13 @@ import {
   getTopRatedMovies,
   getUpcomingMovies,
 } from "../api";
-import { makeImagePath } from "../utils";
 import Slider from "../components/Slider";
 import Banner from "../components/Banner";
-import Modal from "../components/Modal";
 
 // Styled
 const Container = styled.main`
   width: 100%;
   height: 3000px;
-  /* margin-top: 60px; */
-  background: ${({ theme }) => theme.black.darkest};
   overflow-x: hidden;
 `;
 const Inner = styled.section`
@@ -70,8 +63,6 @@ const Home = () => {
       queryKey: ["upcoming"],
       queryFn: getUpcomingMovies,
     });
-
-  // console.log(data, isLoading);
 
   return (
     <Container>

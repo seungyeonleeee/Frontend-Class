@@ -80,14 +80,43 @@ const Search = styled.form`
   }
 `;
 const Input = styled(motion.input)`
+  width: 160px;
   transform-origin: right center;
-  background: transparent;
-  color: ${({ theme }) => theme.red};
-  font-size: 18px;
+  color: ${({ theme }) => theme.white.darker};
+  font-size: 1.4rem;
+  background: none;
   border: none;
   border-bottom: 1px solid ${({ theme }) => theme.white.darker};
+  padding: 4px;
   &:focus {
     outline: none;
+  }
+`;
+const UserNav = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  li {
+    a {
+      padding: 10px;
+      border: 1px solid ${({ theme }) => theme.black.lighter};
+      border-radius: 5px;
+      color: ${({ theme }) => theme.white.darker};
+      font-size: 1.4rem;
+      transition: all 0.3s;
+      &:hover {
+        background: ${({ theme }) => theme.black.lighter};
+      }
+    }
+    &.signup {
+      a {
+        background: ${({ theme }) => theme.red};
+        color: ${({ theme }) => theme.white.lighter};
+        &:hover {
+          background: ${({ theme }) => theme.black.lighter};
+        }
+      }
+    }
   }
 `;
 
@@ -96,7 +125,7 @@ const logoVariants = {
   normal: { fillOpacity: 1 },
   active: {
     fillOpacity: [0, 0.5, 0, 0.7, 0.2, 0, 0.5, 1],
-    transition: { duration: 0.8 },
+    transition: { duration: 0.5 },
   },
 };
 const navVariants = {
@@ -146,9 +175,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    // scrollY.on("change", () => console.log(scrollY.get()));
-    // 가상 DOM이기 때문에 실시간으로 scrollY값을 받으려면 useEffect 사용
-
     scrollY.on("change", () => {
       if (scrollY.get() > 60) {
         navAnimation.start("scroll");
@@ -213,16 +239,22 @@ const Header = () => {
               initial={{ scaleX: 0 }}
               transition={{ type: "linear" }}
             />
-            <motion.svg
+            <svg
               onClick={openSearch}
-              animate={{ x: searchOpen ? -250 : 0 }}
-              transition={{ type: "linear" }}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
             >
-              <motion.path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
-            </motion.svg>
+              <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+            </svg>
           </Search>
+          <UserNav>
+            <li className="login">
+              <Link to={"/login"}>로그인</Link>
+            </li>
+            <li className="signup">
+              <Link to={"/signup"}>회원가입</Link>
+            </li>
+          </UserNav>
         </Col>
       </Inner>
     </Nav>

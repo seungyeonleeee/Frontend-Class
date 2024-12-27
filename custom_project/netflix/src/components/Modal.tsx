@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate, useMatch, Link } from "react-router-dom";
-import { PathMatch } from "react-router-dom";
-import { AnimatePresence, motion, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 import { makeImagePath } from "../utils";
 import { getReviews, getVideos, Movie, searchGeneres } from "../api";
 import { useQuery } from "@tanstack/react-query";
 import YouTube from "react-youtube";
-import { ReviewContents } from "../pages/Search";
+import { useRecoilState } from "recoil";
+import { isModalAtom } from "../atoms";
 
+// Styled
+const Container = styled(motion.div)`
+  position: relative;
+  z-index: 3;
+`;
 const ModalBox = styled(motion.article)`
   position: fixed;
-  top: 50%;
+  top: 15%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   max-width: 667px;
+  height: 80vh;
   max-height: 700px;
   width: 90%;
   background: ${({ theme }) => theme.black.darker};
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   overflow: hidden auto;
-  z-index: 3;
   scrollbar-width: thin;
   scrollbar-color: #333 #111;
 `;
@@ -31,9 +35,8 @@ const Overlay = styled(motion.div)`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.4);
   cursor: pointer;
-  z-index: 2;
 `;
 const CloseButton = styled.button`
   position: absolute;
@@ -138,42 +141,6 @@ const MovieRateBox = styled.div`
     }
   }
 `;
-const MoveSiteButton = styled.div`
-  width: 120px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: ${({ theme }) => theme.red};
-  border-radius: 8px;
-  position: relative;
-  margin-top: 10px;
-  overflow: hidden;
-  a {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    line-height: 40px;
-    position: relative;
-    z-index: 1;
-  }
-  &::after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0);
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: background 0.3s ease-in-out;
-  }
-  &:hover,
-  &:active {
-    &::after {
-      background: rgba(0, 0, 0, 0.2);
-    }
-  }
-`;
 const MovieReviewBox = styled.ul`
   display: flex;
   flex-direction: column;
@@ -203,11 +170,29 @@ const MovieReviewBox = styled.ul`
     .review-content {
       span {
         font-size: 1.4rem;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &.collapsed {
+          -webkit-line-clamp: 2;
+        }
+      }
+      button {
+        margin-top: 5px;
+        color: ${({ theme }) => theme.white.darker};
+        font-size: 1.2rem;
+        text-decoration: underline;
+        transition: color 0.3s;
+        &:hover {
+          color: ${({ theme }) => theme.red};
+        }
       }
     }
   }
 `;
 
+// Motion Variants
 const ModalVariants = {
   initial: {
     opacity: 0,
@@ -229,54 +214,70 @@ const MovieCoverVariants = {
       delay: 0.3,
     },
   },
-  exit: {
-    filter: "blur(10px)",
-  },
 };
 
+// Type
 interface GenresItem {
   id: number;
   name: string;
+}
+interface ReviewContents {
+  author: string;
+  author_details: {
+    name: string;
+    username: string;
+    avatar_path: string;
+    rating: number;
+  };
+  content: string;
+  created_at: string;
+  id: string;
+  updated_at: string;
+  url: string;
 }
 interface VideoContents<T> {
   [key: number]: T[];
 }
 
-const Modal = ({ data }: { data: any }) => {
-  const ids = data?.results.map((movie: Movie) => movie.id);
+const Modal = () => {
+  // Modal
+  const [modal, setModal] = useRecoilState(isModalAtom);
+  // Movie Data
   const [videos, setVideos] = useState<VideoContents<string>>({});
-  const history = useNavigate();
+  const [expandedReviews, setExpandedReviews] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const ids = modal.data?.results.map((movie: Movie) => movie.id);
+  const selectedMovie = modal.data?.results.find((movie: Movie) => {
+    return movie.id === +modal.movieId!;
+  });
 
-  const movieMatch: PathMatch<string> | null = useMatch("/movies/:movieId");
-
-  const clickedMovie =
-    movieMatch?.params.movieId &&
-    data?.results.find((movie: Movie) => {
-      return movie.id === +movieMatch.params.movieId!;
-    });
-
+  // Generes
   const { data: genereData, isLoading: genereLoading } = useQuery({
     queryKey: ["getGeneres"],
     queryFn: searchGeneres,
   });
+  // Video
   const { data: videoData, isLoading: videoLoading } = useQuery({
     queryKey: ["getVideos", ids],
     queryFn: () =>
       ids
         ? Promise.all(ids.map((id: number) => getVideos(id)))
         : Promise.resolve([]),
-    enabled: !!clickedMovie?.id,
+    enabled: !!selectedMovie?.id,
   });
+  // Review
   const { data: reviewData, isLoading: reviewLoading } = useQuery({
-    queryKey: ["getReview", clickedMovie?.id],
-    queryFn: () => getReviews(clickedMovie?.id),
-    enabled: !!clickedMovie?.id,
+    queryKey: ["getReview", selectedMovie?.id],
+    queryFn: () => getReviews(selectedMovie?.id),
+    enabled: !!selectedMovie?.id,
   });
 
+  // Rating
   const formattedRating =
-    Math.floor(clickedMovie?.vote_average?.toFixed(1) / 2) === 0
+    Math.floor(selectedMovie?.vote_average?.toFixed(1) / 2) === 0
       ? 1
-      : Math.floor(clickedMovie?.vote_average?.toFixed(1) / 2);
+      : Math.floor(selectedMovie?.vote_average?.toFixed(1) / 2);
   const formattedReviews = reviewData?.results.map(
     (review: ReviewContents) => ({
       ...review,
@@ -290,13 +291,23 @@ const Modal = ({ data }: { data: any }) => {
     })
   );
 
-  const onOverlayClick = () => {
-    history(`/`);
+  // Review Expand
+  const toggleReview = (reviewId: string) => {
+    setExpandedReviews((prev) => ({
+      ...prev,
+      [reviewId]: !prev[reviewId],
+    }));
   };
 
+  // Modal Close
+  const onOverlayClick = () => {
+    setModal({ movieId: null, data: null });
+  };
+
+  // Video
   useEffect(() => {
-    if (data && videoData) {
-      data.results.forEach((movie: Movie) => {
+    if (modal.data && videoData) {
+      modal.data.results.forEach((movie: Movie) => {
         getVideos(movie.id).then((data) => {
           if (data?.results) {
             const videoIds = data.results.map((video: any) => video.key);
@@ -308,154 +319,139 @@ const Modal = ({ data }: { data: any }) => {
         });
       });
     }
-  }, [data, videoData]);
+  }, [modal.data, videoData]);
 
   return (
-    <AnimatePresence>
-      {movieMatch ? (
-        <>
-          <Overlay
-            onClick={onOverlayClick}
-            variants={ModalVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-          />
-          {clickedMovie && (
-            <ModalBox
-              variants={ModalVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <MovieCover
-                variants={MovieCoverVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                style={{
-                  backgroundImage: `url(
-                  ${makeImagePath(clickedMovie.backdrop_path)}
-                )`,
+    <Container
+      variants={ModalVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
+      <Overlay onClick={onOverlayClick} />
+      <ModalBox>
+        <MovieCover
+          variants={MovieCoverVariants}
+          initial="initial"
+          animate="animate"
+          style={{
+            backgroundImage: `url(
+                        ${makeImagePath(selectedMovie?.backdrop_path)}
+                      )`,
+          }}
+        />
+        <ModalContents>
+          <MovieTitle>{selectedMovie?.title}</MovieTitle>
+          <MovieInfo>
+            <li>{selectedMovie?.release_date?.slice(0, 4)}</li>
+            <li>{selectedMovie?.adult ? "18+" : "ALL"}</li>
+            {selectedMovie?.genre_ids.map((id: number) => (
+              <li key={id}>
+                {
+                  genereData?.genres.find((item: GenresItem) => item.id === id)
+                    .name
+                }
+              </li>
+            ))}
+          </MovieInfo>
+          {selectedMovie?.overview && (
+            <MovieOverView>{selectedMovie?.overview}</MovieOverView>
+          )}
+          {videos[selectedMovie?.id]?.length > 0 && (
+            <MovieVideoBox>
+              <YouTube
+                videoId={videos[selectedMovie?.id][0]}
+                opts={{
+                  width: "100%",
+                  height: "400px",
                 }}
               />
-              <ModalContents>
-                <MovieTitle>{clickedMovie.title}</MovieTitle>
-                <MovieInfo>
-                  <li>{clickedMovie.release_date.slice(0, 4)}</li>
-                  <li>{clickedMovie.adult ? "18+" : "ALL"}</li>
-                  {clickedMovie.genre_ids.map((id: number) => (
-                    <li key={id}>
-                      {
-                        genereData?.genres.find(
-                          (item: GenresItem) => item.id === id
-                        ).name
-                      }
-                    </li>
-                  ))}
-                </MovieInfo>
-                {clickedMovie.overview && (
-                  <MovieOverView>{clickedMovie.overview}</MovieOverView>
-                )}
-                {videos[clickedMovie.id]?.length > 0 && (
-                  <MovieVideoBox>
-                    <YouTube
-                      videoId={videos[clickedMovie.id][0]}
-                      opts={{
-                        width: "100%",
-                        height: "400px",
-                      }}
-                    />
-                  </MovieVideoBox>
-                )}
-                <MovieRateBox>
-                  <div className="rate-box">
-                    <div className="star-box">
-                      {Array.from({ length: 5 }, (_, index) => (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="star-svg"
-                          viewBox="0 0 24 24"
-                          key={index}
-                          fillOpacity={index >= formattedRating ? 0 : 1}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
-                          />
-                        </svg>
-                      ))}
-                    </div>
-                    <span>
-                      {clickedMovie.vote_count?.toLocaleString("ko-kr")}개 평점
-                    </span>
-                  </div>
-                  <h4>{clickedMovie.vote_average?.toFixed(2)}</h4>
-                </MovieRateBox>
-                {data.results.length > 0 && (
-                  <MovieReviewBox>
-                    {formattedReviews?.map((review: ReviewContents) => (
-                      <li key={review.id}>
-                        <div className="review-star">
-                          {Array.from({ length: 5 }, (_, index) => (
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="star-svg"
-                              viewBox="0 0 24 24"
-                              key={index}
-                              fillOpacity={
-                                index >= review.author_details.rating ? 0 : 1
-                              }
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
-                              />
-                            </svg>
-                          ))}
-                        </div>
-                        <div className="review-author">
-                          <span>{review.author}</span>
-                          &middot;
-                          <span>{review.created_at.slice(0, 10)}</span>
-                        </div>
-                        <div className="review-content">
-                          <span>{review.content}</span>
-                        </div>
-                      </li>
-                    ))}
-                  </MovieReviewBox>
-                )}
-                <MoveSiteButton>
-                  <Link
-                    target="_blank"
-                    to={`https://www.themoviedb.org/movie/${clickedMovie.id}-${clickedMovie.original_title}?language=ko`}
-                  >
-                    자세히 보기
-                  </Link>
-                </MoveSiteButton>
-              </ModalContents>
-              <CloseButton onClick={onOverlayClick}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className="size-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18 18 6M6 6l12 12"
-                  />
-                </svg>
-              </CloseButton>
-            </ModalBox>
+            </MovieVideoBox>
           )}
-        </>
-      ) : null}
-    </AnimatePresence>
+          <MovieRateBox>
+            <div className="rate-box">
+              <div className="star-box">
+                {Array.from({ length: 5 }, (_, index) => (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="star-svg"
+                    viewBox="0 0 24 24"
+                    key={index}
+                    fillOpacity={index >= formattedRating ? 0 : 1}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
+                    />
+                  </svg>
+                ))}
+              </div>
+              <span>
+                {selectedMovie?.vote_count?.toLocaleString("ko-kr")}개 평점
+              </span>
+            </div>
+            <h4>{selectedMovie?.vote_average?.toFixed(2)}</h4>
+          </MovieRateBox>
+          {modal.data?.results.length > 0 && (
+            <MovieReviewBox>
+              {formattedReviews?.map((review: ReviewContents) => (
+                <li key={review.id}>
+                  <div className="review-star">
+                    {Array.from({ length: 5 }, (_, index) => (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="star-svg"
+                        viewBox="0 0 24 24"
+                        key={index}
+                        fillOpacity={
+                          index >= review.author_details.rating ? 0 : 1
+                        }
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
+                        />
+                      </svg>
+                    ))}
+                  </div>
+                  <div className="review-author">
+                    <span>{review.author}</span>
+                    &middot;
+                    <span>{review.created_at.slice(0, 10)}</span>
+                  </div>
+                  <div className="review-content">
+                    <span
+                      className={!expandedReviews[review.id] ? "collapsed" : ""}
+                    >
+                      {review.content}
+                    </span>
+                    <button onClick={() => toggleReview(review.id)}>
+                      {expandedReviews[review.id] ? "접기" : "더보기"}
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </MovieReviewBox>
+          )}
+        </ModalContents>
+        <CloseButton onClick={onOverlayClick}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            className="size-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
+        </CloseButton>
+      </ModalBox>
+    </Container>
   );
 };
 

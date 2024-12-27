@@ -1,12 +1,16 @@
 import React from "react";
-import reset from "styled-reset";
 import { Outlet } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import reset from "styled-reset";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import PretendardRegular from "./assets/fonts/Pretendard-Regular.ttf";
 import PretendardMedium from "./assets/fonts/Pretendard-Medium.ttf";
 import PretendardBold from "./assets/fonts/Pretendard-Bold.ttf";
 import theme from "./theme";
 import Header from "./components/Header";
+import { isModalAtom } from "./atoms";
+import Modal from "./components/Modal";
+import { AnimatePresence } from "framer-motion";
 
 const GlobalStyle = createGlobalStyle`
   /* fonts */
@@ -63,20 +67,22 @@ const GlobalStyle = createGlobalStyle`
   body {
     font: 400 1.6rem/1.3 "Pretendard", sans-serif;
     color: ${({ theme }) => theme.white.lighter};
-    * {
-    -webkit-font-smoothing: antialiased;
-
-    }
+    background: ${({ theme }) => theme.black.darkest};
   }
 `;
 
 const App = () => {
+  const isModal = useRecoilValue(isModalAtom);
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Header />
         <Outlet />
+        <AnimatePresence mode="wait">
+          {isModal.movieId && <Modal />}
+        </AnimatePresence>
       </ThemeProvider>
     </>
   );

@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { makeImagePath } from "../utils";
 import { GetMoviesResult } from "../api";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { isModalAtom } from "../atoms";
 
 const Container = styled(motion.section)<{ $bgPhoto: string | undefined }>`
   height: calc(100vh - 200px);
@@ -106,7 +108,9 @@ const textVariants = {
 };
 
 const Banner = ({ data }: { data: GetMoviesResult | undefined }) => {
-  const navigate = useNavigate();
+  // Modal
+  const setModal = useSetRecoilState(isModalAtom);
+  // Movie Data
   const [randomMovie, setRandomMovie] = useState<number>(0);
 
   useEffect(() => {
@@ -122,7 +126,7 @@ const Banner = ({ data }: { data: GetMoviesResult | undefined }) => {
 
   const onBannerClick = () => {
     if (data?.results[randomMovie]) {
-      navigate(`/movies/${data.results[randomMovie].id}`);
+      setModal({ movieId: data.results[randomMovie].id, data });
     }
   };
 

@@ -1,5 +1,5 @@
-import { AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { isModalAtom } from "../atoms";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -7,9 +7,7 @@ import "swiper/css/navigation";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { makeImagePath } from "../utils";
-import { useNavigate } from "react-router-dom";
 import { GetMoviesResult } from "../api";
-import Modal from "./Modal";
 
 const Container = styled.div`
   width: 100%;
@@ -58,20 +56,36 @@ const Box = styled(motion.div)`
 `;
 
 const Slider = ({ data }: { data: GetMoviesResult | undefined }) => {
-  const history = useNavigate();
+  // Modal
+  const setModal = useSetRecoilState(isModalAtom);
 
+  // Modal Open
   const onBoxClick = (movieId: number) => {
-    history(`/movies/${movieId}`);
+    setModal({ movieId, data });
   };
 
   return (
     <Container>
       <Swiper
         modules={[Navigation]}
-        slidesPerView={6}
         spaceBetween={20}
-        slidesPerGroup={6}
         navigation
+        slidesPerView={2}
+        slidesPerGroup={2}
+        breakpoints={{
+          1024: {
+            slidesPerView: 6,
+            slidesPerGroup: 6,
+          },
+          768: {
+            slidesPerView: 5,
+            slidesPerGroup: 5,
+          },
+          480: {
+            slidesPerView: 4,
+            slidesPerGroup: 4,
+          },
+        }}
       >
         {data?.results.map((movie) => (
           <SwiperSlide key={movie.id}>
@@ -84,7 +98,6 @@ const Slider = ({ data }: { data: GetMoviesResult | undefined }) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <Modal data={data} />
     </Container>
   );
 };

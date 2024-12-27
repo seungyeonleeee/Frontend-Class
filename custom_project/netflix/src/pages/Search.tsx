@@ -1,23 +1,69 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import {
-  searchContents,
-  GetMoviesResult,
-  searchGeneres,
-  getReviews,
-  getVideos,
-  Movie,
-} from "../api";
+import { searchContents, GetMoviesResult, Movie } from "../api";
 import { makeImagePath } from "../utils";
-import YouTube from "react-youtube";
 import Pagination from "react-js-pagination";
+import { useSetRecoilState } from "recoil";
+import { isModalAtom } from "../atoms";
 
 // Styled
-const Container = styled.div`
+const Container = styled.main`
   width: 100%;
-  margin-top: 60px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  padding: 100px 0;
+  position: relative;
+`;
+const Inner = styled.section`
+  width: var(--inner-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin: 5vh 0;
+`;
+const SearchMovieBox = styled.article`
+  cursor: pointer;
+  .search-movie-cover {
+    width: 100%;
+    height: 330px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    &.not-available {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: ${({ theme }) => theme.black.lighter};
+      svg {
+        width: 40%;
+        height: 40%;
+        fill: none;
+        stroke: ${({ theme }) => theme.black.darker};
+        stroke-width: 1.5;
+      }
+    }
+    &:hover {
+      img {
+        transform: scale(1.04);
+      }
+    }
+  }
+  .search-movie-title {
+    font-size: 1.8rem;
+    color: ${({ theme }) => theme.white.darker};
+  }
 `;
 const SearchBox = styled.div`
   width: 100%;
@@ -128,11 +174,13 @@ const ReviewContent = styled.div`
 `;
 const VideoSection = styled.div``;
 const StyledPagination = styled.div`
+  position: absolute;
+  left: 50%;
+  bottom: 8vh;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 30px 0;
-  padding: 20px;
   border-radius: 10px;
   ul {
     display: flex;
@@ -152,97 +200,28 @@ const StyledPagination = styled.div`
   }
 `;
 
-// Type
-interface GenresItem {
-  id: number;
-  name: string;
-}
-export interface ReviewContents {
-  author: string;
-  author_details: {
-    name: string;
-    username: string;
-    avatar_path: string;
-    rating: number;
-  };
-  content: string;
-  created_at: string;
-  id: string;
-  updated_at: string;
-  url: string;
-}
-interface VideoContents<T> {
-  [key: number]: T[];
-}
-
 const Search = () => {
-  const [videos, setVideos] = useState<VideoContents<string>>({});
-
-  // Search Keyword 가져오기
+  // Search Keyword
   const { search } = useLocation();
-  // console.log(search); // search: "?keyword=keyword"
-  // 방법 1
-  // const key = search.split("=")[1];
-  // console.log(key);
-  // 방법 2
   const keyword = new URLSearchParams(search).get("keyword");
-  // console.log(keyword);
+  // Modal
+  const setModal = useSetRecoilState(isModalAtom);
 
-  // const contents = searchContents(keyword);
-  // console.log(contents);
-
+  // Movie Data
   const { data: movieData, isLoading: movieLoading } =
     useQuery<GetMoviesResult>({
       queryKey: ["multiContents", keyword],
       queryFn: () => searchContents(keyword),
     });
 
-  // Generes
-  const { data: genereData, isLoading: genereLoading } = useQuery({
-    queryKey: ["getGeneres"],
-    queryFn: searchGeneres,
-  });
-  // console.log(movieData, genereData);
-
-  // Review
-  const ids = movieData?.results.map((movie) => movie.id);
-  const { data: reviewData, isLoading: reviewLoading } = useQuery({
-    queryKey: ["getReview", ids],
-    queryFn: () =>
-      ids ? Promise.all(ids.map((id) => getReviews(id))) : Promise.resolve([]),
-    // Promise.all() : 복수의 await가 있을 때 정상적으로 들어오면 실행
-    enabled: !!ids, // 옵션값 ids가 있을 때만 queryFn 실행하라
-  });
-  // console.log(reviewData);
-
-  // Video
-  const { data: videoData, isLoading: videoLoading } = useQuery({
-    queryKey: ["getVideos", ids],
-    queryFn: () =>
-      ids ? Promise.all(ids.map((id) => getVideos(id))) : Promise.resolve([]),
-    enabled: !!ids,
-  });
-  // console.log(videoData);
-
-  useEffect(() => {
-    if (movieData && videoData) {
-      movieData.results.forEach((movie) => {
-        getVideos(movie.id).then((data) => {
-          if (data?.results) {
-            const videoIds = data.results.map((video: any) => video.key);
-            setVideos((prev) => ({
-              ...prev,
-              [movie.id]: videoIds,
-            }));
-          }
-        });
-      });
-    }
-  }, [movieData, videoData]);
+  // Modal Open
+  const onSearchBoxClick = (movieId: number) => {
+    setModal({ movieId, data: movieData });
+  };
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [moviesPerPage, setMoviesPerPage] = useState(2);
+  const [moviesPerPage, setMoviesPerPage] = useState(8);
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFistMovie = indexOfLastMovie - moviesPerPage;
   const currentMovies: Movie[] =
@@ -257,78 +236,40 @@ const Search = () => {
         <div>Loading...</div>
       ) : (
         <>
-          {currentMovies?.map((movie, index) => (
-            <SearchBox key={index}>
-              <MovieSection>
-                {movie.backdrop_path ? (
-                  <MovieImg
-                    src={makeImagePath(movie.backdrop_path)}
-                    alt="movieImg"
-                  />
-                ) : (
-                  <ImgBox>Ready for Imgaes</ImgBox>
-                )}
-
-                <MovieInfo>
-                  <MovieTitle>{movie.original_title}</MovieTitle>
-                  <MovieOverview>{movie.overview}</MovieOverview>
-                  <MovieDate>
-                    <span>Release : {movie.release_date}</span>
-                  </MovieDate>
-                  <MovieRate>
-                    <span>Rate : {movie.vote_average?.toFixed(2)}</span>
-                  </MovieRate>
-                  <RateNumbers>
-                    <span>
-                      Members : {movie.vote_count?.toLocaleString("ko-kr")}
-                    </span>
-                  </RateNumbers>
-                  <MovieValue>{movie.adult ? "18+" : "ALL"}</MovieValue>
-                  <Ganres>
-                    {movie.genre_ids
-                      .map(
-                        (id) =>
-                          genereData?.genres.find(
-                            (item: GenresItem) => item.id === id
-                          ).name
-                      )
-                      .join(", ")}
-                  </Ganres>
-                </MovieInfo>
-              </MovieSection>
-              <ReviewSection>
-                <h3>Movie Reviews</h3>
-                {reviewLoading ? (
-                  <div>Review Loading...</div>
-                ) : (
-                  <ul>
-                    {reviewData && reviewData[index].results.length > 0 ? (
-                      reviewData[index].results.map(
-                        (review: ReviewContents) => (
-                          <li key={review.id}>
-                            <ReviewAuthor>{review.author}</ReviewAuthor>
-                            <ReviewContent>{review.content}</ReviewContent>
-                          </li>
-                        )
-                      )
-                    ) : (
-                      <li>No Reviews</li>
-                    )}
-                  </ul>
-                )}
-              </ReviewSection>
-              <VideoSection>
-                {videos[movie.id]?.length > 0 ? (
-                  <YouTube
-                    videoId={videos[movie.id][0]}
-                    opts={{ width: "100%", height: "800px" }}
-                  />
-                ) : (
-                  <div>Not Available</div>
-                )}
-              </VideoSection>
-            </SearchBox>
-          ))}
+          <Inner>
+            {currentMovies?.map((movie, index) => (
+              <SearchMovieBox
+                key={index}
+                onClick={() => {
+                  onSearchBoxClick(movie.id);
+                }}
+              >
+                <div
+                  className={
+                    movie.backdrop_path
+                      ? "search-movie-cover"
+                      : "search-movie-cover not-available"
+                  }
+                >
+                  {movie.backdrop_path ? (
+                    <img
+                      src={makeImagePath(movie.backdrop_path)}
+                      alt={movie.original_title}
+                    />
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                      />
+                    </svg>
+                  )}
+                </div>
+                <h3 className="search-movie-title">{movie.title}</h3>
+              </SearchMovieBox>
+            ))}
+          </Inner>
           <StyledPagination>
             <Pagination
               onChange={handlePageChange}
