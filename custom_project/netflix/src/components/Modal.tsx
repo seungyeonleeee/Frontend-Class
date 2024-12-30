@@ -1,21 +1,33 @@
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { makeImagePath } from "../utils";
-import { getReviews, getVideos, Movie, searchGeneres } from "../api";
+import {
+  getVideosSeries,
+  getVideosMovies,
+  Movie,
+  searchMovieGeneres,
+  Series,
+  getReviewsMovies,
+  getReviewsSeries,
+  searchSeriesGeneres,
+} from "../api";
 import { useQuery } from "@tanstack/react-query";
 import YouTube from "react-youtube";
-import { useRecoilState } from "recoil";
-import { isModalAtom } from "../atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { isModalAtom, userDataAtom } from "../atoms";
+import bg from "../assets/images/login-background.jpg";
+import { isMovie, getTitle, getReleaseDate } from "../utils/contentTypeChecker";
 
 // Styled
-const Container = styled(motion.div)`
+const Container = styled(motion.section)`
   position: relative;
-  z-index: 3;
+  z-index: 6;
 `;
 const ModalBox = styled(motion.article)`
   position: fixed;
-  top: 15%;
+  top: 12%;
   left: 50%;
   transform: translateX(-50%);
   max-width: 667px;
@@ -29,7 +41,7 @@ const ModalBox = styled(motion.article)`
   scrollbar-width: thin;
   scrollbar-color: #333 #111;
 `;
-const Overlay = styled(motion.div)`
+const Overlay = styled(motion.article)`
   position: fixed;
   top: 0;
   left: 0;
@@ -240,44 +252,60 @@ interface VideoContents<T> {
 }
 
 const Modal = () => {
+  const navigate = useNavigate();
+  // User Data
+  const userData = useRecoilValue(userDataAtom);
   // Modal
   const [modal, setModal] = useRecoilState(isModalAtom);
-  // Movie Data
+  // Content Data
   const [videos, setVideos] = useState<VideoContents<string>>({});
   const [expandedReviews, setExpandedReviews] = useState<{
     [key: string]: boolean;
   }>({});
-  const ids = modal.data?.results.map((movie: Movie) => movie.id);
-  const selectedMovie = modal.data?.results.find((movie: Movie) => {
-    return movie.id === +modal.movieId!;
-  });
+  const [reviewHeights, setReviewHeights] = useState<{ [key: string]: number }>(
+    {}
+  );
+  const ids = modal.data?.results.map((content: Movie | Series) => content.id);
+  const selectedContent = (modal.data?.results as (Movie | Series)[])?.find(
+    (content) => content.id === +modal.dataId!
+  );
 
   // Generes
   const { data: genereData, isLoading: genereLoading } = useQuery({
     queryKey: ["getGeneres"],
-    queryFn: searchGeneres,
+    queryFn: () =>
+      isMovie(selectedContent) ? searchMovieGeneres() : searchSeriesGeneres(),
   });
+
   // Video
   const { data: videoData, isLoading: videoLoading } = useQuery({
     queryKey: ["getVideos", ids],
     queryFn: () =>
       ids
-        ? Promise.all(ids.map((id: number) => getVideos(id)))
+        ? Promise.all(
+            ids.map((id: number) =>
+              isMovie(selectedContent)
+                ? getVideosMovies(id)
+                : getVideosSeries(id)
+            )
+          )
         : Promise.resolve([]),
-    enabled: !!selectedMovie?.id,
+    enabled: !!selectedContent?.id,
   });
+
   // Review
   const { data: reviewData, isLoading: reviewLoading } = useQuery({
-    queryKey: ["getReview", selectedMovie?.id],
-    queryFn: () => getReviews(selectedMovie?.id),
-    enabled: !!selectedMovie?.id,
+    queryKey: ["getReview", selectedContent?.id],
+    queryFn: () =>
+      isMovie(selectedContent)
+        ? getReviewsMovies(selectedContent?.id)
+        : getReviewsSeries(selectedContent?.id),
+    enabled: !!selectedContent?.id,
   });
 
   // Rating
   const formattedRating =
-    Math.floor(selectedMovie?.vote_average?.toFixed(1) / 2) === 0
-      ? 1
-      : Math.floor(selectedMovie?.vote_average?.toFixed(1) / 2);
+    Math.floor(Number(selectedContent?.vote_average?.toFixed(1)) / 2) || 1;
   const formattedReviews = reviewData?.results.map(
     (review: ReviewContents) => ({
       ...review,
@@ -292,6 +320,15 @@ const Modal = () => {
   );
 
   // Review Expand
+  const reviewHeight = (reviewId: string) => {
+    const reviewContent = document.querySelector(
+      `#review-${reviewId} .review-content span`
+    );
+    if (reviewContent) {
+      return reviewContent.scrollHeight;
+    }
+    return 0;
+  };
   const toggleReview = (reviewId: string) => {
     setExpandedReviews((prev) => ({
       ...prev,
@@ -301,25 +338,63 @@ const Modal = () => {
 
   // Modal Close
   const onOverlayClick = () => {
-    setModal({ movieId: null, data: null });
+    setModal({ dataId: null, data: null });
   };
+
+  // Modal Close
+  useEffect(() => {
+    if (!userData.userId) {
+      setModal({ dataId: null, data: null });
+      navigate("/login");
+    }
+  }, [userData.userId, navigate, setModal]);
 
   // Video
   useEffect(() => {
     if (modal.data && videoData) {
-      modal.data.results.forEach((movie: Movie) => {
-        getVideos(movie.id).then((data) => {
-          if (data?.results) {
-            const videoIds = data.results.map((video: any) => video.key);
-            setVideos((prev) => ({
-              ...prev,
-              [movie.id]: videoIds,
-            }));
-          }
-        });
+      modal.data.results.forEach((content: Movie | Series) => {
+        isMovie(content)
+          ? getVideosMovies(content.id).then((data) => {
+              if (data?.results) {
+                const videoIds = data.results.map((video: any) => video.key);
+                setVideos((prev) => ({
+                  ...prev,
+                  [content.id]: videoIds,
+                }));
+              }
+            })
+          : getVideosSeries(content.id).then((data) => {
+              if (data?.results) {
+                const videoIds = data.results.map((video: any) => video.key);
+                setVideos((prev) => ({
+                  ...prev,
+                  [content.id]: videoIds,
+                }));
+              }
+            });
       });
     }
   }, [modal.data, videoData]);
+
+  // Review Heights Calculate
+  useEffect(() => {
+    if (reviewData?.results?.length > 0) {
+      const timer = setTimeout(() => {
+        const heights: { [key: string]: number } = {};
+        reviewData.results.forEach((review: ReviewContents) => {
+          const reviewContent = document.querySelector(
+            `#review-${review.id} .review-content span`
+          );
+          if (reviewContent) {
+            heights[review.id] = reviewContent.scrollHeight;
+          }
+        });
+        setReviewHeights(heights);
+      }, 0);
+
+      return () => clearTimeout(timer);
+    }
+  }, [reviewData]);
 
   return (
     <Container
@@ -335,39 +410,41 @@ const Modal = () => {
           initial="initial"
           animate="animate"
           style={{
-            backgroundImage: `url(
-                        ${makeImagePath(selectedMovie?.backdrop_path)}
-                      )`,
+            backgroundImage: userData.userId
+              ? `url(${makeImagePath(selectedContent?.backdrop_path || "")})`
+              : `url(${bg})`,
           }}
         />
         <ModalContents>
-          <MovieTitle>{selectedMovie?.title}</MovieTitle>
+          <MovieTitle>{getTitle(selectedContent)}</MovieTitle>
           <MovieInfo>
-            <li>{selectedMovie?.release_date?.slice(0, 4)}</li>
-            <li>{selectedMovie?.adult ? "18+" : "ALL"}</li>
-            {selectedMovie?.genre_ids.map((id: number) => (
+            <li>{getReleaseDate(selectedContent)}</li>
+            <li>{selectedContent?.adult ? "18+" : "ALL"}</li>
+            {selectedContent?.genre_ids.map((id: number) => (
               <li key={id}>
                 {
                   genereData?.genres.find((item: GenresItem) => item.id === id)
-                    .name
+                    ?.name
                 }
               </li>
             ))}
           </MovieInfo>
-          {selectedMovie?.overview && (
-            <MovieOverView>{selectedMovie?.overview}</MovieOverView>
+
+          {selectedContent?.overview && (
+            <MovieOverView>{selectedContent?.overview}</MovieOverView>
           )}
-          {videos[selectedMovie?.id]?.length > 0 && (
-            <MovieVideoBox>
-              <YouTube
-                videoId={videos[selectedMovie?.id][0]}
-                opts={{
-                  width: "100%",
-                  height: "400px",
-                }}
-              />
-            </MovieVideoBox>
-          )}
+          {selectedContent?.id !== undefined &&
+            videos[selectedContent.id]?.length > 0 && (
+              <MovieVideoBox>
+                <YouTube
+                  videoId={videos[selectedContent?.id][0]}
+                  opts={{
+                    width: "100%",
+                    height: "400px",
+                  }}
+                />
+              </MovieVideoBox>
+            )}
           <MovieRateBox>
             <div className="rate-box">
               <div className="star-box">
@@ -388,15 +465,15 @@ const Modal = () => {
                 ))}
               </div>
               <span>
-                {selectedMovie?.vote_count?.toLocaleString("ko-kr")}개 평점
+                {selectedContent?.vote_count?.toLocaleString("ko-kr")}개 평점
               </span>
             </div>
-            <h4>{selectedMovie?.vote_average?.toFixed(2)}</h4>
+            <h4>{selectedContent?.vote_average?.toFixed(2)}</h4>
           </MovieRateBox>
-          {modal.data?.results.length > 0 && (
+          {formattedReviews?.length > 0 && (
             <MovieReviewBox>
-              {formattedReviews?.map((review: ReviewContents) => (
-                <li key={review.id}>
+              {formattedReviews.map((review: ReviewContents) => (
+                <li key={review.id} id={`review-${review.id}`}>
                   <div className="review-star">
                     {Array.from({ length: 5 }, (_, index) => (
                       <svg
@@ -427,9 +504,11 @@ const Modal = () => {
                     >
                       {review.content}
                     </span>
-                    <button onClick={() => toggleReview(review.id)}>
-                      {expandedReviews[review.id] ? "접기" : "더보기"}
-                    </button>
+                    {reviewHeights[review.id] > 36.38 && (
+                      <button onClick={() => toggleReview(review.id)}>
+                        {expandedReviews[review.id] ? "접기" : "더보기"}
+                      </button>
+                    )}
                   </div>
                 </li>
               ))}
@@ -455,4 +534,4 @@ const Modal = () => {
   );
 };
 
-export default Modal;
+export default React.memo(Modal);

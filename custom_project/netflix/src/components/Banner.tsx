@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { makeImagePath } from "../utils";
-import { GetMoviesResult } from "../api";
-import { useNavigate } from "react-router-dom";
+import { GetMoviesResult, GetSeriesResult, Series, Movie } from "../api";
 import { useSetRecoilState } from "recoil";
 import { isModalAtom } from "../atoms";
+import { isMovie, getTitle } from "../utils/contentTypeChecker";
 
 const Container = styled(motion.section)<{ $bgPhoto: string | undefined }>`
   height: calc(100vh - 200px);
@@ -107,17 +107,21 @@ const textVariants = {
   },
 };
 
-const Banner = ({ data }: { data: GetMoviesResult | undefined }) => {
+const Banner = ({
+  data,
+}: {
+  data: GetMoviesResult | GetSeriesResult | undefined;
+}) => {
   // Modal
   const setModal = useSetRecoilState(isModalAtom);
-  // Movie Data
-  const [randomMovie, setRandomMovie] = useState<number>(0);
+  // Content Data
+  const [randomContent, setRandomContent] = useState<number>(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (data?.results) {
         const randomIndex = Math.floor(Math.random() * data.results.length);
-        setRandomMovie(randomIndex);
+        setRandomContent(randomIndex);
       }
     }, 8000);
 
@@ -125,8 +129,8 @@ const Banner = ({ data }: { data: GetMoviesResult | undefined }) => {
   }, [data]);
 
   const onBannerClick = () => {
-    if (data?.results[randomMovie]) {
-      setModal({ movieId: data.results[randomMovie].id, data });
+    if (data?.results[randomContent]) {
+      setModal({ dataId: data.results[randomContent].id, data });
     }
   };
 
@@ -136,8 +140,10 @@ const Banner = ({ data }: { data: GetMoviesResult | undefined }) => {
       variants={ContainerVariants}
       initial="initial"
       animate="animate"
-      key={randomMovie}
-      $bgPhoto={makeImagePath(data?.results[randomMovie]?.backdrop_path || "")}
+      key={randomContent}
+      $bgPhoto={makeImagePath(
+        data?.results[randomContent]?.backdrop_path || ""
+      )}
     >
       <Inner>
         <Title
@@ -149,7 +155,7 @@ const Banner = ({ data }: { data: GetMoviesResult | undefined }) => {
             delay: 0.2,
           }}
         >
-          {data?.results[randomMovie]?.title}
+          {getTitle(data?.results[randomContent])}
         </Title>
         <Overview
           variants={textVariants}
@@ -160,7 +166,7 @@ const Banner = ({ data }: { data: GetMoviesResult | undefined }) => {
             delay: 0.4,
           }}
         >
-          {data?.results[randomMovie]?.overview}
+          {data?.results[randomContent]?.overview}
         </Overview>
         <Button>
           <span>자세히 보기</span>

@@ -11,6 +11,7 @@ import Header from "./components/Header";
 import { isModalAtom } from "./atoms";
 import Modal from "./components/Modal";
 import { AnimatePresence } from "framer-motion";
+import Footer from "./components/Footer";
 
 const GlobalStyle = createGlobalStyle`
   /* fonts */
@@ -47,12 +48,24 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: inherit;
   }
+  input {
+    border: none;
+    background: none;
+    appearance: none;
+    -webkit-appearance: none;
+    font-family: inherit;
+    color: inherit;
+    caret-color: ${({ theme }) => theme.red};
+    &:focus {
+    outline: none;
+  }
+  }
   button {
     border: none;
     background: none;
     cursor: pointer;
-    font: 400 1.6rem/1 "Pretendard", sans-serif;
-    color: ${({ theme }) => theme.white.lighter};
+    font-family: inherit;
+    color: inherit;
   }
 
   /* variables */
@@ -81,8 +94,9 @@ const App = () => {
         <Header />
         <Outlet />
         <AnimatePresence mode="wait">
-          {isModal.movieId && <Modal />}
+          {isModal.dataId && <Modal />}
         </AnimatePresence>
+        <Footer />
       </ThemeProvider>
     </>
   );

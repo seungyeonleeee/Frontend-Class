@@ -2,11 +2,19 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { searchContents, GetMoviesResult, Movie } from "../api";
+import {
+  searchContentsMovies,
+  searchContentsSeries,
+  GetMoviesResult,
+  Movie,
+  GetSeriesResult,
+  Series,
+} from "../api";
 import { makeImagePath } from "../utils";
 import Pagination from "react-js-pagination";
 import { useSetRecoilState } from "recoil";
 import { isModalAtom } from "../atoms";
+import { isMovie, getTitle } from "../utils/contentTypeChecker";
 
 // Styled
 const Container = styled.main`
@@ -65,114 +73,6 @@ const SearchMovieBox = styled.article`
     color: ${({ theme }) => theme.white.darker};
   }
 `;
-const SearchBox = styled.div`
-  width: 100%;
-  padding: 10px;
-`;
-const MovieSection = styled.div`
-  width: 100%;
-  display: flex;
-  gap: 10px;
-`;
-const MovieImg = styled.img`
-  width: 50%;
-  height: auto;
-  object-fit: cover;
-`;
-const ImgBox = styled.div`
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  border: 1px solid ${({ theme }) => theme.black.lighter};
-  border-radius: 8px;
-`;
-const MovieInfo = styled.div`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 14px;
-`;
-const MovieTitle = styled.h4`
-  font-size: 36px;
-  color: ${({ theme }) => theme.white.darker};
-  background: ${({ theme }) => theme.red};
-  border-radius: 8px;
-  padding: 0 10px;
-`;
-const MovieOverview = styled.p`
-  font-size: 24px;
-  line-height: 1.5;
-  border-top: 1px solid ${({ theme }) => theme.black.lighter};
-  border-bottom: 1px solid ${({ theme }) => theme.black.lighter};
-  padding: 20px 10px;
-`;
-const MovieDate = styled.div`
-  font-size: 18px;
-  span {
-    display: block;
-    background: #ffa300;
-    padding: 10px;
-    border-radius: 8px;
-  }
-`;
-const MovieValue = styled.div`
-  width: 50px;
-  height: 50px;
-  font-size: 18px;
-  background: ${({ theme }) => theme.black.lighter};
-  color: ${({ theme }) => theme.white.darker};
-  text-align: center;
-  line-height: 50px;
-  border-radius: 8px;
-`;
-const Ganres = styled.div`
-  background: #ffa300;
-  padding: 10px;
-  border-radius: 8px;
-`;
-const MovieRate = styled.div`
-  font-size: 18px;
-  span {
-    display: block;
-    background: #ffa300;
-    padding: 10px;
-    border-radius: 8px;
-  }
-`;
-const RateNumbers = styled.div`
-  font-size: 18px;
-  span {
-    display: block;
-    background: #ffa300;
-    padding: 10px;
-    border-radius: 8px;
-  }
-`;
-const ReviewSection = styled.div`
-  background: ${({ theme }) => theme.white.darker};
-  color: ${({ theme }) => theme.black.lighter};
-  margin: 20px 0;
-  padding: 20px;
-  border-radius: 8px;
-  li {
-    padding: 10px;
-  }
-`;
-const ReviewAuthor = styled.div`
-  background: ${({ theme }) => theme.white.lighter};
-  width: 150px;
-  text-align: center;
-  margin-bottom: 8px;
-  padding: 8px 0;
-  border-radius: 8px;
-`;
-const ReviewContent = styled.div`
-  font-style: 14px;
-`;
-const VideoSection = styled.div``;
 const StyledPagination = styled.div`
   position: absolute;
   left: 50%;
@@ -204,19 +104,32 @@ const Search = () => {
   // Search Keyword
   const { search } = useLocation();
   const keyword = new URLSearchParams(search).get("keyword");
+
   // Modal
   const setModal = useSetRecoilState(isModalAtom);
 
-  // Movie Data
+  // Contents Data
   const { data: movieData, isLoading: movieLoading } =
     useQuery<GetMoviesResult>({
-      queryKey: ["multiContents", keyword],
-      queryFn: () => searchContents(keyword),
+      queryKey: ["movies", keyword],
+      queryFn: () => searchContentsMovies(keyword),
     });
+  const { data: seriesData, isLoading: seriesLoading } =
+    useQuery<GetSeriesResult>({
+      queryKey: ["series", keyword],
+      queryFn: () => searchContentsSeries(keyword),
+    });
+  const contentsData = {
+    results: [...(movieData?.results || []), ...(seriesData?.results || [])],
+  };
+  const contentsLoading = movieLoading || seriesLoading;
 
   // Modal Open
-  const onSearchBoxClick = (movieId: number) => {
-    setModal({ movieId, data: movieData });
+  const onSearchBoxClick = (dataId: number) => {
+    setModal({
+      dataId,
+      data: contentsData as GetMoviesResult | GetSeriesResult,
+    });
   };
 
   // Pagination
@@ -224,37 +137,37 @@ const Search = () => {
   const [moviesPerPage, setMoviesPerPage] = useState(8);
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFistMovie = indexOfLastMovie - moviesPerPage;
-  const currentMovies: Movie[] =
-    movieData?.results.slice(indexOfFistMovie, indexOfLastMovie) || [];
+  const currentContents: (Movie | Series)[] =
+    contentsData?.results.slice(indexOfFistMovie, indexOfLastMovie) || [];
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
   return (
     <Container>
-      {movieLoading ? (
+      {contentsLoading ? (
         <div>Loading...</div>
       ) : (
         <>
           <Inner>
-            {currentMovies?.map((movie, index) => (
+            {currentContents?.map((content, index) => (
               <SearchMovieBox
                 key={index}
                 onClick={() => {
-                  onSearchBoxClick(movie.id);
+                  onSearchBoxClick(content.id);
                 }}
               >
                 <div
                   className={
-                    movie.backdrop_path
+                    content.backdrop_path
                       ? "search-movie-cover"
                       : "search-movie-cover not-available"
                   }
                 >
-                  {movie.backdrop_path ? (
+                  {content.backdrop_path ? (
                     <img
-                      src={makeImagePath(movie.backdrop_path)}
-                      alt={movie.original_title}
+                      src={makeImagePath(content.backdrop_path)}
+                      alt={getTitle(content)}
                     />
                   ) : (
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -266,7 +179,7 @@ const Search = () => {
                     </svg>
                   )}
                 </div>
-                <h3 className="search-movie-title">{movie.title}</h3>
+                <h3 className="search-movie-title">{getTitle(content)}</h3>
               </SearchMovieBox>
             ))}
           </Inner>
@@ -275,7 +188,7 @@ const Search = () => {
               onChange={handlePageChange}
               activePage={currentPage}
               itemsCountPerPage={moviesPerPage}
-              totalItemsCount={movieData?.results.length || 0}
+              totalItemsCount={contentsData?.results.length || 0}
               pageRangeDisplayed={5}
             />
           </StyledPagination>

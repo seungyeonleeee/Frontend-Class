@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { motion, useAnimation, useScroll } from "framer-motion";
+import { userDataAtom } from "../atoms";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useRecoilState } from "recoil";
+import { motion, useAnimation, useScroll } from "framer-motion";
 
 // Styled
 const Nav = styled(motion.nav)`
@@ -27,7 +29,7 @@ const Inner = styled.div`
 const Col = styled.div`
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 10px;
 `;
 const Logo = styled(motion.svg)`
   width: 150px;
@@ -40,25 +42,24 @@ const Logo = styled(motion.svg)`
 const Items = styled.ul`
   display: flex;
   align-items: center;
-  gap: 20px;
+  margin-left: 10px;
 `;
 const Item = styled.li`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   a {
-    color: ${({ theme }) => theme.white.lighter};
-    transition: color 0.3s;
+    position: relative;
+    padding: 10px;
+    color: ${({ theme }) => theme.white.darker};
+    transition: all 0.3s;
     &.active,
     &:hover {
-      color: ${({ theme }) => theme.red};
+      font-weight: 500;
+      color: ${({ theme }) => theme.white.lighter};
     }
   }
 `;
 const Circle = styled(motion.span)`
   position: absolute;
-  bottom: -4px;
+  bottom: 0;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -67,37 +68,44 @@ const Circle = styled(motion.span)`
   border-radius: 50%;
   background: ${({ theme }) => theme.red};
 `;
-const Search = styled.form`
+const Search = styled(motion.form)`
+  position: relative;
+  width: 38px;
   display: flex;
   align-items: center;
   gap: 5px;
-  color: ${({ theme }) => theme.red};
+  padding: 10px;
+  border: 1px solid ${({ theme }) => theme.black.lighter};
+  border-radius: 5px;
+  overflow: hidden;
   cursor: pointer;
   svg {
+    position: absolute;
+    right: 10px;
     width: 18px;
     height: 18px;
-    fill: ${({ theme }) => theme.red};
+    fill: ${({ theme }) => theme.white.darker};
+    transition: fill 0.3s;
+  }
+  &:hover {
+    svg {
+      fill: ${({ theme }) => theme.red};
+    }
   }
 `;
 const Input = styled(motion.input)`
   width: 160px;
   transform-origin: right center;
-  color: ${({ theme }) => theme.white.darker};
   font-size: 1.4rem;
-  background: none;
-  border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.white.darker};
-  padding: 4px;
-  &:focus {
-    outline: none;
-  }
+  color: ${({ theme }) => theme.white.darker};
 `;
 const UserNav = styled.ul`
   display: flex;
   align-items: center;
   gap: 5px;
   li {
-    a {
+    a,
+    .logout-btn {
       padding: 10px;
       border: 1px solid ${({ theme }) => theme.black.lighter};
       border-radius: 5px;
@@ -143,59 +151,80 @@ interface Form {
 }
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  // User Data
+  const [userData, setUserData] = useRecoilState(userDataAtom);
+
   // Toggle Search
   const [searchOpen, setSearchOpen] = useState(false);
 
   // Circle Animation
   const homeMatch = useMatch("/");
-  const tvMatch = useMatch("/tv");
+  const tvMatch = useMatch("/series");
   // console.log(homeMatch, tvMatch);
   // true => 객체, false => null 반환
   const modalMatch = useMatch("/movies/*");
 
   // Motion Animation
-  const inputAnimation = useAnimation();
   const navAnimation = useAnimation();
+  const formAnimation = useAnimation();
+  const inputAnimation = useAnimation();
 
   // Scroll Event
   const { scrollY } = useScroll();
-  // console.log(scrollY);
 
   // Go To Main
-  const main = useNavigate();
   const goToMain = () => {
-    main("/");
+    navigate("/");
+  };
+
+  // Logout
+  const handleLogout = () => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      setUserData({ userId: "", password: "", email: "" });
+      navigate("/login");
+    }
   };
 
   // Search Form
   const { register, handleSubmit, setValue } = useForm<Form>();
   const onValid = (data: Form) => {
-    main(`/search?keyword=${data.keyword}`);
+    navigate(`/search?keyword=${data.keyword}`);
     setValue("keyword", "");
+  };
+  const openSearch = () => {
+    if (searchOpen) {
+      formAnimation.start({
+        width: "38px",
+        background: "transparent",
+      });
+      inputAnimation.start({
+        scaleX: 0,
+        opacity: 0,
+      });
+    } else {
+      formAnimation.start({
+        width: "203px",
+        background: "#2f2f2f",
+      });
+      inputAnimation.start({
+        scaleX: 1,
+        opacity: 1,
+      });
+    }
+    setSearchOpen((prev) => !prev);
   };
 
   useEffect(() => {
     scrollY.on("change", () => {
-      if (scrollY.get() > 60) {
+      if (scrollY.get() > 40) {
         navAnimation.start("scroll");
       } else {
         navAnimation.start("top");
       }
     });
   }, [scrollY]);
-
-  const openSearch = () => {
-    if (searchOpen) {
-      inputAnimation.start({
-        scaleX: 0,
-      });
-    } else {
-      inputAnimation.start({
-        scaleX: 1,
-      });
-    }
-    setSearchOpen((prev) => !prev);
-  };
 
   return (
     <Nav variants={navVariants} animate={navAnimation} initial={"top"}>
@@ -216,21 +245,21 @@ const Header = () => {
           <Items>
             <Item>
               <Link to={"/"} className={homeMatch ? "active" : ""}>
-                Home
+                영화
                 {homeMatch && <Circle layoutId="circle" />}
                 {modalMatch && <Circle layoutId="circle" />}
               </Link>
             </Item>
             <Item>
-              <Link to={"/tv"} className={tvMatch ? "active" : ""}>
-                TV Shows
+              <Link to={"/series"} className={tvMatch ? "active" : ""}>
+                시리즈
                 {tvMatch && <Circle layoutId="circle" />}
               </Link>
             </Item>
           </Items>
         </Col>
         <Col>
-          <Search onSubmit={handleSubmit(onValid)}>
+          <Search onSubmit={handleSubmit(onValid)} animate={formAnimation}>
             <Input
               {...register("keyword", { required: true, minLength: 1 })}
               type="text"
@@ -249,7 +278,13 @@ const Header = () => {
           </Search>
           <UserNav>
             <li className="login">
-              <Link to={"/login"}>로그인</Link>
+              {userData.userId ? (
+                <button className="logout-btn" onClick={handleLogout}>
+                  로그아웃
+                </button>
+              ) : (
+                <Link to={"/login"}>로그인</Link>
+              )}
             </li>
             <li className="signup">
               <Link to={"/signup"}>회원가입</Link>

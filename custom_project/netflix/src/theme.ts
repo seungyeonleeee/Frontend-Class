@@ -8,7 +8,7 @@ const theme: DefaultTheme = {
     lighter: "#2f2f2f",
   },
   white: {
-    darker: "#e5e5e5",
+    darker: "#d9d9d9",
     lighter: "#fff",
   },
 };

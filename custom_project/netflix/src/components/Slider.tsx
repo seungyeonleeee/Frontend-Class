@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { makeImagePath } from "../utils";
-import { GetMoviesResult } from "../api";
+import { GetMoviesResult, GetSeriesResult } from "../api";
 
 const Container = styled.div`
   width: 100%;
@@ -55,13 +55,17 @@ const Box = styled(motion.div)`
   }
 `;
 
-const Slider = ({ data }: { data: GetMoviesResult | undefined }) => {
+const Slider = ({
+  data,
+}: {
+  data: GetMoviesResult | GetSeriesResult | undefined;
+}) => {
   // Modal
   const setModal = useSetRecoilState(isModalAtom);
 
   // Modal Open
-  const onBoxClick = (movieId: number) => {
-    setModal({ movieId, data });
+  const onBoxClick = (dataId: number) => {
+    setModal({ dataId, data: data as GetMoviesResult | GetSeriesResult });
   };
 
   return (
@@ -87,13 +91,10 @@ const Slider = ({ data }: { data: GetMoviesResult | undefined }) => {
           },
         }}
       >
-        {data?.results.map((movie) => (
-          <SwiperSlide key={movie.id}>
-            <Box onClick={() => onBoxClick(movie.id)}>
-              <img
-                src={makeImagePath(movie.poster_path || "")}
-                alt={movie.title}
-              />
+        {data?.results.map((item) => (
+          <SwiperSlide key={item.id}>
+            <Box onClick={() => onBoxClick(item.id)}>
+              <img src={makeImagePath(item.poster_path || "")} alt="img" />
             </Box>
           </SwiperSlide>
         ))}

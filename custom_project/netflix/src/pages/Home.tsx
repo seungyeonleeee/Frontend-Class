@@ -6,21 +6,20 @@ import {
   getPopularMovies,
   getTopRatedMovies,
   getUpcomingMovies,
+  Movie,
 } from "../api";
 import Slider from "../components/Slider";
 import Banner from "../components/Banner";
 
 // Styled
-const Container = styled.main`
+export const Container = styled.main`
   width: 100%;
-  height: 3000px;
-  overflow-x: hidden;
 `;
-const Inner = styled.section`
+export const Inner = styled.section`
   width: var(--inner-width);
   margin: 0 auto;
 `;
-const SliderContent = styled.article`
+export const SliderContent = styled.article`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -32,7 +31,7 @@ const SliderContent = styled.article`
     font-weight: 700;
   }
 `;
-const Loader = styled.div`
+export const Loader = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
